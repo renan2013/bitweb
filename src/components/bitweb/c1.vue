@@ -11,7 +11,7 @@
     >
       <template slot="header">
         <h5>
-          Aqui puede ver todas sus publicaciones, crear, editar y eliminar sus contenidos libremente
+          Aqui puede ver todas sus publicaciones, crear, editar y eliminar sus contenidos libremente...
         </h5>
         
       </template>
