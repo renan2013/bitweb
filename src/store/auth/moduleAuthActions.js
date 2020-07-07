@@ -1,362 +1,198 @@
 /*=========================================================================================
   File Name: moduleAuthActions.js
   Description: Auth Module Actions
-  ----------------------------------------------------------------------------------------
-  Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
-  Author: Pixinvent
-  Author URL: http://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
-
-import jwt from '../../http/requests/auth/jwt/index.js'
-
-
-import firebase from 'firebase/app'
-import 'firebase/auth'
-import router from '@/router'
-
+import axios from 'axios'
 export default {
-  loginAttempt ({ dispatch }, payload) {
 
-    // New payload for login action
-    const newPayload = {
-      userDetails: payload.userDetails,
-      notify: payload.notify,
-      closeAnimation: payload.closeAnimation
-    }
 
-    // If remember_me is enabled change firebase Persistence
-    if (!payload.checkbox_remember_me) {
+    /// llama a Solicitud de Datos 
+    async acLoginDsoa({ dispatch, commit, state }, pet) {
 
-      // Change firebase Persistence
-      firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
+        const datos = state.peticion;
+        const url = state.urlDsoa;
 
-      // If success try to login
-        .then(function () {
-          dispatch('login', newPayload)
-        })
+        state.errorProfile = "0";
 
-      // If error notify
-        .catch(function (err) {
+        if (datos == null || datos == "")
+            alert("Peticion va Nula");
 
-          // Close animation if passed as payload
-          if (payload.closeAnimation) payload.closeAnimation()
 
-          payload.notify({
-            time: 2500,
-            title: 'Error',
-            text: err.message,
-            iconPack: 'feather',
-            icon: 'icon-alert-circle',
-            color: 'danger'
-          })
-        })
-    } else {
-      // Try to login
-      dispatch('login', newPayload)
-    }
-  },
-  login ({ commit, state, dispatch }, payload) {
 
-    // If user is already logged in notify and exit
-    if (state.isUserLoggedIn()) {
-      // Close animation if passed as payload
-      if (payload.closeAnimation) payload.closeAnimation()
+        var dsoaModel = {
+            datos: datos,
+            manipula: "",
+            bd: "",
+            dml: pet.dml,
+            formato: pet.formatoenvio,
+            formatoRequest: pet.formatorecibe,
+            credencial: pet.credencial,
+            tecnologia: "",
+            datosJson: "",
+            objectId: pet.ObjectId,
+        };
 
-      payload.notify({
-        title: 'Login Attempt',
-        text: 'You are already logged in!',
-        iconPack: 'feather',
-        icon: 'icon-alert-circle',
-        color: 'warning'
-      })
+        //console.log('DSOAMODEL2: ' + JSON.stringify(dsoaModel));
 
-      return false
-    }
 
-    // Try to sigin
-    firebase.auth().signInWithEmailAndPassword(payload.userDetails.email, payload.userDetails.password)
 
-      .then((result) => {
+        try {
+            // fetch data from a url web service
+            let res = await axios({
+                    method: 'POST',
+                    url,
+                    headers: { "content-type": "application/json", },
+                    "processData": false,
+                    "contentType": false,
+                    "mimeType": "multipart/form-data",
+                    "sync": false,
+                    "crossDomain": true,
+                    "data": dsoaModel
+                })
+                .then((response) => {
 
-        // Set FLAG username update required for updating username
-        let isUsernameUpdateRequired = false
+                    let tipoLogin = pet.tipoLogin;
 
-        // if username is provided and updateUsername FLAG is true
-        // set local username update FLAG to true
-        // try to update username
-        if (payload.updateUsername && payload.userDetails.displayName) {
+                    // console.log("RESPONSE", JSON.stringify(response.data) + "    " + tipoLogin);
 
-          isUsernameUpdateRequired = true
+                    if (tipoLogin == "L")
+                        commit('MUTSETRESPUESTALOGIN', response.data);
 
-          dispatch('updateUsername', {
-            user: result.user,
-            username: payload.userDetails.displayName,
-            notify: payload.notify,
-            isReloadRequired: true
-          })
+
+                    if (tipoLogin == "U")
+                        commit('MUTSETRESPUESTALOGINU', response.data);
+
+                    if (tipoLogin == "R" || tipoLogin == "I") {
+
+                        commit('MUTSETRESPUESTALOGINR', response.data);
+                    }
+
+                    if (tipoLogin == "C")
+                        commit('MUTSETRESPUESTACAMBIO', response.data);
+
+
+                    /**
+                         LN_WKLOGIN            NUMBER := 1;  -- LOGIN   VAL_OBJ_LOGIN.PC_ACTION = 'L'
+                             THEN
+                           
+                          LN_WKCPASRECUPERA             NUMBER := 2;  -- CAMBIA EL PASSWORD POR RECUPERACON   = 'R'    
+                            
+                          LN_WKLOGOUT           NUMBER := 3;  -- QUITA EL LOGIN  LIMPIA SESIONES  
+                          
+                          LN_WKCPAS             NUMBER := 4;  -- CAMBIA EL PASSWORD
+                          -- Despues de que pide   recuperar clave
+                          LN_WKFLOGIN           NUMBER := 5; --  =F
+                          -- verifica si el pass es el del mismo o exite solo para autorizaciones
+                          LN_WKVERICACLAVEYUSUARIO           NUMBER := 6;  V
+                          
+                          LN_RECUPERA_CLAVE NUMBER:=7; -- PARA REUPERAR CLAVE  R
+                          
+                          LN_WKREGISTRO      NUMBER := 8;  -- REGISTRO   I
+                          
+                          LN_WKVERIFICASUARIO      NUMBER := 9;  -- VERIFICA SOLO USUARIO   Y DEVUELVE DATOS BASICOS 
+                          
+                     * / */
+
+                })
+                .catch(function(error) {
+                    if (error.response) {
+                        // Request made and server responded
+                        console.log(error.response.data);
+                        console.log(error.response.status);
+                        console.log(error.response.headers);
+                    } else if (error.request) {
+                        // The request was made but no response was received
+                        console.log(error.request);
+                    } else {
+                        // Something happened in setting up the request that triggered an Error
+                        console.log("SE PRODUJO ERROR " + error);
+                    }
+                });
+
+        } catch (error) {
+            alert(error); // catches both errors
         }
 
-        // Close animation if passed as payload
-        if (payload.closeAnimation) payload.closeAnimation()
+    },
 
-        // if username update is not required
-        // just reload the page to get fresh data
-        // set new user data in localstorage
-        if (!isUsernameUpdateRequired) {
-          router.push(router.currentRoute.query.to || '/')
-          commit('UPDATE_USER_INFO', result.user.providerData[0], {root: true})
+    /// RECUPERA LA IP PUBLICA
+    async acLoginGetip({ commit, state }) {
+        let url = "https://api.ipify.org?format=json";
+        try {
+            // fetch data from a url web service
+            let res = await axios({
+                    method: 'GET',
+                    url,
+                    headers: { "content-type": "application/json", }
+                })
+                .then((response) => {
+                    commit('MUTSETPUBLICIP', response.data.ip);
+                    //commit('MUTSETRESPUESTALOGIN', response.data);
+
+                })
+                .catch(function(error) {
+                    alert(" IP ERROR ");
+                    if (error.response) {
+                        // Request made and server responded
+                        console.log(error.response.data);
+                        console.log(error.response.status);
+                        console.log(error.response.headers);
+                    } else if (error.request) {
+                        // The request was made but no response was received
+                        console.log(error.request);
+                    } else {
+                        // Something happened in setting up the request that triggered an Error
+                        console.log("SE PRODUJO ERROR " + error);
+                    }
+                });
+
+        } catch (error) {
+            alert(error); // catches both errors
         }
-      }, (err) => {
 
-        // Close animation if passed as payload
-        if (payload.closeAnimation) payload.closeAnimation()
+    },
 
-        payload.notify({
-          time: 2500,
-          title: 'Error',
-          text: err.message,
-          iconPack: 'feather',
-          icon: 'icon-alert-circle',
-          color: 'danger'
-        })
-      })
-  },
+    /// llama a Solicitud de Datos 
+    async acLoginEncripta({ dispatch, commit, state }, textoEncriptar) {
+        let url = state.urlEncripta;
 
-  // Google Login
-  loginWithGoogle ({commit, state}, payload) {
-    if (state.isUserLoggedIn()) {
-      payload.notify({
-        title: 'Login Attempt',
-        text: 'You are already logged in!',
-        iconPack: 'feather',
-        icon: 'icon-alert-circle',
-        color: 'warning'
-      })
-      return false
-    }
-    const provider = new firebase.auth.GoogleAuthProvider()
+        {
+            // fetch data from a url web service
+            let res = await axios({
+                    method: 'POST',
+                    url,
+                    headers: { "content-type": "text/plain", },
+                    "processData": false,
+                    "contentType": false,
+                    "mimeType": "multipart/form-data",
+                    "sync": false,
+                    "crossDomain": true,
+                    "data": textoEncriptar
+                })
+                .then((response) => {
 
-    firebase.auth().signInWithPopup(provider)
-      .then((result) => {
-        router.push(router.currentRoute.query.to || '/')
-        commit('UPDATE_USER_INFO', result.user.providerData[0], {root: true})
-      }).catch((err) => {
-        payload.notify({
-          time: 2500,
-          title: 'Error',
-          text: err.message,
-          iconPack: 'feather',
-          icon: 'icon-alert-circle',
-          color: 'danger'
-        })
-      })
-  },
 
-  // Facebook Login
-  loginWithFacebook ({commit, state}, payload) {
-    if (state.isUserLoggedIn()) {
-      payload.notify({
-        title: 'Login Attempt',
-        text: 'You are already logged in!',
-        iconPack: 'feather',
-        icon: 'icon-alert-circle',
-        color: 'warning'
-      })
-      return false
-    }
-    const provider = new firebase.auth.FacebookAuthProvider()
+                    commit('MUTSETENCRIPTA', response.data);
 
-    firebase.auth().signInWithPopup(provider)
-      .then((result) => {
-        router.push(router.currentRoute.query.to || '/')
-        commit('UPDATE_USER_INFO', result.user.providerData[0], {root: true})
-      }).catch((err) => {
-        payload.notify({
-          time: 2500,
-          title: 'Error',
-          text: err.message,
-          iconPack: 'feather',
-          icon: 'icon-alert-circle',
-          color: 'danger'
-        })
-      })
-  },
+                })
+                .catch(function(error) {
+                    if (error.response) {
+                        // Request made and server responded
+                        console.log(error.response.data);
+                        console.log(error.response.status);
+                        console.log(error.response.headers);
+                    } else if (error.request) {
+                        // The request was made but no response was received
+                        console.log(error.request);
+                    } else {
+                        // Something happened in setting up the request that triggered an Error
+                        console.log("SE PRODUJO ERROR " + error);
+                    }
+                });
 
-  // Twitter Login
-  loginWithTwitter ({commit, state}, payload) {
-    if (state.isUserLoggedIn()) {
-      payload.notify({
-        title: 'Login Attempt',
-        text: 'You are already logged in!',
-        iconPack: 'feather',
-        icon: 'icon-alert-circle',
-        color: 'warning'
-      })
-      return false
-    }
-    const provider = new firebase.auth.TwitterAuthProvider()
-
-    firebase.auth().signInWithPopup(provider)
-      .then((result) => {
-        router.push(router.currentRoute.query.to || '/')
-        commit('UPDATE_USER_INFO', result.user.providerData[0], {root: true})
-      }).catch((err) => {
-        payload.notify({
-          time: 2500,
-          title: 'Error',
-          text: err.message,
-          iconPack: 'feather',
-          icon: 'icon-alert-circle',
-          color: 'danger'
-        })
-      })
-  },
-
-  // Github Login
-  loginWithGithub ({commit, state}, payload) {
-    if (state.isUserLoggedIn()) {
-      payload.notify({
-        title: 'Login Attempt',
-        text: 'You are already logged in!',
-        iconPack: 'feather',
-        icon: 'icon-alert-circle',
-        color: 'warning'
-      })
-      return false
-    }
-    const provider = new firebase.auth.GithubAuthProvider()
-
-    firebase.auth().signInWithPopup(provider)
-      .then((result) => {
-        router.push(router.currentRoute.query.to || '/')
-        commit('UPDATE_USER_INFO', result.user.providerData[0], {root: true})
-      }).catch((err) => {
-        payload.notify({
-          time: 2500,
-          title: 'Error',
-          text: err.message,
-          iconPack: 'feather',
-          icon: 'icon-alert-circle',
-          color: 'danger'
-        })
-      })
-  },
-  registerUser ({dispatch}, payload) {
-
-    // create user using firebase
-    firebase.auth().createUserWithEmailAndPassword(payload.userDetails.email, payload.userDetails.password)
-      .then(() => {
-        payload.notify({
-          title: 'Account Created',
-          text: 'You are successfully registered!',
-          iconPack: 'feather',
-          icon: 'icon-check',
-          color: 'success'
-        })
-
-        const newPayload = {
-          userDetails: payload.userDetails,
-          notify: payload.notify,
-          updateUsername: true
         }
-        dispatch('login', newPayload)
-      }, (error) => {
-        payload.notify({
-          title: 'Error',
-          text: error.message,
-          iconPack: 'feather',
-          icon: 'icon-alert-circle',
-          color: 'danger'
-        })
-      })
-  },
-  updateUsername ({ commit }, payload) {
-    payload.user.updateProfile({
-      displayName: payload.displayName
-    }).then(() => {
-
-      // If username update is success
-      // update in localstorage
-      const newUserData = Object.assign({}, payload.user.providerData[0])
-      newUserData.displayName = payload.displayName
-      commit('UPDATE_USER_INFO', newUserData, {root: true})
-
-      // If reload is required to get fresh data after update
-      // Reload current page
-      if (payload.isReloadRequired) {
-        router.push(router.currentRoute.query.to || '/')
-      }
-    }).catch((err) => {
-      payload.notify({
-        time: 8800,
-        title: 'Error',
-        text: err.message,
-        iconPack: 'feather',
-        icon: 'icon-alert-circle',
-        color: 'danger'
-      })
-    })
-  },
 
 
-  // JWT
-  loginJWT ({ commit }, payload) {
+    },
 
-    return new Promise((resolve, reject) => {
-      jwt.login(payload.userDetails.email, payload.userDetails.password)
-        .then(response => {
-
-          // If there's user data in response
-          if (response.data.userData) {
-            // Navigate User to homepage
-            router.push(router.currentRoute.query.to || '/')
-
-            // Set accessToken
-            localStorage.setItem('accessToken', response.data.accessToken)
-
-            // Update user details
-            commit('UPDATE_USER_INFO', response.data.userData, {root: true})
-
-            // Set bearer token in axios
-            commit('SET_BEARER', response.data.accessToken)
-
-            resolve(response)
-          } else {
-            reject({message: 'Wrong Email or Password'})
-          }
-
-        })
-        .catch(error => { reject(error) })
-    })
-  },
-  registerUserJWT ({ commit }, payload) {
-
-    const { displayName, email, password, confirmPassword } = payload.userDetails
-
-    return new Promise((resolve, reject) => {
-
-      // Check confirm password
-      if (password !== confirmPassword) {
-        reject({message: 'Password doesn\'t match. Please try again.'})
-      }
-
-      jwt.registerUser(displayName, email, password)
-        .then(response => {
-          // Redirect User
-          router.push(router.currentRoute.query.to || '/')
-
-          // Update data in localStorage
-          localStorage.setItem('accessToken', response.data.accessToken)
-          commit('UPDATE_USER_INFO', response.data.userData, {root: true})
-
-          resolve(response)
-        })
-        .catch(error => { reject(error) })
-    })
-  },
-  fetchAccessToken () {
-    return new Promise((resolve) => {
-      jwt.refreshToken().then(response => { resolve(response) })
-    })
-  }
 }
