@@ -1,32 +1,37 @@
 <template>
-  <div class="contenedor"> 
+  <div class="contenedor" id="tletra"> 
+    {{publicacion}}
   <div class="vx-row">
     <div class="vx-col sm:w-1/2 w-full mb-2">
-      <vs-input class="w-full" label-placeholder="Título de la Publicación" v-model="input25" />
+      <vs-input class="w-full" label-placeholder="Título de la Publicación" v-model="publicacion.TITULO" />
     </div>
-    <div class="vx-col sm:w-1/2 w-full mb-2">
-       <vs-select
-        autocomplete
-        class="selectExample"
-        label="Seleccione la Categoría"
-        v-model="select3"
-        >
-        <div :key="index" v-for="item,index in options3">
-          <vs-select-group :title="item.title" v-if="item.group">
-            <vs-select-item :key="index" :value="item.value" :text="item.text" v-for="item,index in item.group"/>
-          </vs-select-group>
-        </div>
-    </vs-select>
+    
+    
+    <div class="vx-col sm:w-1/2 w-full mb-2" id="selector">
+      <vs-select class="selectExample" 
+                 autocomplete 
+                 v-model="publicacion.ID_CATEGORIA"  
+                 label="Seleccione la Categoría" >
+      
+        <vs-select-item :key="index" 
+                        :value="item.ID_CATEGORIA"  
+                        :text="item.DESCRIPCION"
+                         v-for="(item,index) in categorias" 
+                        />
+      </vs-select>
+
     </div>
+
+
   </div>
   <div class="vx-row">
     <div class="vx-col sm:w-full mb-2">
-        <vs-textarea label="Síntesis de la Publicación" v-model="textarea" />
-    </div>
+        <vs-textarea label="Síntesis de la Publicación - Breve" v-model="publicacion.DESCRIPCION" />
+    </div >
 
-     <div class="vx-col sm:w-full mb-2" >
-        <quill-editor v-model="content"></quill-editor>
-      </div>
+    <div class="vx-col sm:w-full mb-2" >
+        <ckeditor :editor="editor" v-model="publicacion.DETALLE" :config="editorConfig" ></ckeditor>
+    </div>
    
   </div>
     
@@ -42,44 +47,127 @@
 
 <script>
 
-import 'quill/dist/quill.core.css'
-import 'quill/dist/quill.snow.css'
-import 'quill/dist/quill.bubble.css'
 
-import { quillEditor } from 'vue-quill-editor'
+
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 
 export default {
-  data(){
-    return {
+   data() {
+            return {
+                editor: ClassicEditor,
+                editorData: '',
+                editorConfig: {
+                    language: 'es'
+                },
+                publicacion:{
+                  TTTULO:'',
+                  ID_CATEGORIA:'',
+                  DESCRIPCION:'',
+                  DETALLE:'',
+                  AUTOR:'',
+                  REFERENCIA_IMAGEN:0,
+                  REFERENCIA_PDF:0,
+                  REFERENCIA_VIDEO:0,
+                  REFERENCIA_DOCUMENTO:0,
 
-      content: `...`,
-      select3:['red'],
-      options3:[
-        {
-          title:'Categorías',
-          group:[
-            {text: 'Categoría 1', value: 4},
-            {text: 'Categoría 2', value: 5},
-            {text: 'Categoría 3', value: 6},
-            {text: 'Categoría 4', value: 7},
-          ]
+
+                },
+
+
+                 titulo:'Categorias', 
+                 categorias:[
+               
+                  {
+                  ID_CATEGORIA:1,
+                  DESCRIPCION:'Galería de Imágenes'
+                  },
+                  {
+                  ID_CATEGORIA:2,
+                  DESCRIPCION:'Videos'
+                  },
+                  {
+                  ID_CATEGORIA:3,
+                  DESCRIPCION:'Boletines'
+                  },
+                  {
+                  ID_CATEGORIA:4,
+                  DESCRIPCION:'Capacitación'
+                  },
+                  {
+                  ID_CATEGORIA:5,
+                  DESCRIPCION:'Noticias'
+                  },
+                  {
+                  ID_CATEGORIA:6,
+                  DESCRIPCION:'Catalogo de Productos'
+                  },
+                  {
+                  ID_CATEGORIA:7,
+                  DESCRIPCION:'Publicaciones fijas'
+                  }
+                
+          ],
+                
+               categorias2:[
+              {
+                title:'Seleccione la Categoría',
+                 group:[
+                  {
+                  ID_CATEGORIA:1,
+                  DESCRIPCION:'Galería de Imágenes'
+                  },
+                  {
+                  ID_CATEGORIA:2,
+                  DESCRIPCION:'Videos'
+                  },
+                  {
+                  ID_CATEGORIA:3,
+                  DESCRIPCION:'Boletines'
+                  },
+                  {
+                  ID_CATEGORIA:4,
+                  DESCRIPCION:'Capacitación'
+                  },
+                  {
+                  ID_CATEGORIA:5,
+                  DESCRIPCION:'Noticias'
+                  },
+                  {
+                  ID_CATEGORIA:6,
+                  DESCRIPCION:'Catalogo de Productos'
+                  },
+                  {
+                  ID_CATEGORIA:7,
+                  DESCRIPCION:'Publicaciones fijas'
+                  }
+                
+          ],
+        
+          
         }   
       ],
-    }
-  },
+            };
+        },
   methods:{
-    prueba(){
-      console.log("prueba de focsu");
-    }
+  
   },
    components: {
-    quillEditor,
+    
   }
 }
 </script>
 
 <style>
+#tletra{
+  font-size: 14px;
+}
+
+#selector{
+  margin-top: -5px;
+}
+
+
 
 #botones{
   padding-top: 20px;

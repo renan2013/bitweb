@@ -2,13 +2,13 @@
   File Name: router.js
   Description: Routes for vue-router. Lazy loading is enabled.
   Object Strucutre:
-                    path => router path
-                    name => router name
-                    component(lazy loading) => component to load
-                    meta : {
-                      rule => which user can have access (ACL)
-                      breadcrumb => Add breadcrumb to specific page
-                      pageTitle => Display title besides breadcrumb
+                     path => ruta del enrutador
+                     name => nombre del enrutador
+                     componente (carga diferida) => componente para cargar
+                     meta: {
+                       rule => qué usuario puede tener acceso (ACL)
+                       breadcrumb => Agregar breadcrumb a una página específica
+                       pageTitle => Mostrar título además de migas de pan
                     }
   ----------------------------------------------------------------------------------------
   Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template

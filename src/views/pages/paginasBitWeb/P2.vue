@@ -1,7 +1,7 @@
 <template>
    <vs-card class="cardx">
      
-    <c2/>
+   <c2></c2>
    </vs-card>
   
 </template>
