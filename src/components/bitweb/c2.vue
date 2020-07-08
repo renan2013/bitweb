@@ -107,46 +107,9 @@ export default {
                   DESCRIPCION:'Publicaciones fijas'
                   }
                 
-          ],
+          ]
                 
-               categorias2:[
-              {
-                title:'Seleccione la Categoría',
-                 group:[
-                  {
-                  ID_CATEGORIA:1,
-                  DESCRIPCION:'Galería de Imágenes'
-                  },
-                  {
-                  ID_CATEGORIA:2,
-                  DESCRIPCION:'Videos'
-                  },
-                  {
-                  ID_CATEGORIA:3,
-                  DESCRIPCION:'Boletines'
-                  },
-                  {
-                  ID_CATEGORIA:4,
-                  DESCRIPCION:'Capacitación'
-                  },
-                  {
-                  ID_CATEGORIA:5,
-                  DESCRIPCION:'Noticias'
-                  },
-                  {
-                  ID_CATEGORIA:6,
-                  DESCRIPCION:'Catalogo de Productos'
-                  },
-                  {
-                  ID_CATEGORIA:7,
-                  DESCRIPCION:'Publicaciones fijas'
-                  }
-                
-          ],
-        
           
-        }   
-      ],
             };
         },
   methods:{
