@@ -217,6 +217,23 @@ const mutations = {
 
     /// MUT
     /// MUT
+
+    MUTSETRESPUESTAGRIDPUBLICA(state, response) {
+
+
+        state.datosPublicacion = [];
+        console.log("datos que VienenMUTSETRESPUESTAGRIDPUBLICA ", response);
+
+        if (response.lengt < 50) {
+            state.lastBdmsage = "No se encontraron registros";
+            state.lastBdmsgcode = "0";
+        } else {
+            console.log("se obtuvo ", atob(response));
+            state.datosPublicacion = JSON.parse(atob(response));
+        }
+        //console.log("datos que VienenMUTSETRESPUESTAGRIDPUBLICA ", state.datosPublicacion);
+
+    },
     MUTSETRESPUESTAGRID(state, response) {
         state.dsoaModel = response;
 
@@ -306,40 +323,19 @@ const mutations = {
 
     //// MUT
     MUTSETRESPUESTAGENERICO(state, response) {
-
-
         try {
-            state.selectQuery = JSON.parse(response.datos);
-            state.selectQuery = state.selectQuery.rows;
+            state.selectQuery = JSON.parse(response)[0];
+
             //console.log("oracle");
         } catch (e) {
-            state.selectQuery = response.datos;
-            state.selectQuery = state.selectQuery.rows;
-            //console.log("php", state.datosForm.rows);
+            state.selectQuery = response[0];
+
         }
 
         console.log(" en MUTACIONES ", JSON.stringify(state.selectQuery));
 
-
         state.datosMsj = [];
-        /*
-                state.datosMsj.push({
-                    codigoerror: response.codigoerror,
-                    deserror: response.deserror,
-                    data: response.datos
-                });
 
-
-                if (state.datosMsj[0].codigoerror == "0") {
-                    state.lastBdmsage = "Proceso Exitoso !! ";
-                    state.lastBdmsgcode = 0;
-
-                } else {
-                    state.lastBdmsage = "Proceso Con Errores " + state.datosMsj[0].deserror;
-                    state.lastBdmsgcode = state.datosMsj[0].codigoerror;
-
-                }
-        */
     },
 
     MUTSETRESPUESTACLOUD(state, response) {

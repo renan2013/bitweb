@@ -15,11 +15,13 @@ import App from './App.vue'
 import Vuesax from 'vuesax'
 import 'material-icons/iconfont/material-icons.css' //Material Icons
 import 'vuesax/dist/vuesax.css' // Vuesax
-Vue.use(Vuesax)
+Vue.use(Vuesax);
+
+
 
 // Implementacion del editor CK
 import CKEditor from '@ckeditor/ckeditor5-vue';
-Vue.use( CKEditor );
+Vue.use(CKEditor);
 
 
 // axios
@@ -36,9 +38,6 @@ import './fake-db/index.js'
 import '../themeConfig.js'
 
 
-// Firebase
-import '@/firebase/firebaseConfig'
-
 
 // Auth0 Plugin
 import AuthPlugin from './plugins/auth'
@@ -51,6 +50,7 @@ import acl from './acl/acl'
 
 // Globally Registered Components
 import './globalComponents.js'
+
 
 
 // Styles: SCSS
@@ -96,11 +96,11 @@ Vue.use(VeeValidate)
 // Google Maps
 import * as VueGoogleMaps from 'vue2-google-maps'
 Vue.use(VueGoogleMaps, {
-  load: {
-    // Add your API key here
-    key: 'YOUR_KEY',
-    libraries: 'places' // This is required if you use the Auto complete plug-in
-  }
+    load: {
+        // Add your API key here
+        key: 'YOUR_KEY',
+        libraries: 'places' // This is required if you use the Auto complete plug-in
+    }
 })
 
 // Vuejs - Vue wrapper for hammerjs
@@ -116,7 +116,6 @@ import 'prismjs/themes/prism-tomorrow.css'
 // Feather font icon
 require('./assets/css/iconfont.css')
 
-
 // Vue select css
 // Note: In latest version you have to add it separately
 // import 'vue-select/dist/vue-select.css';
@@ -125,9 +124,9 @@ require('./assets/css/iconfont.css')
 Vue.config.productionTip = false
 
 new Vue({
-  router,
-  store,
-  i18n,
-  acl,
-  render: h => h(App)
+    router,
+    store,
+    i18n,
+    acl,
+    render: h => h(App)
 }).$mount('#app')

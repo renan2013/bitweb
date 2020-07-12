@@ -18,7 +18,6 @@ export function aesDencrypt(txt) {
 
 export function traerLocalStorage() {
     let profileText = "";
-    //local storage
 
     if (localStorage.getItem('profile')) {
 
@@ -30,6 +29,7 @@ export function traerLocalStorage() {
         let profile = JSON.parse(profileText);
         let credencial = localStorage.getItem('paseKey');
         //se desencripta credencial
+
         credencial = aesDencrypt(credencial);
 
         profile.Credencial = credencial;
@@ -40,6 +40,48 @@ export function traerLocalStorage() {
     } else {
         return "0";
     }
+
+}
+
+
+
+export function traerLocalStorageTOKEN() {
+
+
+    let tokenStore = [{
+        tokenAPIBOOT: "0",
+        tokenCHAT: "0",
+        tokenCMS: "0",
+        tokenCLOUD: "0",
+    }];
+    //local storage
+
+    if (localStorage.getItem('tokenStore')) {
+
+
+        //toma el token  arrelgo
+        let token = localStorage.getItem('tokenStore');
+        console.log("token global", token);
+
+        if (token.length > 2) {
+            //extrae el token chat
+            token = JSON.parse(token);
+
+            let tokenChat = token[0].tokenCHAT;
+
+            console.log("token antes ", tokenChat)
+                // lo  desencripta
+            if (tokenChat.length > 0) {
+                tokenChat = aesDencrypt(tokenChat);
+                console.log("token despues ", tokenChat)
+                token[0].tokenCHAT = tokenChat;
+                tokenStore = token;
+            }
+        }
+
+    }
+    return tokenStore;
+
 
 }
 

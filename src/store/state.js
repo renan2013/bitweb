@@ -93,6 +93,7 @@ const state = {
     // DATOS DE PETICION DE REST 
     selectedRow: [], // la Fila que se desea  
     selectedRows: [],
+    datosPublicacion: [],
 
 
     selectQuery: [], // tipo de indicador 9
@@ -104,7 +105,9 @@ const state = {
     //urlDsoaCMS: "http://localhost:8089/DsoaService2/dsoa/CMSrequest",
     urlDsoaCMS: "http://201.194.194.84:8998/DsoaService2/dsoa/CMSrequest",
 
-    indicadorDML: "JJ",
+    urlDsoaPHP: "dsoaPHP/dsoaPHP/dsoa/",
+
+    indicadorDML: "XX",
     laststrheader: "", // ultimo encabezado
     laststrParametros: "", //ultimo parametros 
     laststrFilas: "", //ultimo pedido de filas
@@ -253,70 +256,70 @@ const state = {
     publicaciones: [{
             "id": 1,
             "titulo": "Divisoft lanza su nueva plataforma con tecnologia VUE y NodeJS ",
-            "categoria": "Programación",
+            "categoria": "1",
             "fecha": "6/24/2020",
             "autor": "hildegard.org",
         },
         {
             "id": 2,
             "titulo": "Técnico en Diseño Grafico Digital",
-            "categoria": "Diseño",
+            "categoria": "2",
             "fecha": "6/24/2020",
             "autor": "hildegard.org",
         },
         {
             "id": 3,
             "titulo": "Sivisoft lanza su app GoNow",
-            "categoria": "app",
+            "categoria": "3",
             "fecha": "6/24/2020",
             "autor": "Katerine",
         },
         {
             "id": 4,
             "titulo": "Migración de sistemas a Oracle",
-            "categoria": "Programación",
+            "categoria": "1",
             "fecha": "6/24/2020",
             "autor": "hildegard.org",
         },
         {
             "id": 5,
             "titulo": "Paginas web con PHP, Vue y MySQL",
-            "categoria": "Programación",
+            "categoria": "1",
             "fecha": "6/24/2020",
             "autor": "hildegard.org",
         },
         {
             "id": 6,
             "titulo": "Obtenga su app y cree su propio negocio en linea",
-            "categoria": "app",
+            "categoria": "3",
             "fecha": "6/24/2020",
             "autor": "hildegard.org",
         },
         {
             "id": 7,
             "titulo": "BitWeb el administrador inteligente del futuro",
-            "categoria": "Programación",
+            "categoria": "1",
             "fecha": "6/24/2020",
             "autor": "hildegard.org",
         },
         {
             "id": 8,
             "titulo": "Illustrator, la mejor plataforma par la desarrollar tu creatividad",
-            "categoria": "Diseño",
+            "categoria": "2",
             "fecha": "6/24/2020",
             "autor": "hildegard.org",
         },
         {
             "id": 9,
             "titulo": "InDesing te enseña como maquetar todo en uno",
-            "categoria": "Diseño",
+            "categoria": "2",
             "fecha": "6/24/2020",
             "autor": "hildegard.org",
         },
         {
             "id": 10,
             "titulo": "Divisoft lanza su nueva plataforma con tecnologia VUE y NodeJS",
-            "categoria": "Programación",
+            "categoria": "1",
             "fecha": "6/24/2020",
             "autor": "hildegard.org",
         },
