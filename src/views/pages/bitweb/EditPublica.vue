@@ -32,7 +32,7 @@
         </div>
 
     </div>
-    <div class="vx-col md:w-1/3 w-full mt-2">
+    <div class="vx-col md:w-1/3 w-full mt-2" v-show="indicadorDML=='U' ||indicadorDML=='I'" >
         <span class="text-danger">Imagen Asociada</span>
         <upload-default v-show="activaUpload" :isSidebarActive="activaUpload" :tituloUpload="tituloAvatar" @closeSidebar="activaUpload = false" />
 
@@ -62,7 +62,7 @@ import { eventBus } from "@/event-bus"; // para que se hablen los componentes
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
   
 
-import UploadDefault from "@/divisoft/uploadFile/UploadEmbebedPre.vue";
+import UploadDefault from "@/divisoft/uploadFile/UploadDefault.vue";
 import downloadDefault from "@/divisoft/downloadFile/dowloadImage.vue";
 import * as divilib from "@/divisoftlibs/utilDivisoftJS.js";
 
@@ -401,6 +401,21 @@ export default {
         },
 
     }
+    /*  COMO ENVIAR DOCUMENTOS A WEB
+ {
+     "datos": "/9j/4cYhRXwBz .....AO30pE5zS/wAbfSkTq1ADSSGWtE9Ae9ZzffWtH+EUwKLjOSeuT  qQf0qM9PxqQf0oGA/9P/2Q==",
+     insertarBd:"datosbd"
+ 	"dml": "FILE",
+ 	"formato": "N",
+ 	"formatoRequest": "N",
+ 	"referencia": "100000037631",   //AUI DEBE CONSEGUIRLA ANTES O UN AUTOINCREMENT  
+ 	"ruta": "imagebank",
+ 	"documenttype": "image/jpeg",
+ 	"lote": "2",
+     "extension": ".JPG",
+    jSON DE DATOS PARA INSERTAR EN LA TABLA RELACIONADA DATOS PARA INSERTAR 
+ }
+    */
 }
 </script>
 

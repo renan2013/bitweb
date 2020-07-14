@@ -95,7 +95,13 @@ export default {
     isSidebarActive: {
       type: Boolean,
       required: true
+    },
+
+    datosDoc: {
+      type: Array,
+      required: false
     }
+
   },
 
   data() {
