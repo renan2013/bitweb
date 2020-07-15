@@ -57,15 +57,31 @@
                      component: () =>
                          import ('@/views/pages/bitweb/Publicaciones.vue'),
                      meta: {
-                         breadcrumb: [
-                             { title: 'Home', url: '/' },
-                             { title: 'Crear Publicación', url: { name: 'crearPublicacion' } },
-                             { title: 'Lista de Publicaciones', active: true },
-                         ],
+                        breadcrumb: [
+                            { title: 'Home', url: '/' },
+                            { title: 'Crear Publicación', url: {path: 'edicion/I' } },
+                            { title: 'Edita tus contenidos e inclusive enrriquecelos más', active: true },
+                        ],
                          pageTitle: 'Publicaciones',
                          rule: 'editor'
                      }
                  },
+
+                 {
+                    path: '/edicion/:DML',
+                    name: 'edicion',
+                    component: () =>
+                        import ('@/views/pages/bitweb/EditPublica.vue'),
+                    meta: {
+                        breadcrumb: [
+                            { title: 'Home', url: '/' },
+                            { title: 'Lista de Publicaciones', url: { name: 'publicaciones' } },
+                            { title: 'Crea tus contenidos de manera enrriquecida', active: true },
+                        ],
+                        pageTitle: 'Crear Publicación',
+                        rule: 'editor'
+                    }
+                },
 
                  {
                      path: '/crearPublicacion',

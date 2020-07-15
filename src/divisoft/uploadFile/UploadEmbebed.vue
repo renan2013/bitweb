@@ -32,9 +32,7 @@
 
 <script>
  // lector basico de documentos o imagenes
- import {
-     eventBus
- } from "@/main"; // para que se hablen los componentes
+import { eventBus } from "@/event-bus"; // para que se hablen los componentes
  import VuePerfectScrollbar from "vue-perfect-scrollbar";
 
  //componente lee B64
@@ -48,18 +46,11 @@
     
          eventBus.$on("cargaDocUploadEmbe", respuestaCMSUP => {
                  //respuestaCMSUP[0].Referencia;
-             this.LlaveExterna = respuestaCMSUP[0].LlaveExterna;
-             
-             this.NumNivel = respuestaCMSUP[0].NumNivel;
-             this.NumDoc = respuestaCMSUP[0].NumDoc;
-             this.EntidadCodigo=respuestaCMSUP[0].EntidadCodigo;
-
-
-           
-
-
-             if (!(this.LlaveExterna > "0"))
+                 alert("carga bus embebed");
+              
+            /* if (!(this.LlaveExterna > "0"))
                  this.mensajeBd = "Datos Incorrectos para Cargar IMAGEN";
+                 */
 
              console.log("Cargando Uploda ", respuestaCMSUP);
          });
@@ -67,7 +58,7 @@
      beforeDestroy: function () {
          //Crea un bus  OYENTE
          // SI HAY PROMPT
-         eventBus.$off("cargaDocUpload");
+         eventBus.$off("cargaDocUploadEmbe");
      },
 
      props: {

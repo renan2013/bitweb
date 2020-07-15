@@ -25,9 +25,9 @@
 
       <search-bar />
 
-      <cart-drop-down />
+     
 
-      <notification-drop-down />
+     
 
       <profile-drop-down />
 

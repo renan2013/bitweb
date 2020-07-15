@@ -9,16 +9,10 @@
         description-body="Páginas">
             >
             
-            <template slot="header"> 
-                
-                <h5>
-                    Aqui puede ver todas sus publicaciones, crear, editar y eliminar sus contenidos libremente...
-                </h5>
-
-            </template>
+           
 
              <template slot="header"> 
-                   <vs-button size="default" color="success" icon="edit" @click="RegistroNuevo()">Crear Publicación</vs-button>
+                   <!-- <vs-button size="default" color="success" icon="edit" @click="RegistroNuevo()">Crear Publicación</vs-button> -->
               
                 <br/>
             </template>

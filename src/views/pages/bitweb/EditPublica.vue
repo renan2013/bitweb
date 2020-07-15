@@ -1,11 +1,11 @@
 <template>
 <div class="contenedor" id="tletra">
 
-    <div class="vx-row">
+    <!-- <div class="vx-row">
         
         {{mensajeAccion}} Id:{{publicacion.id}}
         
-    </div>
+    </div> -->
 
     <div class="vx-row">
         <div class="vx-col sm:w-1/2 w-full mb-2">
@@ -32,15 +32,31 @@
         </div>
 
     </div>
-    <div class="vx-col md:w-1/3 w-full mt-2" v-show="indicadorDML=='U' ||indicadorDML=='I'" >
-        <span class="text-danger">Imagen Asociada</span>
-        <upload-default v-show="activaUpload" :isSidebarActive="activaUpload" :tituloUpload="tituloAvatar" @closeSidebar="activaUpload = false" />
 
-        <div class="p-3 mb-4 mr-4 rounded-lg cursor-pointer flex items-center justify-between text-lg font-medium text-base text-primary border border-solid border-primary" @click="uploadAvatar">
-            <feather-icon icon="PlusIcon" svgClasses="h-4 w-4" />
-            <span class="ml-2 text-base text-primary">{{ IMG_AVATAR  }}</span>
-        </div>
+
+    <div class="vx-row">
+            <div class="vx-col md:w-1/4 w-full mt-2" v-show="indicadorDML=='U' ||indicadorDML=='I' || true " >
+                <span class="titulo_carga">Imagen Asociada</span>
+  
+                <UploadEmbebed v-show="UploadPrincipal" :isSidebarActive="UploadPrincipal" :tituloUpload="tituloAvatar" @closeSidebar="UploadPrincipal = false" />
+                <div class="p-3 mb-4 mr-4 rounded-lg cursor-pointer flex items-center justify-between text-lg font-medium text-base text-primary border border-solid border-primary" @click="uploadPrincipal">
+                    <feather-icon icon="PlusIcon" svgClasses="h-4 w-4" />
+                </div>
+            </div>
+
+
+            <div class="vx-col md:w-1/4 w-full mt-2" v-show="indicadorDML=='U' ||indicadorDML=='I' || true " >
+                <span class="titulo_carga">Doc. Adjuntos - Opcional</span>
+                <upload-default v-show="activaUpload" :isSidebarActive="activaUpload" :tituloUpload="tituloAvatar" @closeSidebar="activaUpload = false" />
+
+                <div class="p-3 mb-4 mr-4 rounded-lg cursor-pointer flex items-center justify-between text-lg font-medium text-base text-primary border border-solid border-primary" @click="uploadAvatar">
+                    <feather-icon icon="PlusIcon" svgClasses="h-4 w-4" />
+                    <span class="ml-2 text-base text-primary">{{ IMG_AVATAR  }}</span>
+                </div>
+            </div>
     </div>
+
+
 
     <div class="vx-row" id="botones">
         <div class="vx-col w-full">
@@ -63,6 +79,8 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
   
 
 import UploadDefault from "@/divisoft/uploadFile/UploadDefault.vue";
+import UploadEmbebed from "@/divisoft/uploadFile/UploadEmbebed.vue";
+
 import downloadDefault from "@/divisoft/downloadFile/dowloadImage.vue";
 import * as divilib from "@/divisoftlibs/utilDivisoftJS.js";
 
@@ -120,7 +138,8 @@ export default {
     components: {
         //subir una imagen
         UploadDefault,
-        downloadDefault
+        downloadDefault,
+        UploadEmbebed
     },
  
      beforeDestroy: function() {
@@ -143,6 +162,7 @@ export default {
             IMG_AVATAR: 0,
             CMSDATAJS: datosjs.CMSDATA,
             activaUpload: false,
+            UploadPrincipal: false,
             publicacion: {
                 id: 5,
                 titulo: "0",
@@ -157,7 +177,7 @@ export default {
                 REFERENCIA_DOCUMENTO: 0
             },
 
-            tituloAvatar: "Agregar Imagen a la Publicacion",
+            tituloAvatar: "Agregar contenidos a la Publicación",
             titulo: 'Publicaciones',
             categorias: [
 
@@ -374,7 +394,31 @@ export default {
             } else
                 alert(" Crud No presente")
         }, // fin de  metodo
+uploadPrincipal() {
+     
+            this.UploadPrincipal = true;
 
+            this.CMSDATA = [{
+                EntidadCodigo: "26",
+                LlaveExterna: "9000",
+                NumNivel: 1265,
+                numDoc: 0,
+                Encriptado: "",
+                IndMultipleEntidad: "1",
+                Directorio: "1",
+                llavegenerica: ""
+            }];
+
+            let respuestaCMS = [{
+                EntidadCodigo: "26",
+                Referencia: 0,
+                LlaveExterna: "9000",
+                NumNivel: 1265,
+                NumDoc: 0
+            }];
+        
+            eventBus.$emit("cargaDocUploadEmbe", respuestaCMS);
+        },
         uploadAvatar() {
             this.activaUpload = true;
 
@@ -420,6 +464,10 @@ export default {
 </script>
 
 <style>
+
+.titulo_carga{
+    font-size: 12px;
+}
 #tletra {
     font-size: 14px;
 }

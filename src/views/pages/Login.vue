@@ -19,8 +19,8 @@
             <div class="vx-col sm:w-full md:w-full lg:w-3/5 d-theme-dark-bg">
               <div class="px-8 pt-8 login-tabs-container">
                 <div class="vx-card__title mb-4" id="logo">
-                  <img src="@/assets/images/logo/logo.png" alt="login" class="mx-auto" />
-                  <vs-divider>Iniciar Sesión</vs-divider>
+                  <img src="@/assets/images/logo/logo_bitweb.png" alt="login" class="mx-auto" />
+                  <vs-divider>Iniciar Sesión....</vs-divider>
                 </div>
                 <LoginDsoa></LoginDsoa>
                 <div class="pie">Developed by grupodivisoft 2020</div>

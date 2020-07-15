@@ -10,7 +10,7 @@
 
 
 <template>
-  <div class="parentx">
+  <div class="parentx" >
 
     <vs-sidebar
       class="v-nav-menu items-no-padding"
@@ -27,12 +27,13 @@
       <div @mouseenter="mouseEnter" @mouseleave="mouseLeave">
 
         <!-- Header -->
-        <div class="header-sidebar flex items-end justify-between" slot="header">
+        <div class="header-sidebar flex items-end justify-between" slot="header" id="menu_lateral">
 
           <!-- Logo -->
           <router-link tag="div" class="vx-logo cursor-pointer flex items-center" to="/">
-            <logo class="w-10 mr-4 fill-current text-primary" />
-            <span class="vx-logo-text text-primary" v-show="isMouseEnter || !reduce" v-if="title">{{ title }}</span>
+            <div class="logo_bitweb">
+              <img src="\img\logo_bitweb.png" width="150px">
+            </div>
           </router-link>
           <!-- /Logo -->
 
@@ -305,5 +306,15 @@ export default {
 
 
 <style lang="scss">
-@import "@/assets/scss/vuexy/components/verticalNavMenu.scss"
+
+    .logo_bitweb{
+      // border:solid 1px red;
+      // margin-top: 20px;
+      // margin-left: 10px;
+    }
+
+    #menu_lateral{
+      padding: 15px;
+    }
+
 </style>

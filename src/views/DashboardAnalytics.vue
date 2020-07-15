@@ -17,11 +17,16 @@
 
 <template>
     <div id="extra-component-echarts-demo">
-        <p class="mb-4">Record de publicaciones en el presente año.</p>
+        
 
         <div class="vx-row match-height">
-            <div class="vx-col w-full">
-                <echarts-bar-chart></echarts-bar-chart>
+            <div class="vx-col w-full" id="dashboard">
+               <img src="\img\bienvenida3.png
+               " width="350px">
+              <br><br>
+               <img src="\img\logo_divisoft_azul.png
+               " width="180px">
+
             </div>
            
         </div>
@@ -39,3 +44,13 @@ export default {
   }
 }
 </script>
+
+<style>
+#dashboard{
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  /* border: solid 1px red; */
+  display:block;
+}
+</style>

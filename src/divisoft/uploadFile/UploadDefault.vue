@@ -28,12 +28,32 @@
           class="cursor-pointer"
         ></feather-icon>
       </div>
+      <br>
+      <vx-card title="Mensaje de Base de Datos"  ><span>{{mensajeBd}}</span></vx-card>
 
-      <vx-card title="Mensaje Base Datos" code-toggler>{{mensajeBd}}</vx-card>
-
-      <vs-divider class="mb-0"></vs-divider>
+      <!-- <vs-divider class="mb-0"></vs-divider> -->
       <VuePerfectScrollbar class="scroll-area--data-list-add-new pt-4 pb-6">
+        
         <div class="p-6">
+          <!-- Aqui empieza el formulario de los adjuntos de bitweb -->
+          <h5>Complete los campos por favor</h5>
+          <div class="vx-row">
+            
+              <div class="vx-col sm:w-2/3 w-full mb-2">
+                  <vs-input class="w-full" label-placeholder="Nombre"   v-model="datosdoc.nombreobjeto"/>
+              </div>
+              <div class="vx-col sm:w-1/3 w-full mb-2">
+                  <vs-input class="w-full" label-placeholder="Orden"   v-model="datosdoc.orden"/>
+              </div>
+               <div class="vx-col sm:w-full w-full mb-2">
+                  <vs-input class="w-full" label-placeholder="Detalle" v-model="datosdoc.detalle" />
+              </div>
+              <div class="vx-col sm:w-full w-full mb-2">
+                  <vs-input class="w-full" label-placeholder="Link"  v-model="datosdoc.url_asociado" />
+              </div>
+              
+          </div>
+
           <br />
           <iframe v-show="imageType==1" :src="textBase64" type="application/pdf"></iframe>
           <div>
@@ -47,6 +67,7 @@
 
           <file64Reader @EnviaBase64="EnviaBase64"></file64Reader>
 <br>
+          
           <button type="submit" class="btn btn-success" @click="uploadFile()">Subir a BD</button>
         </div>
       </VuePerfectScrollbar>
@@ -56,7 +77,7 @@
 
 <script> 
 // lector basico de documentos o imagenes
-import { eventBus } from "@/main"; // para que se hablen los componentes
+import { eventBus } from "@/event-bus"; // para que se hablen los componentes
 import VuePerfectScrollbar from "vue-perfect-scrollbar";
 
 //componente lee B64
@@ -69,13 +90,11 @@ export default {
     //	 cuando se createReadStream
 
     eventBus.$on("cargaDocUpload", respuestaCMSUP => { 
-      (
-        
-        this.Referencia = "0"), //respuestaCMSUP[0].Referencia;
-        (this.LlaveExterna = respuestaCMSUP[0].LlaveExterna);
-      this.NumNivel = respuestaCMSUP[0].NumNivel;
-      this.NumDoc = respuestaCMSUP[0].NumDoc;
-      if    (!(this.LlaveExterna > "0"))
+       
+       this.num_publicacion=respuestaCMSUP.num_publicacion;
+       this.referencia=respuestaCMSUP.referencia;
+
+      if    (!(this.num_publicacion > "0"))
            this.mensajeBd = "Datos Incorrectos para Cargar IMAGEN";
           
       console.log("Cargando Uploda ", respuestaCMSUP);
@@ -106,14 +125,24 @@ export default {
 
   data() {
     return {
+
+      datosdoc: {
+                 // van en formulario
+				 titulo: "",
+                 nombreobjeto: "",
+                 directorio: "",
+                 DescripcionDoc:"",
+
+                 ruta_archivo: "",
+                 detalle: "",
+                 orden: 0,
+                 url_asociado: ""
+             },
       mensajeBd: "",
       activaalerta: true,
       yasubio: false,
-
+      num_publicacion:0,
       Referencia: "0",
-      LlaveExterna: "",
-      NumNivel: "",
-      NumDoc: "",
 
       DocumentoMimeType: "",
       DescripcionDoc: "",
@@ -182,15 +211,15 @@ export default {
         this.textBase64 = archivoBase64;
       }
     },
-    uploadFile() {
+    uploadFile() 
+    {
+
       let extension = "";
       this.yasubio = true;
-      extension = divilib.getValueExtension(
-        divilib.CMSMimeToExtension,
-        this.DocumentoMimeType
-      );
+     //busca la extension
+      extension = divilib.getValueExtension(divilib.CMSMimeToExtension,this.DocumentoMimeType);
 
-//alert("cocdia "+this.getCodCia);
+       //PREPARA EL PEDIDO
       let respuestaCMS = {
         CodCia: this.getCodCia,
         CodigoPeticion: "14",
@@ -222,41 +251,12 @@ export default {
         Lote: "",
         FormatoArchivoDestino: ""
       };
-
-       
-      this.bdCMS[0].Encriptado = "";
-      this.bdCMS[0].TipoGuardado = "";
-      this.bdCMS[0].EntidadCodigo = "";
-      this.bdCMS[0].InformacionBusqueda = "";
-      this.bdCMS[0].TipoRespuesta = "";
-      this.bdCMS[0].DirectorioSeparadorOrigen = "";
-      this.bdCMS[0].GuardarImagenDestino = "";
-      this.bdCMS[0].Directorio = "";
-      this.bdCMS[0].IndMultipleEntidad = "";
-      this.bdCMS[0].Size = "";
-
-      //Peticion Minuscula
-
-      this.CMSpeticion[0].dml = "";
-      this.CMSpeticion[0].datos = divilib.dataCMSToXml(respuestaCMS);
-      this.CMSpeticion[0].manipula = divilib.manipulaCMSToXml(
-        this.ManipulacionCMS[0]
-      );
-      this.CMSpeticion[0].bd = divilib.bdCMSToXml(this.bdCMS[0]);
-      this.CMSpeticion[0].formato = "N";
-      this.CMSpeticion[0].formatoRequest = "N";
-      this.CMSpeticion[0].Credencial = this.getProfile.Credencial;
-      this.CMSpeticion[0].deserror = "";
-      this.CMSpeticion[0].codigoerror = "0";
-
-      console.log("peticion CMS ", this.CMSpeticion[0]);
-
+  
       
       //cambia a acDsoaPrueba // acDsoa
       
-      if (this.LlaveExterna > "0")
-        this.$store.dispatch("CMSacDsoa", this.CMSpeticion[0]);
-
+      if (this.num_publicacion > "0")
+        this.$store.dispatch("acDsoaPHP2", this.CMSpeticion[0]); 
       else {
          this.mensajeBd = "No hay datos correctos para Guardar  llave extrerna no presente ";
       }
@@ -296,6 +296,8 @@ export default {
     max-width: 90vw;
   }
 }
+
+
 </style>
 
 
