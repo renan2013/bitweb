@@ -40,9 +40,9 @@
 
                      },
                      {
-                        url: '/asistencia',
+                        url: '/soporte',
                         name: 'Asistencia',
-                        slug: 'asistencia',
+                        slug: 'soporte',
 
                     },
 
