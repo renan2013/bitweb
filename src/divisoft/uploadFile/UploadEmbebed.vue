@@ -90,7 +90,7 @@ import { eventBus } from "@/event-bus"; // para que se hablen los componentes
 
              bdCMS: divilib.BdCMS,
              CMSpeticion: divilib.CMSpeticion,
-             ManipulacionCMS: divilib.ManipulacionCMS,
+             
              textBase64: "",
              textMS: "",
              imageType: 0,

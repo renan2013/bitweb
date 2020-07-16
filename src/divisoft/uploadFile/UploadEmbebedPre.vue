@@ -100,7 +100,7 @@
 
              bdCMS: divilib.BdCMS,
              CMSpeticion: divilib.CMSpeticion,
-             ManipulacionCMS: divilib.ManipulacionCMS,
+              
              textBase64: "",
              textMS: "",
              imageType: 0,
@@ -232,7 +232,7 @@
              
              let peticionAvatar="<data>"
                 +divilib.dataCMSToXml(respuestaCMS)
-                + divilib.manipulaCMSToXml( this.ManipulacionCMS[0]  )
+                
                 +divilib.bdCMSToXml(this.bdCMS[0])+"</data>";
                   console.log("peticion CMS2 ", peticionAvatar); 
 

@@ -66,13 +66,13 @@ export default {
       NumNivel: "",
       NumDoc: "",
 
-      PROPSDataCMS: divilib.DataCMS,
+       
       mensajeBd: "",
       textBase64: "",
-      DataCMS: divilib.DataCMS,
+     
       bdCMS: divilib.BdCMS,
       CMSpeticion: divilib.CMSpeticion,
-      ManipulacionCMS: divilib.ManipulacionCMS,
+     
       imageType: 0,
       subeArchivo: false,
       editKey: 0

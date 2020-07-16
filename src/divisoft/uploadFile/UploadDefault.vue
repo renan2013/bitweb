@@ -29,7 +29,7 @@
         ></feather-icon>
       </div>
       <br>
-      <vx-card title="Mensaje de Base de Datos"  ><span>{{mensajeBd}}</span></vx-card>
+      <vx-card title="Mensaje Obtenido de Base datos:"  ><span class="text-success">{{mensajeBd}}</span></vx-card>
 
       <!-- <vs-divider class="mb-0"></vs-divider> -->
       <VuePerfectScrollbar class="scroll-area--data-list-add-new pt-4 pb-6">
@@ -100,14 +100,15 @@
             
 
              if (respuestaCMSUP[0].num_publicacion>0)
+               {
+               this.num_publicacion= respuestaCMSUP[0].num_publicacion;
                this.datosdoc.num_publicacion = respuestaCMSUP[0].num_publicacion;
+               }
             else
                {
                    alert("error al ingresar Documentos")
                }
-               
-
-              
+                
 
              if (respuestaCMSUP[0].referencia>0)
                 this.datosdoc.referencia = respuestaCMSUP[0].referencia;
@@ -143,11 +144,12 @@
 
      data() {
          return {
-             mensajeBd: "",
+             mensajeBd: "......",
              activaalerta: true,
              yasubio: false,
              imageType:1,
              campoJson:"",
+             num_publicacion:0,
 
              //noticia:{"id":3,"titulo":"A 10 aos de la hazaa, Iniesta y Ramos recuerdan el ttulo en Sudfrica 2010","categoria":5,"fecha":"24/06/2020","autor":"autor","detalle":"El 11 de julio de 2010 representa la fecha ms importante para la historia del ftbol espaol. En ese da, la \"Roja\" conquist su primera Copa del Mundo de la FIFA al vencer en la gran final en Holanda en Johannesburgo, Sudfrica. El gol de Iniesta en la prrroga defini ese partido, y l y Sergio Ramos recordarn esos momentos inolvidables en un video realizado por la Real Federacin Espaola de Ftbol.\n\nLTIMAS NOTICIAS","contenido":"<p>&nbsp;</p><figure class=\"image\"><img src=\"https://cnnespanol.cnn.com/wp-content/uploads/2020/07/200711162704-sergio-ramos-andres-iniesta-deportes-cnn-full-169.jpg?quality=100&amp;strip=info&amp;w=780&amp;h=438&amp;crop=1\" alt=\"A 10 aos de la hazaa, Iniesta y Ramos recuerdan el ttulo en Sudfrica 2010\" srcset=\"https://cnnespanol.cnn.com/wp-content/uploads/2020/07/200711162704-sergio-ramos-andres-iniesta-deportes-cnn-full-169.jpg?quality=100&amp;strip=info&amp;w=780&amp;h=438&amp;crop=1 780w\" sizes=\"100vw\"></figure><p><a href=\"https://cnnespanol.cnn.com/seccion/deportes/\"><strong>DEPORTES</strong></a></p><h2><a href=\"https://cnnespanol.cnn.com/video/espana-futbol-sergio-ramos-andres-iniesta-sudafrica-2010-copa-del-mundo-fifa-real-madrid-barcelona-sot/\"><strong>A 10 aos de la hazaa, Iniesta y Ramos recuerdan el ttulo en Sudfrica 2010</strong></a></h2><p>El 11 de julio de 2010 representa la fecha ms importante para la historia del ftbol espaol. En ese da, la \"Roja\" conquist su primera Copa del Mundo de la FIFA al vencer en la gran final en Holanda en Johannesburgo, Sudfrica. El gol de Iniesta en la prrroga defini ese partido, y l y Sergio Ramos recordarn esos momentos inolvidables en un video realizado por la Real Federacin Espaola de Ftbol</p>","REFERENCIA_IMAGEN":0,"REFERENCIA_PDF":0,"REFERENCIA_VIDEO":0,"REFERENCIA_DOCUMENTO":0},
 
@@ -274,7 +276,8 @@
 
          uploadFile() {
            // SUBE EL ARCHIVO A BASE DATOS
-          alert("subiendo archivos v2"); 
+
+         
              this.datosdoc.extension = "";
              this.yasubio = true; 
               
@@ -299,7 +302,13 @@
              respuestaCMS.datos=this.textBase64;
 
  
-             respuestaCMS.num_publicacion=this.datosdoc.num_publicacion;
+             if (this.datosdoc.num_publicacion>0)
+               respuestaCMS.num_publicacion=this.datosdoc.num_publicacion;
+             else 
+             {
+              this.datosdoc.num_publicacion=this.num_publicacion;
+              respuestaCMS.num_publicacion=this.num_publicacion;
+             } 
  
              respuestaCMS.insertarBd=this.campoJson;
              if (this.datosdoc.referencia=="REPLACEREFERENCIA")
@@ -329,17 +338,24 @@
 
      watch: {
          CMSDataRespuesta: function () {
-             console.log("respuesta CMSDataRespuesta ", this.CMSDataRespuesta)
-
-             if (this.yasubio == true) {
-                 this.Referencia = this.CMSDataRespuesta.Referencia;
-
-                 if (this.Referencia > "0")
-                     this.mensajeBd =
-                     "Documento Indexado correctamente con  Referencia" +
-                     this.Referencia;
+             
+             console.log("respuesta CMSDataRespuesta ", this.CMSDataRespuesta) 
+             
+             if (this.yasubio == true) { 
+                 if (this.CMSDataRespuesta.codigoerror==0||this.CMSDataRespuesta.codigoerror=="0")
+                     this.mensajeBd ="Documento Indexado correctamente con  Referencia" ;
                  else
                      this.mensajeBd = "Problemas para subir Archivo No Obtubo respuesta Correcta";
+
+                 
+                //limpiamos datos
+                 this.yasubio = false;    
+                 this.datosdoc.referencia= "REPLACEREFERENCIA";
+                 this.datosdoc.extension="";
+                 this.datosdoc.DocumentoMimeType="";
+                
+                 this.textBase64="";
+
              }
          }
      }

@@ -140,69 +140,11 @@ const state = {
 
     //// DIVISOFT MULTIMEDIA  MULTIMEDIA MULTIMEDIA MULTIMEDIA MULTIMEDIA MULTIMEDIA MULTIMEDIA 
     // datos  PRINCIPALES
-    DataCMS: {
-        CodCia: '506',
-        CodigoPeticion: '',
-        Repositorio: '',
-        GuardaArchivo: '',
-        RutaOrigen: '',
-        ExtensionFinal: '',
-        RutaDestino: '',
-        EntidadCodigo: '',
-        LlaveExterna: '',
-        NumNivel: '',
-        NumDoc: '',
-        ReferenciaPadre: '',
-        Referencia: '0',
-        hashDoc: '',
-        ReferenciaPersonalizada: '',
-        IndicadorAtiendeWs: '',
-        FormatoImagen: '',
-        DirectorioCrear: '',
-        DestinoFisico: '',
-        DirectorioSeparatorOrigen: '',
-        InsertarBd: '',
-        DocumentoMimeType: '',
-        NombreObjeto: '',
-        Descripcion: '',
-        Extension: '',
-        NuevoNombre: '',
-        Thumb: '',
-        Lote: '',
-        FormatoArchivoDestino: '',
-        Credencial: ""
-    },
+    DataCMS: {},
     // PARA MANIPULAR LA IMAGEN 
-    ManipulacionCMS: [{
-        PaginaInicio: '',
-        PaginaFinal: '',
-        directoriocrear: '',
-        FormatoImagenAgua: '',
-        TextoImagenAgua: '',
-        ImagenAgua: '',
-        FondoFrente: '',
-        ColorTexto: '',
-        TamanoLetra: '',
-        CantidadMarcas: '',
-        XimagenAgua: '',
-        YimagenAgua: '',
-        FondoFrente: '',
-        Timestamp: ''
-    }],
+    ManipulacionCMS: [],
     /// INDICACIONES DE BASE DATOS
-    BdCMS: [{
-        Encriptado: '',
-
-        TipoGuardado: '',
-        EntidadCodigo: '',
-        InformacionBusqueda: '',
-        TipoRespuesta: '',
-        DirectorioSeparadorOrigen: '',
-        GuardarImagenDestino: '',
-        Directorio: '',
-        IndMultipleEntidad: '',
-        Size: ''
-    }],
+    BdCMS: [],
 
 
 

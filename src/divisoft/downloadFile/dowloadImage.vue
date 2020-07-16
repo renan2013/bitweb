@@ -65,15 +65,9 @@ export default {
       Referencia: "0",
       LlaveExterna: "",
       NumNivel: "",
-      NumDoc: "",
-
-      PROPSDataCMS: divilib.DataCMS,
+      NumDoc: "",  
       mensajeBd: "",
-      textBase64: "",
-      DataCMS: divilib.DataCMS,
-      bdCMS: divilib.BdCMS,
-      CMSpeticion: divilib.CMSpeticion,
-      ManipulacionCMS: divilib.ManipulacionCMS,
+      textBase64: "", 
       imageType: 0,
       subeArchivo: false,
       editKey: 0

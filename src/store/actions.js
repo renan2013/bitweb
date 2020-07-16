@@ -353,7 +353,7 @@ const actions = {
 
                         commit('MUTPROCESANDOFALSE');
                         console.log('PHPPHPPHPLARGO DE RESPUESTA  acDsoa', JSON.stringify(response.data));
-                        //console.log('LARGO DE RESPUESTA  acDsoa', JSON.stringify(response.data));
+
 
                         //console.log('INDICADOR', pet.indicador);
 
@@ -470,17 +470,9 @@ const actions = {
                     })
                     .then((response) => {
                         commit('MUTPROCESANDOFALSE');
-
                         console.log('LARGO DE RESPUESTA  CMSacDsoaPHP ', JSON.stringify(response.data));
-                        // console.log("LARGO DE RESPUESTA  CMSacDsoa  ", JSON.stringify(response.data));
+                        commit('MUTSETDATA', response.data);
 
-                        let data = response.data.datos;
-                        // console.log("imagen", data.RutaDestino)
-                        if (!divilib.isObject(data)) data = JSON.parse(response.data.datos);
-
-                        console.log('imagen', data.RutaDestino);
-
-                        commit('MUTSETDATA', data);
                     })
                     .catch(function(error) {
                         commit('MUTPROCESANDOFALSE');
