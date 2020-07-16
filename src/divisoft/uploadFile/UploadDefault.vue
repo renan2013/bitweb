@@ -1,4 +1,4 @@
-  <!-- =========================================================================================
+<!-- =========================================================================================
   File Name: AddNewDataSidebar.vue
   Description: Add New Data - Sidebar component
   ----------------------------------------------------------------------------------------
@@ -6,7 +6,7 @@
   Author: Pixinvent
   Author URL: http://www.themeforest.net/user/pixinvent
 ========================================================================================== -->
- 
+
 
 <template>
   <div id="data-list-list-view" class="vx-col md:w-1/2 w-full mb-base">
@@ -37,7 +37,12 @@
         <div class="p-6">
           <!-- Aqui empieza el formulario de los adjuntos de bitweb -->
           <h5>Complete los campos por favor</h5>
+          publicacion
+          {{datosdoc.num_publicacion}}
           <div class="vx-row">
+             <div class="vx-col sm:w-2/3 w-full mb-2">
+                  <vs-input class="w-full" label-placeholder="Titulo"   v-model="datosdoc.titulo"/>
+              </div>
             
               <div class="vx-col sm:w-2/3 w-full mb-2">
                   <vs-input class="w-full" label-placeholder="Nombre"   v-model="datosdoc.nombreobjeto"/>
@@ -51,7 +56,7 @@
               <div class="vx-col sm:w-full w-full mb-2">
                   <vs-input class="w-full" label-placeholder="Link"  v-model="datosdoc.url_asociado" />
               </div>
-              
+ 
           </div>
 
           <br />
@@ -75,231 +80,283 @@
   </div>
 </template> 
 
-<script> 
-// lector basico de documentos o imagenes
-import { eventBus } from "@/event-bus"; // para que se hablen los componentes
-import VuePerfectScrollbar from "vue-perfect-scrollbar";
+<script>
+ // lector basico de documentos o imagenes
+ import {eventBus} from "@/event-bus"; // para que se hablen los componentes
 
-//componente lee B64
-import file64Reader from "./file64Reader";
+ import VuePerfectScrollbar from "vue-perfect-scrollbar";
 
-import * as divilib from "@/divisoftlibs/utilDivisoftJS.js";
+ //componente lee B64
+ import file64Reader from "./file64Reader";
 
-export default {
-  created() {
-    //	 cuando se createReadStream
+ import * as divilib from "@/divisoftlibs/utilDivisoftJS.js";
 
-    eventBus.$on("cargaDocUpload", respuestaCMSUP => { 
-       
-       this.num_publicacion=respuestaCMSUP.num_publicacion;
-       this.referencia=respuestaCMSUP.referencia;
+ export default {
+     created() {
+         //	 cuando se createReadStream
 
-      if    (!(this.num_publicacion > "0"))
-           this.mensajeBd = "Datos Incorrectos para Cargar IMAGEN";
-          
-      console.log("Cargando Uploda ", respuestaCMSUP);
-    });
-  },
-  beforeDestroy: function() {
-    //Crea un bus  OYENTE
-    // SI HAY PROMPT
-    eventBus.$off("cargaDocUpload");   
-  },
+         eventBus.$on("cargaDocUpload", respuestaCMSUP => {
 
-  props: {
-    tituloUpload: {
-      type: String,
-      required: false
-    },
-    isSidebarActive: {
-      type: Boolean,
-      required: true
-    },
+            
 
-    datosDoc: {
-      type: Array,
-      required: false
-    }
+             if (respuestaCMSUP[0].num_publicacion>0)
+               this.datosdoc.num_publicacion = respuestaCMSUP[0].num_publicacion;
+            else
+               {
+                   alert("error al ingresar Documentos")
+               }
+               
 
-  },
+              
 
-  data() {
-    return {
+             if (respuestaCMSUP[0].referencia>0)
+                this.datosdoc.referencia = respuestaCMSUP[0].referencia;
 
-      datosdoc: {
+             if (!(this.datosdoc.num_publicacion > "0"))
+                 this.mensajeBd = "Datos Incorrectos para Cargar IMAGEN";
+
+             console.log("Cargando Uploda ", respuestaCMSUP);
+         });
+     },
+     beforeDestroy: function () {
+         //Crea un bus  OYENTE
+         // SI HAY PROMPT
+         eventBus.$off("cargaDocUpload");
+     },
+
+     props: {
+         tituloUpload: {
+             type: String,
+             required: false
+         },
+         isSidebarActive: {
+             type: Boolean,
+             required: true
+         },
+
+         datosDoc: {
+             type: Array,
+             required: false
+         }
+
+     },
+
+     data() {
+         return {
+             mensajeBd: "",
+             activaalerta: true,
+             yasubio: false,
+             imageType:1,
+             campoJson:"",
+
+             //noticia:{"id":3,"titulo":"A 10 aos de la hazaa, Iniesta y Ramos recuerdan el ttulo en Sudfrica 2010","categoria":5,"fecha":"24/06/2020","autor":"autor","detalle":"El 11 de julio de 2010 representa la fecha ms importante para la historia del ftbol espaol. En ese da, la \"Roja\" conquist su primera Copa del Mundo de la FIFA al vencer en la gran final en Holanda en Johannesburgo, Sudfrica. El gol de Iniesta en la prrroga defini ese partido, y l y Sergio Ramos recordarn esos momentos inolvidables en un video realizado por la Real Federacin Espaola de Ftbol.\n\nLTIMAS NOTICIAS","contenido":"<p>&nbsp;</p><figure class=\"image\"><img src=\"https://cnnespanol.cnn.com/wp-content/uploads/2020/07/200711162704-sergio-ramos-andres-iniesta-deportes-cnn-full-169.jpg?quality=100&amp;strip=info&amp;w=780&amp;h=438&amp;crop=1\" alt=\"A 10 aos de la hazaa, Iniesta y Ramos recuerdan el ttulo en Sudfrica 2010\" srcset=\"https://cnnespanol.cnn.com/wp-content/uploads/2020/07/200711162704-sergio-ramos-andres-iniesta-deportes-cnn-full-169.jpg?quality=100&amp;strip=info&amp;w=780&amp;h=438&amp;crop=1 780w\" sizes=\"100vw\"></figure><p><a href=\"https://cnnespanol.cnn.com/seccion/deportes/\"><strong>DEPORTES</strong></a></p><h2><a href=\"https://cnnespanol.cnn.com/video/espana-futbol-sergio-ramos-andres-iniesta-sudafrica-2010-copa-del-mundo-fifa-real-madrid-barcelona-sot/\"><strong>A 10 aos de la hazaa, Iniesta y Ramos recuerdan el ttulo en Sudfrica 2010</strong></a></h2><p>El 11 de julio de 2010 representa la fecha ms importante para la historia del ftbol espaol. En ese da, la \"Roja\" conquist su primera Copa del Mundo de la FIFA al vencer en la gran final en Holanda en Johannesburgo, Sudfrica. El gol de Iniesta en la prrroga defini ese partido, y l y Sergio Ramos recordarn esos momentos inolvidables en un video realizado por la Real Federacin Espaola de Ftbol</p>","REFERENCIA_IMAGEN":0,"REFERENCIA_PDF":0,"REFERENCIA_VIDEO":0,"REFERENCIA_DOCUMENTO":0},
+
+
+             datosdoc: { 
+                 referencia: "REPLACEREFERENCIA",
+                 extension:"",
+                 clase_url: "",
+                 DocumentoMimeType:"",
+                 referencia_relacionada: "",
+                 embebed_code:"",
+                 descripcion: "",
+                 descripcion_fr: "",
+                 descripcion_es: "",
+                 patronbusqueda: "",
                  // van en formulario
-				 titulo: "",
                  nombreobjeto: "",
                  directorio: "",
                  DescripcionDoc:"",
-
+                 titulo: "",
                  ruta_archivo: "",
                  detalle: "",
-                 orden: 0,
+                 orden:"",
                  url_asociado: ""
              },
-      mensajeBd: "",
-      activaalerta: true,
-      yasubio: false,
-      num_publicacion:0,
-      Referencia: "0",
+            //peticion base
+             CMSpeticion: divilib.CMSpeticion,
+             textBase64: "",
+             textMS: "",
+             subeArchivo: false,
+             editKey: 0
+         };
+     },
+     components: {
+         file64Reader,
+         VuePerfectScrollbar
+     },
+     computed: {
+         getCodCia() {
+             return this.$store.state.CodCia;
+         },
+         getProfile() {
+             return this.$store.state.dsoaLogin.profile[0];
+         }, 
+         CMSDataRespuesta() {
+             return this.$store.state.DataCMS;
+         },
 
-      DocumentoMimeType: "",
-      DescripcionDoc: "",
+         isSidebarActiveLocal: {
+             get() {
+                 return this.isSidebarActive;
+             },
+             set(val) {
+                 if (!val) {
+                     this.$emit("closeSidebar");
+                     //this.initValues();
+                 }
+             }
+         }
+     },
+     methods: {
+         //Metodo para recibir  Los datos del componente  
+         EnviaBase64(archivoBase64, datosRespuesta) {
 
-      bdCMS: divilib.BdCMS,
-      CMSpeticion: divilib.CMSpeticion,
-      ManipulacionCMS: divilib.ManipulacionCMS,
-      textBase64: "",
-      textMS: "",
-      imageType: 0,
-      subeArchivo: false,
-      editKey: 0
-    };
-  },
-  components: {
-    file64Reader,
-    VuePerfectScrollbar
-  },
-  computed: {
-    getCodCia() {
-      return this.$store.state.CodCia;
-    },
-    getProfile() {
-          return this.$store.state.dsoaLogin.profile[0];
-    },
+             this.textBase64 = "";
 
-    CMSDataRespuesta() {
-      return this.$store.state.DataCMS;
-    },
+             this.DocumentoMimeType = datosRespuesta[0].DocumentoMimeType;
+             this.DescripcionDoc = datosRespuesta[0].descripcionDoc;
+             this.datosdoc.DocumentoMimeType=this.DocumentoMimeType;
 
-    isSidebarActiveLocal: {
-      get() {
-        return this.isSidebarActive;
-      },
-      set(val) {
-        if (!val) {
-          this.$emit("closeSidebar");
-          //this.initValues();
-        }
-      }
-    }
-  },
-  methods: {
-    //Metodo para recibir  Los datos del componente
+             if (this.DescripcionDoc == "") this.DescripcionDoc = "Documento";
 
-    EnviaBase64(archivoBase64, datosRespuesta) {
-      this.textBase64 = "";
+             if (
+                 datosRespuesta[0].DocumentoMimeType.indexOf("PDF") > 0 ||
+                 datosRespuesta[0].DocumentoMimeType.indexOf("pdf") > 0
+             ) {
+                 this.imageType = 1;
+                 this.textBase64 = archivoBase64;
+             }
 
-      this.DocumentoMimeType = datosRespuesta[0].DocumentoMimeType;
-      this.DescripcionDoc = datosRespuesta[0].descripcionDoc;
-      if (this.DescripcionDoc == "") this.DescripcionDoc = "Documento";
-
-      if (
-        datosRespuesta[0].DocumentoMimeType.indexOf("PDF") > 0 ||
-        datosRespuesta[0].DocumentoMimeType.indexOf("pdf") > 0
-      ) {
-        this.imageType = 1;
-        this.textBase64 = archivoBase64;
-      }
-
-      if (
-        datosRespuesta[0].DocumentoMimeType.indexOf("mage") > 0 ||
-        datosRespuesta[0].DocumentoMimeType.indexOf("MAGE") > 0
-      ) {
-        this.imageType = 2;
-        this.textBase64 = archivoBase64;
-      }
-    },
-    uploadFile() 
-    {
-
-      let extension = "";
-      this.yasubio = true;
-     //busca la extension
-      extension = divilib.getValueExtension(divilib.CMSMimeToExtension,this.DocumentoMimeType);
-
-       //PREPARA EL PEDIDO
-      let respuestaCMS = {
-        CodCia: this.getCodCia,
-        CodigoPeticion: "14",
-        Repositorio: "",
-        GuardaArchivo: "B",
-        RutaOrigen: this.textBase64.substr(","),
-        ExtensionFinal: "",
-        RutaDestino: "",
-        EntidadCodigo: "",
-        LlaveExterna: this.LlaveExterna,
-        NumNivel: this.NumNivel,
-        NumDoc: this.NumDoc,
-        ReferenciaPadre: "",
-        Referencia: this.Referencia,
-        hashDoc: "",
-        ReferenciaPersonalizada: "",
-        IndicadorAtiendeWs: "",
-        FormatoImagen: "",
-        DirectorioCrear: "",
-        DestinoFisico: "",
-        DirectorioSeparatorOrigen: "",
-        InsertarBd: "",
-        DocumentoMimeType: this.DocumentoMimeType,
-        NombreObjeto: this.descripcionDoc,
-        Descripcion: this.descripcionDoc,
-        Extension: extension,
-        NuevoNombre: this.descripcionDoc,
-        Thumb: "",
-        Lote: "",
-        FormatoArchivoDestino: ""
-      };
+             if (
+                 datosRespuesta[0].DocumentoMimeType.indexOf("mage") > 0 ||
+                 datosRespuesta[0].DocumentoMimeType.indexOf("MAGE") > 0
+             ) {
+                 this.imageType = 2;
+                 this.textBase64 = archivoBase64;
+             }
+         },
   
-      
-      //cambia a acDsoaPrueba // acDsoa
-      
-      if (this.num_publicacion > "0")
-        this.$store.dispatch("acDsoaPHP2", this.CMSpeticion[0]); 
-      else {
-         this.mensajeBd = "No hay datos correctos para Guardar  llave extrerna no presente ";
-      }
-      
-    }
-  },
 
-  watch: {
-    CMSDataRespuesta: function() {
-      console.log("respuesta CMSDataRespuesta ",this.CMSDataRespuesta)
+     addFilas: function() 
+            {
 
-      if (this.yasubio == true) {
-           this.Referencia=this.CMSDataRespuesta.Referencia;
+             var filas = [
+            {referencia: "REPLACEREFERENCIA"},  
+            {num_publicaicon: this.datosdoc.num_publicacion},      
+            {extension: this.datosdoc.extension},
+            {clase_url: this.datosdoc.clase_url},
+            {DocumentoMimeType: this.datosdoc.DocumentoMimeType},
+            {referencia_relacionada: this.datosdoc.referencia_relacionada},
+            {embebed_code: this.datosdoc.embebed_code},
+            {descripcion: this.datosdoc.descripcion},
+            {descripcion_fr: this.datosdoc.descripcion_fr},
+            {descripcion_es: this.datosdoc.descripcion_es},
+            {patronbusqueda: btoa(this.datosdoc.patronbusqueda)},
+            {nombreobjeto: this.datosdoc.nombreobjeto},
+            {directorio: this.datosdoc.directorio},
+            {DescripcionDoc:btoa( this.datosdoc.DescripcionDoc)},
+            {titulo: btoa(this.datosdoc.titulo)},
+            {ruta_archivo: this.datosdoc.ruta_archivo},
+            {detalle: btoa(this.datosdoc.detalle)},
+            {orden: this.datosdoc.orden},
+            {url_asociado: this.datosdoc.url_asociado}
+             ];
 
-        if (this.Referencia > "0")
-          this.mensajeBd =
-            "Documento Indexado correctamente con  Referencia" +
-            this.Referencia;
-        else 
-           this.mensajeBd = "Problemas para subir Archivo No Obtubo respuesta Correcta";
-      }
-    }
-  }
-};
+            this.campoJson = JSON.stringify(filas);
+
+            console.log("json data", this.campoJson);
+
+               // console.log("VA enviar ",publicacion)
+            this.campoJson = btoa(this.campoJson);
+            console.log("json base 64 ", this.campoJson);  
+    },
+
+         uploadFile() {
+           // SUBE EL ARCHIVO A BASE DATOS
+          alert("subiendo archivos v2"); 
+             this.datosdoc.extension = "";
+             this.yasubio = true; 
+              
+             //busca la extension
+             this.datosdoc.extension = divilib.getValueExtension(divilib.CMSMimeToExtension, this.DocumentoMimeType); 
+
+             let datosDoc = JSON.stringify(this.datosdoc);
+            //  console.log("publicacaion",datosDoc);
+             let publicacion = btoa(datosDoc); 
+             // preparo las columnas
+
+             //prepara los datos 
+             let datosCrud=this.filastxt;
+
+             this.addFilas();
+             //console.log("fILAS",this.filastxt);
+     
+             //PREPARA EL PEDIDO
+             let respuestaCMS =divilib.CMSpeticion[0]; 
+             console.log("respuestaCMS base ",respuestaCMS);
+
+             respuestaCMS.datos=this.textBase64;
+
+ 
+             respuestaCMS.num_publicacion=this.datosdoc.num_publicacion;
+ 
+             respuestaCMS.insertarBd=this.campoJson;
+             if (this.datosdoc.referencia=="REPLACEREFERENCIA")
+                 respuestaCMS.referencia="REPLACEREFERENCIA";   //AUI DEBE CONSEGUIRLA ANTES O UN AUTOINCREMENT  
+             else
+                respuestaCMS.referencia=this.datosdoc.referencia; 
+ 
+             respuestaCMS.ruta="imagebank";  //ruta donde esta la imagen  o va quedar
+             respuestaCMS.documenttype=this.DocumentoMimeType;
+             respuestaCMS.lote="2";  // lote donde va quedar la imagen 
+             respuestaCMS.extension= this.datosdoc.extension;  
+
+             // llama guardar la imagen 
+ 
+             if (this.datosdoc.num_publicacion > "0")
+                  {
+                    console.log("Peticion ENVIANDO IMAGEN ",JSON.stringify(respuestaCMS));
+                    this.$store.dispatch("CMSacDsoaPHP", respuestaCMS);
+                     }
+             else {
+                 console.log("No hay datos correctos para Guardar  llave extrerna no presente ");
+                 this.mensajeBd = "No hay datos correctos para Guardar  llave extrerna no presente ";
+             }
+
+         }
+     },
+
+     watch: {
+         CMSDataRespuesta: function () {
+             console.log("respuesta CMSDataRespuesta ", this.CMSDataRespuesta)
+
+             if (this.yasubio == true) {
+                 this.Referencia = this.CMSDataRespuesta.Referencia;
+
+                 if (this.Referencia > "0")
+                     this.mensajeBd =
+                     "Documento Indexado correctamente con  Referencia" +
+                     this.Referencia;
+                 else
+                     this.mensajeBd = "Problemas para subir Archivo No Obtubo respuesta Correcta";
+             }
+         }
+     }
+ };
+  
 </script>
-
 
 <style lang="scss" scoped>
 .add-new-data-sidebar {
-  /deep/ .vs-sidebar--background {
-    z-index: 52010;
-  }
+    /deep/ .vs-sidebar--background {
+        z-index: 52010;
+    }
 
-  /deep/ .vs-sidebar {
-    z-index: 52010;
-    width: 70%;
-    max-width: 90vw;
-  }
+    /deep/ .vs-sidebar {
+        z-index: 52010;
+        width: 70%;
+        max-width: 90vw;
+    }
 }
-
-
 </style>
-
-
-
-       

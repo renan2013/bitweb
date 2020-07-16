@@ -1,9 +1,6 @@
 import router from '@/router';
 import CryptoJS from 'crypto-js'
 
-
-
-
 export function aesDencrypt(txt) {
     //crypt
     let key = '82f2ceed4c503896c8a291e560bd4325'; // change to your key
@@ -42,7 +39,6 @@ export function traerLocalStorage() {
     }
 
 }
-
 
 
 export function traerLocalStorageTOKEN() {
@@ -306,32 +302,6 @@ export function GetHeaderString(header) {
 }
 
 
-//LOGIN: AREAS DE CONTROL
-export const areasControl = [{
-    id: "",
-    IdEntidad: "",
-    NombreEntidad: "",
-    ImagenAgua: "",
-    FondoFrente: "",
-    FraseAgua: "",
-    XImagenAgua: "",
-    YImagenAgua: "",
-    ColorTexto: "",
-    TamanoLetra: "",
-    DirectorioObjetos: "",
-    ObjetPathNet: "",
-    OjectPathJava: "",
-    DestinoFisico: "",
-    TempMediaDirectorioJava: "",
-    DirectorioTransito: "",
-    DirectorioProduccion: "",
-    RutaBaseDocumentos: "",
-    TipoDirectorio: "",
-    DirectorioSeparatorOrigen: "",
-    DirectorioSeparator: "",
-    Url_Iniciador: "",
-}]
-
 //LOGIN PROFILE
 export const profile = [{
     nombre: "",
@@ -361,271 +331,42 @@ export function GetSdtLoginString(sdtLogin) {
     return xmlLog;
 }
 
-
+/*
+export const CMSpeticionCrud = "<SOA_Xml>" +
+    "<Header>" +
+    "<HeaderItem><Nombre>OBJECTID</Nombre><Valor>8105</Valor></HeaderItem>" +
+    "<HeaderItem><Nombre>MODO</Nombre><Valor>I</Valor></HeaderItem>" +
+    "<HeaderItem><Nombre>USERNAME</Nombre><Valor>ROOT</Valor></HeaderItem>" +
+    "<HeaderItem><Nombre>CREDENCIAL</Nombre><Valor>503a25c17727f1640a8bd8a5a0f45132</Valor></HeaderItem>" +
+    "<HeaderItem><Nombre>REGISTROSXPAGINA</Nombre><Valor>1</Valor></HeaderItem>" +
+    "<HeaderItem><Nombre>PAGINA</Nombre><Valor>1</Valor></HeaderItem>" +
+    "</Header>" +
+    "REPLACEPARAMETROS" +
+    "REPLACEFILASDATA" +
+    "</SOA_Xml>";
+*/
 //// MULTIMEDIA CMS  SECTION
 
-export function bdCMSToXml(bd) {
-    let bdxml =
-        '<bd>\n' +
-        ' <Encriptado>' +
-        bd.Encriptado +
-        '</Encriptado>\n' +
-        ' <hashDoc>' +
-        bd.hashDoc +
-        '</hashDoc>\n' +
-        ' <TipoGuardado>' +
-        bd.TipoGuardado +
-        '</TipoGuardado>\n' +
-        ' <EntidadCodigo>' +
-        bd.EntidadCodigo +
-        '</EntidadCodigo>\n' +
-        ' <InformacionBusqueda>' +
-        bd.InformacionBusqueda +
-        '</InformacionBusqueda>\n' +
-        ' <TipoRespuesta>' +
-        bd.TipoRespuesta +
-        '</TipoRespuesta>\n' +
-        ' <DirectorioSeparadorOrigen>' +
-        bd.DirectorioSeparadorOrigen +
-        '</DirectorioSeparadorOrigen>\n' +
-        ' <GuardarImagenDestino>' +
-        bd.GuardarImagenDestino +
-        '</GuardarImagenDestino>\n' +
-        ' <Directorio>' +
-        bd.Directorio +
-        '</Directorio>\n' +
-        ' <IndMultipleEntidad>' +
-        bd.IndMultipleEntidad +
-        '</IndMultipleEntidad>\n' +
-        ' <Size>' +
-        bd.Size +
-        '</Size>\n' +
-        '</bd>';
-    return bdxml;
-}
-
-export function dataCMSToXml(data) {
-    return (
-        '<DATA><CodCia>' + data.CodCia + '</CodCia>' +
-        ' <CodigoPeticion>' +
-        data.CodigoPeticion +
-        '</CodigoPeticion>\n' +
-        ' <Repositorio>' +
-        data.Repositorio +
-        '</Repositorio>\n' +
-        ' <GuardaArchivo>' +
-        data.GuardaArchivo +
-        '</GuardaArchivo>\n' +
-        ' <RutaOrigen>' +
-        data.RutaOrigen +
-        '</RutaOrigen>\n' +
-        ' <ExtensionFinal>' +
-        data.ExtensionFinal +
-        '</ExtensionFinal>\n' +
-        ' <RutaDestino>' +
-        data.RutaDestino +
-        '</RutaDestino>\n' +
-        ' <EntidadCodigo>' +
-        data.EntidadCodigo +
-        '</EntidadCodigo>\n' +
-        ' <LlaveExterna>' +
-        data.LlaveExterna +
-        '</LlaveExterna>\n' +
-        ' <NumNivel>' +
-        data.NumNivel +
-        '</NumNivel>\n' +
-        ' <NumDoc>' +
-        data.NumDoc +
-        '</NumDoc>\n' +
-        ' <ReferenciaPadre>' +
-        data.ReferenciaPadre +
-        '</ReferenciaPadre>\n' +
-        ' <Referencia>' +
-        data.Referencia +
-        '</Referencia>\n' +
-        ' <ReferenciaPersonalizada>' +
-        data.ReferenciaPersonalizada +
-        '</ReferenciaPersonalizada>\n' +
-        ' <IndicadorAtiendeWs>' +
-        data.IndicadorAtiendeWs +
-        '</IndicadorAtiendeWs>\n' +
-        ' <FormatoImagen>' +
-        data.FormatoImagen +
-        '</FormatoImagen>\n' +
-        ' <DirectorioCrear>' +
-        data.DirectorioCrear +
-        '</DirectorioCrear>\n' +
-        ' <DestinoFisico>' +
-        data.DestinoFisico +
-        '</DestinoFisico>\n' +
-        ' <DirectorioSeparatorOrigen>' +
-        data.DirectorioSeparatorOrigen +
-        '</DirectorioSeparatorOrigen>\n' +
-        ' <InsertarBd>' +
-        data.InsertarBd +
-        '</InsertarBd>\n' +
-        ' <DocumentoMimeType>' +
-        data.DocumentoMimeType +
-        '</DocumentoMimeType>\n' +
-        ' <NombreObjeto>' +
-        data.NombreObjeto +
-        '</NombreObjeto>\n' +
-        ' <Descripcion>' +
-        data.Descripcion +
-        '</Descripcion>\n' +
-        ' <Extension>' +
-        data.Extension +
-        '</Extension>\n' +
-        ' <NuevoNombre>' +
-        data.NuevoNombre +
-        '</NuevoNombre>\n' +
-        ' <Thumb>' +
-        data.Thumb +
-        '</Thumb>\n' +
-        ' <Lote>' +
-        data.Lote +
-        '</Lote>\n' +
-        ' <FormatoArchivoDestino>' +
-        data.FormatoArchivoDestino +
-        '</FormatoArchivoDestino>\n' +
-        ' <Credencial>' +
-        data.Credencial +
-        '</Credencial>\n' +
-        '</DATA>'
-    );
-}
-
-export function manipulaCMSToXml(manipula) {
-
-    return (
-        '<Manipulacion>\n' +
-        ' <PaginaInicio>' +
-        manipula.PaginaInicio +
-        '</PaginaInicio>\n' +
-        ' <PaginaFinal>' +
-        manipula.PaginaFinal +
-        '</PaginaFinal>\n' +
-        ' <directoriocrear>' +
-        manipula.directoriocrear +
-        '</directoriocrear>\n' +
-        ' <FormatoImagenAgua>' +
-        manipula.FormatoImagenAgua +
-        '</FormatoImagenAgua>\n' +
-        ' <TextoImagenAgua>' +
-        manipula.TextoImagenAgua +
-        '</TextoImagenAgua>\n' +
-        ' <ImagenAgua>' +
-        manipula.ImagenAgua +
-        '</ImagenAgua>\n' +
-        ' <FondoFrente>' +
-        manipula.FondoFrente +
-        '</FondoFrente>\n' +
-        ' <ColorTexto>' +
-        manipula.ColorTexto +
-        '</ColorTexto>\n' +
-        ' <TamanoLetra>' +
-        manipula.TamanoLetra +
-        '</TamanoLetra>\n' +
-        ' <CantidadMarcas>' +
-        manipula.CantidadMarcas +
-        '</CantidadMarcas>\n' +
-        ' <XimagenAgua>' +
-        manipula.XimagenAgua +
-        '</XimagenAgua>\n' +
-        ' <YimagenAgua>' +
-        manipula.YimagenAgua +
-        '</YimagenAgua>\n' +
-        ' <FondoFrente>' +
-        manipula.FondoFrente +
-        '</FondoFrente>\n' +
-        ' <Timestamp>' +
-        manipula.Timestamp +
-        '</Timestamp>\n' +
-        '</Manipulacion>'
-    );
-}
-
-export const DataCMS = [{
-    CodCia: '506',
-    CodigoPeticion: '',
-    Repositorio: '',
-    GuardaArchivo: '',
-    RutaOrigen: '',
-    ExtensionFinal: '',
-    RutaDestino: '',
-    EntidadCodigo: '',
-    LlaveExterna: '',
-    NumNivel: '',
-    NumDoc: '',
-    ReferenciaPadre: '',
-    Referencia: '0',
-    hashDoc: '',
-    ReferenciaPersonalizada: '',
-    IndicadorAtiendeWs: '',
-    FormatoImagen: '',
-    DirectorioCrear: '',
-    DestinoFisico: '',
-    DirectorioSeparatorOrigen: '',
-    InsertarBd: '',
-    DocumentoMimeType: '',
-    NombreObjeto: '',
-    Descripcion: '',
-    Extension: '',
-    NuevoNombre: '',
-    Thumb: '',
-    Lote: '',
-    FormatoArchivoDestino: '',
-    Credencial: ""
-}];
-
-/// INDICACIONES DE BASE DATOS
-export const BdCMS = [{
-    Encriptado: '',
-    TipoGuardado: '',
-    EntidadCodigo: '',
-    InformacionBusqueda: '',
-    TipoRespuesta: '',
-    DirectorioSeparadorOrigen: '',
-    GuardarImagenDestino: '',
-    Directorio: '',
-    IndMultipleEntidad: '',
-    Size: ''
-}];
-
-// PARA MANIPULAR LA IMAGEN
-export const ManipulacionCMS = [{
-    PaginaInicio: '',
-    PaginaFinal: '',
-    directoriocrear: '',
-    FormatoImagenAgua: '',
-    TextoImagenAgua: '',
-    ImagenAgua: '',
-    FondoFrente: '',
-    ColorTexto: '',
-    TamanoLetra: '',
-    CantidadMarcas: '',
-    XimagenAgua: '',
-    YimagenAgua: '',
-    FondoFrente: '',
-    Timestamp: ''
-}];
 export const CMSpeticion = [{
     Credencial: '0',
-    datos: '',
-    manipula: '',
-    bd: '',
-
-    dml: '',
-    formato: '',
-    formatoRequest: '',
-    tecnologia: "J",
-    datosJson: '',
-    ObjectId: "451"
+    CodCia: "1",
+    num_publicacion: 0,
+    datos: "",
+    insertarBd: "",
+    dml: "FILE",
+    formato: "N",
+    formatoRequest: "N",
+    referencia: "REPLACEREFERENCIA", //AUI DEBE CONSEGUIRLA ANTES O UN AUTOINCREMENT  
+    ruta: "imagebank",
+    documenttype: "",
+    lote: "0",
+    extension: "",
+    ObjectId: "8105"
 }];
 
 /// RESPUESTA CUANDO SE INGRESA  UN DOCUMENTO 
 export const CMSRespuestaIN = [{
-    CodCia: '506',
+    CodCia: '1',
     Repositorio: '',
     RutaOrigen: '',
     ExtensionFinal: '',
@@ -651,8 +392,6 @@ export const CMSRespuestaIN = [{
     deserror: '',
     codigoerror: ''
 }];
-
-
 
 export const CMSMimeToExtension = [{
         "mimetype": "application/java-archive",

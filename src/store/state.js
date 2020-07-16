@@ -98,6 +98,7 @@ const state = {
 
     selectQuery: [], // tipo de indicador 9
 
+
     estadoProcesando: 0,
 
     urlDsoa: "http://201.194.194.84:8998/DsoaService2/dsoa/request",
@@ -105,7 +106,13 @@ const state = {
     //urlDsoaCMS: "http://localhost:8089/DsoaService2/dsoa/CMSrequest",
     urlDsoaCMS: "http://201.194.194.84:8998/DsoaService2/dsoa/CMSrequest",
 
-    urlDsoaPHP: "dsoaPHP/dsoaPHP/dsoa/",
+    urlDsoaPHP: process.env.VUE_APP_URLPHP,
+    urlDsoaPHP2: process.env.VUE_APP_URLPHP2,
+    urlDsoaPHP3: process.env.VUE_APP_URLPHP,
+
+
+    urlDsoa: process.env.VUE_APP_DSOA,
+    urlDsoaCMS: process.env.VUE_APP_CMS,
 
     indicadorDML: "XX",
     laststrheader: "", // ultimo encabezado

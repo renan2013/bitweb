@@ -117,7 +117,7 @@ export default {
     }];*/
              if (token[0].tokenCHAT=="0"   )
               {  
-                alert("llama a loguearse a CHAT x App"); 
+                //alert("llama a loguearse a CHAT x App"); 
 
                 let peticion= {
                     password: profile.Username,

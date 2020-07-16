@@ -394,55 +394,36 @@ export default {
             } else
                 alert(" Crud No presente")
         }, // fin de  metodo
+
 uploadPrincipal() {
      
             this.UploadPrincipal = true;
+ //alert ("varios ");
+            this.activaUpload = true;
 
-            this.CMSDATA = [{
-                EntidadCodigo: "26",
-                LlaveExterna: "9000",
-                NumNivel: 1265,
-                numDoc: 0,
-                Encriptado: "",
-                IndMultipleEntidad: "1",
-                Directorio: "1",
-                llavegenerica: ""
-            }];
-
+            
             let respuestaCMS = [{
-                EntidadCodigo: "26",
-                Referencia: 0,
-                LlaveExterna: "9000",
-                NumNivel: 1265,
-                NumDoc: 0
+                num_publicacion: this.publicacion.id,
+                Referencia: 0 
             }];
+
         
             eventBus.$emit("cargaDocUploadEmbe", respuestaCMS);
         },
-        uploadAvatar() {
+         uploadAvatar() {
+             //alert ("varios ");
             this.activaUpload = true;
 
-            this.CMSDATA = [{
-                EntidadCodigo: "26",
-                LlaveExterna: "9000",
-                NumNivel: 1265,
-                numDoc: 0,
-                Encriptado: "",
-                IndMultipleEntidad: "1",
-                Directorio: "1",
-                llavegenerica: ""
-            }];
-
+            
+            
             let respuestaCMS = [{
-                EntidadCodigo: "26",
-                Referencia: 0,
-                LlaveExterna: "9000",
-                NumNivel: 1265,
-                NumDoc: 0
+                num_publicacion: this.publicacion.id,
+                Referencia: 0 
             }];
 
-            eventBus.$emit("cargaDocUploadEmbe", respuestaCMS);
+            eventBus.$emit("cargaDocUpload", respuestaCMS);
         },
+ 
 
     }
     /*  COMO ENVIAR DOCUMENTOS A WEB

@@ -273,18 +273,24 @@ const actions = {
         }
     },
 
-
-    // fetch data from a url web service
-    //  let datos = "W3sNCiAgICAgICAgICAgICJpZCI6IDEsDQogICAgICAgICAgICAidGl0dWxvIjogIkRpdmlzb2Z0IGxhbnphIHN1IG51ZXZhIHBsYXRhZm9ybWEgY29uIHRlY25vbG9naWEgVlVFIHkgTm9kZUpTICIsDQogICAgICAgICAgICAiY2F0ZWdvcmlhIjogIjEiLA0KICAgICAgICAgICAgImZlY2hhIjogIjYvMjQvMjAyMCIsDQogICAgICAgICAgICAiYXV0b3IiOiAiaGlsZGVnYXJkLm9yZyINCiAgICAgICAgfSx7DQogICAgICAgICAgICAiaWQiOiAyLA0KICAgICAgICAgICAgInRpdHVsbyI6ICJU6WNuaWNvIGVuIERpc2XxbyBHcmFmaWNvIERpZ2l0YWwiLA0KICAgICAgICAgICAgImNhdGVnb3JpYSI6ICIyIiwNCiAgICAgICAgICAgICJmZWNoYSI6ICI2LzI0LzIwMjAiLA0KICAgICAgICAgICAgImF1dG9yIjogImhpbGRlZ2FyZC5vcmciDQogICAgICAgIH0sew0KICAgICAgICAgICAgImlkIjogMywNCiAgICAgICAgICAgICJ0aXR1bG8iOiAiU2l2aXNvZnQgbGFuemEgc3UgYXBwIEdvTm93IiwNCiAgICAgICAgICAgICJjYXRlZ29yaWEiOiAiMyIsDQogICAgICAgICAgICAiZmVjaGEiOiAiNi8yNC8yMDIwIiwNCiAgICAgICAgICAgICJhdXRvciI6ICJLYXRlcmluZSINCiAgICAgICAgfSx7DQogICAgICAgICAgICAiaWQiOiA0LA0KICAgICAgICAgICAgInRpdHVsbyI6ICJNaWdyYWNp824gZGUgc2lzdGVtYXMgYSBPcmFjbGUiLA0KICAgICAgICAgICAgImNhdGVnb3JpYSI6ICIxIiwNCiAgICAgICAgICAgICJmZWNoYSI6ICI2LzI0LzIwMjAiLA0KICAgICAgICAgICAgImF1dG9yIjogImhpbGRlZ2FyZC5vcmciDQogICAgICAgIH0sew0KICAgICAgICAgICAgImlkIjogNSwNCiAgICAgICAgICAgICJ0aXR1bG8iOiAiTWlncmFjafNuIGRlIHNpc3RlbWFzIGEgT3JhY2xlIiwNCiAgICAgICAgICAgICJjYXRlZ29yaWEiOiAiMSIsDQogICAgICAgICAgICAiZmVjaGEiOiAiNi8yNC8yMDIwIiwNCiAgICAgICAgICAgICJhdXRvciI6ICJoaWxkZWdhcmQub3JnIg0KICAgICAgICB9XQ=="
-    //commit('MUTSETRESPUESTAGRIDPUBLICA', datos);
-
+    async acDsoaPHP3({
+        commit,
+        state
+    }, pet) {
+        // fetch data from a url web service
+        let datos = "W3sNCiAgICAgICAgICAgICJpZCI6IDEsDQogICAgICAgICAgICAidGl0dWxvIjogIkRpdmlzb2Z0IGxhbnphIHN1IG51ZXZhIHBsYXRhZm9ybWEgY29uIHRlY25vbG9naWEgVlVFIHkgTm9kZUpTICIsDQogICAgICAgICAgICAiY2F0ZWdvcmlhIjogIjEiLA0KICAgICAgICAgICAgImZlY2hhIjogIjYvMjQvMjAyMCIsDQogICAgICAgICAgICAiYXV0b3IiOiAiaGlsZGVnYXJkLm9yZyINCiAgICAgICAgfSx7DQogICAgICAgICAgICAiaWQiOiAyLA0KICAgICAgICAgICAgInRpdHVsbyI6ICJU6WNuaWNvIGVuIERpc2XxbyBHcmFmaWNvIERpZ2l0YWwiLA0KICAgICAgICAgICAgImNhdGVnb3JpYSI6ICIyIiwNCiAgICAgICAgICAgICJmZWNoYSI6ICI2LzI0LzIwMjAiLA0KICAgICAgICAgICAgImF1dG9yIjogImhpbGRlZ2FyZC5vcmciDQogICAgICAgIH0sew0KICAgICAgICAgICAgImlkIjogMywNCiAgICAgICAgICAgICJ0aXR1bG8iOiAiU2l2aXNvZnQgbGFuemEgc3UgYXBwIEdvTm93IiwNCiAgICAgICAgICAgICJjYXRlZ29yaWEiOiAiMyIsDQogICAgICAgICAgICAiZmVjaGEiOiAiNi8yNC8yMDIwIiwNCiAgICAgICAgICAgICJhdXRvciI6ICJLYXRlcmluZSINCiAgICAgICAgfSx7DQogICAgICAgICAgICAiaWQiOiA0LA0KICAgICAgICAgICAgInRpdHVsbyI6ICJNaWdyYWNp824gZGUgc2lzdGVtYXMgYSBPcmFjbGUiLA0KICAgICAgICAgICAgImNhdGVnb3JpYSI6ICIxIiwNCiAgICAgICAgICAgICJmZWNoYSI6ICI2LzI0LzIwMjAiLA0KICAgICAgICAgICAgImF1dG9yIjogImhpbGRlZ2FyZC5vcmciDQogICAgICAgIH0sew0KICAgICAgICAgICAgImlkIjogNSwNCiAgICAgICAgICAgICJ0aXR1bG8iOiAiTWlncmFjafNuIGRlIHNpc3RlbWFzIGEgT3JhY2xlIiwNCiAgICAgICAgICAgICJjYXRlZ29yaWEiOiAiMSIsDQogICAgICAgICAgICAiZmVjaGEiOiAiNi8yNC8yMDIwIiwNCiAgICAgICAgICAgICJhdXRvciI6ICJoaWxkZWdhcmQub3JnIg0KICAgICAgICB9XQ=="
+        datos = "W3siaWQiOjEsInRpdHVsbyI6InBydWViYTExMTExMTExIiwiY2F0ZWdvcmlhIjoyLCJmZWNoYSI6IjI0LzA2LzIwMjAiLCJhdXRvciI6ImF1dG9yIiwiZGV0YWxsZSI6InBydWViYTI1IiwiY29udGVuaWRvIjoiPHA+cHJ1ZWJhMjU8L3A+IiwiUkVGRVJFTkNJQV9JTUFHRU4iOjAsIlJFRkVSRU5DSUFfUERGIjowLCJSRUZFUkVOQ0lBX1ZJREVPIjowLCJSRUZFUkVOQ0lBX0RPQ1VNRU5UTyI6MH0seyJpZCI6MiwidGl0dWxvIjoicHJ1ZWJhMjUgMjIyMjIyMjIyIiwiY2F0ZWdvcmlhIjo0LCJmZWNoYSI6IjI0LzA2LzIwMjAiLCJhdXRvciI6ImF1dG9yIiwiZGV0YWxsZSI6InBydWViYTI1IiwiY29udGVuaWRvIjoiPHA+cHJ1ZWJhMjU8L3A+IiwiUkVGRVJFTkNJQV9JTUFHRU4iOjAsIlJFRkVSRU5DSUFfUERGIjowLCJSRUZFUkVOQ0lBX1ZJREVPIjowLCJSRUZFUkVOQ0lBX0RPQ1VNRU5UTyI6MH0seyJpZCI6MywidGl0dWxvIjoiQSAxMCBh8W9zIGRlIGxhIGhhemHxYSwgSW5pZXN0YSB5IFJhbW9zIHJlY3VlcmRhbiBlbCB07XR1bG8gZW4gU3Vk4WZyaWNhIDIwMTAiLCJjYXRlZ29yaWEiOjUsImZlY2hhIjoiMjQvMDYvMjAyMCIsImF1dG9yIjoiYXV0b3IiLCJkZXRhbGxlIjoiRWwgMTEgZGUganVsaW8gZGUgMjAxMCByZXByZXNlbnRhIGxhIGZlY2hhIG3hcyBpbXBvcnRhbnRlIHBhcmEgbGEgaGlzdG9yaWEgZGVsIGb6dGJvbCBlc3Bh8W9sLiBFbiBlc2UgZO1hLCBsYSBcIlJvamFcIiBjb25xdWlzdPMgc3UgcHJpbWVyYSBDb3BhIGRlbCBNdW5kbyBkZSBsYSBGSUZBIGFsIHZlbmNlciBlbiBsYSBncmFuIGZpbmFsIGVuIEhvbGFuZGEgZW4gSm9oYW5uZXNidXJnbywgU3Vk4WZyaWNhLiBFbCBnb2wgZGUgSW5pZXN0YSBlbiBsYSBwcvNycm9nYSBkZWZpbmnzIGVzZSBwYXJ0aWRvLCB5IOlsIHkgU2VyZ2lvIFJhbW9zIHJlY29yZGFy4W4gZXNvcyBtb21lbnRvcyBpbm9sdmlkYWJsZXMgZW4gdW4gdmlkZW8gcmVhbGl6YWRvIHBvciBsYSBSZWFsIEZlZGVyYWNp824gRXNwYfFvbGEgZGUgRvp0Ym9sLlxuXG7aTFRJTUFTIE5PVElDSUFTIiwiY29udGVuaWRvIjoiPHA+Jm5ic3A7PC9wPjxmaWd1cmUgY2xhc3M9XCJpbWFnZVwiPjxpbWcgc3JjPVwiaHR0cHM6Ly9jbm5lc3Bhbm9sLmNubi5jb20vd3AtY29udGVudC91cGxvYWRzLzIwMjAvMDcvMjAwNzExMTYyNzA0LXNlcmdpby1yYW1vcy1hbmRyZXMtaW5pZXN0YS1kZXBvcnRlcy1jbm4tZnVsbC0xNjkuanBnP3F1YWxpdHk9MTAwJmFtcDtzdHJpcD1pbmZvJmFtcDt3PTc4MCZhbXA7aD00MzgmYW1wO2Nyb3A9MVwiIGFsdD1cIkEgMTAgYfFvcyBkZSBsYSBoYXph8WEsIEluaWVzdGEgeSBSYW1vcyByZWN1ZXJkYW4gZWwgdO10dWxvIGVuIFN1ZOFmcmljYSAyMDEwXCIgc3Jjc2V0PVwiaHR0cHM6Ly9jbm5lc3Bhbm9sLmNubi5jb20vd3AtY29udGVudC91cGxvYWRzLzIwMjAvMDcvMjAwNzExMTYyNzA0LXNlcmdpby1yYW1vcy1hbmRyZXMtaW5pZXN0YS1kZXBvcnRlcy1jbm4tZnVsbC0xNjkuanBnP3F1YWxpdHk9MTAwJmFtcDtzdHJpcD1pbmZvJmFtcDt3PTc4MCZhbXA7aD00MzgmYW1wO2Nyb3A9MSA3ODB3XCIgc2l6ZXM9XCIxMDB2d1wiPjwvZmlndXJlPjxwPjxhIGhyZWY9XCJodHRwczovL2NubmVzcGFub2wuY25uLmNvbS9zZWNjaW9uL2RlcG9ydGVzL1wiPjxzdHJvbmc+REVQT1JURVM8L3N0cm9uZz48L2E+PC9wPjxoMj48YSBocmVmPVwiaHR0cHM6Ly9jbm5lc3Bhbm9sLmNubi5jb20vdmlkZW8vZXNwYW5hLWZ1dGJvbC1zZXJnaW8tcmFtb3MtYW5kcmVzLWluaWVzdGEtc3VkYWZyaWNhLTIwMTAtY29wYS1kZWwtbXVuZG8tZmlmYS1yZWFsLW1hZHJpZC1iYXJjZWxvbmEtc290L1wiPjxzdHJvbmc+QSAxMCBh8W9zIGRlIGxhIGhhemHxYSwgSW5pZXN0YSB5IFJhbW9zIHJlY3VlcmRhbiBlbCB07XR1bG8gZW4gU3Vk4WZyaWNhIDIwMTA8L3N0cm9uZz48L2E+PC9oMj48cD5FbCAxMSBkZSBqdWxpbyBkZSAyMDEwIHJlcHJlc2VudGEgbGEgZmVjaGEgbeFzIGltcG9ydGFudGUgcGFyYSBsYSBoaXN0b3JpYSBkZWwgZvp0Ym9sIGVzcGHxb2wuIEVuIGVzZSBk7WEsIGxhIFwiUm9qYVwiIGNvbnF1aXN08yBzdSBwcmltZXJhIENvcGEgZGVsIE11bmRvIGRlIGxhIEZJRkEgYWwgdmVuY2VyIGVuIGxhIGdyYW4gZmluYWwgZW4gSG9sYW5kYSBlbiBKb2hhbm5lc2J1cmdvLCBTdWThZnJpY2EuIEVsIGdvbCBkZSBJbmllc3RhIGVuIGxhIHBy83Jyb2dhIGRlZmluafMgZXNlIHBhcnRpZG8sIHkg6WwgeSBTZXJnaW8gUmFtb3MgcmVjb3JkYXLhbiBlc29zIG1vbWVudG9zIGlub2x2aWRhYmxlcyBlbiB1biB2aWRlbyByZWFsaXphZG8gcG9yIGxhIFJlYWwgRmVkZXJhY2nzbiBFc3Bh8W9sYSBkZSBG+nRib2w8L3A+IiwiUkVGRVJFTkNJQV9JTUFHRU4iOjAsIlJFRkVSRU5DSUFfUERGIjowLCJSRUZFUkVOQ0lBX1ZJREVPIjowLCJSRUZFUkVOQ0lBX0RPQ1VNRU5UTyI6MH1d";
+        commit('MUTSETRESPUESTAGRIDPUBLICA', datos);
+    },
 
     async acDsoaPHP2({
         commit,
         state
     }, pet) {
+
+
         const datos = state.peticion;
-        const url = state.urlDsoaPHP
+        const url = state.urlDsoaPHP;
 
         //limpia mensaje error
         var jsonError = {
@@ -322,8 +328,8 @@ const actions = {
             };
 
 
-            console.log('LLAMANDO DSOAPHP DML ' + pet.dml);
-            console.log('LLAMANDO DSOAPHP222 ' + JSON.stringify(dsoaModel));
+
+            // console.log('acDsoaPHP2 ruta ' + url, JSON.stringify(dsoaModel));
             commit('MUTPROCESANDOTRUE');
 
             try {
@@ -428,10 +434,13 @@ const actions = {
     },
 
     ///  MULTIMEDIA MULTIMEDIA  MULTIMEDIA MULTIMEDIA  MULTIMEDIA MULTIMEDIA  MULTIMEDIA MULTIMEDIA  MULTIMEDIA MULTIMEDIA
-    async CMSacDsoa({
+
+    async CMSacDsoaPHP({
         commit,
         state
     }, pet) {
+
+        //console.log("llego a CMSacDsoaPHP ", JSON.stringify(pet));
         if (pet.Credencial == null) {
             if (pet.Credencial == null) var jsonError = {
                 codigoError: '90',
@@ -441,13 +450,11 @@ const actions = {
             alert(' fallo axios');
             commit('MUTREGISTRAERROR', jsonError);
         } else {
-            commit('MUTSETDATOSDEFAULTCMS', divilib.DataCMS[0]);
 
-            const url = state.urlDsoaCMS;
+            const url = state.urlDsoaPHP;
             commit('MUTPROCESANDOTRUE');
             try {
                 // fetch data from a url web service
-
                 let CMSres = await axios({
                         method: 'POST',
                         url,
@@ -464,7 +471,7 @@ const actions = {
                     .then((response) => {
                         commit('MUTPROCESANDOFALSE');
 
-                        console.log('LARGO DE RESPUESTA  CMSacDsoa  ', JSON.stringify(response.data).length);
+                        console.log('LARGO DE RESPUESTA  CMSacDsoaPHP ', JSON.stringify(response.data));
                         // console.log("LARGO DE RESPUESTA  CMSacDsoa  ", JSON.stringify(response.data));
 
                         let data = response.data.datos;
