@@ -84,22 +84,38 @@
                 },
 
                  {
-                     path: '/crearPublicacion',
-                     name: 'crearPublicacion',
+                     path: '/recursos',
+                     name: 'recursos',
                      component: () =>
-                         import ('@/views/pages/paginasBitWeb/P2.vue'),
+                         import ('@/views/pages/bitweb/v_recursos.vue'),
                      meta: {
                          breadcrumb: [
                              { title: 'Home', url: '/' },
-                             { title: 'Lista de Publicaciones', url: { name: 'publicaciones' } },
-                             { title: 'Crear Publicación', active: true },
+                            //  { title: 'Lista de Publicaciones', url: { name: 'publicaciones' } },
+                             { title: 'Aqui puede contar con muchas herramientas que aumentaran su productividad', active: true },
                          ],
-                         pageTitle: 'Crear Publicación',
+                         pageTitle: 'Recursos',
                          rule: 'editor'
                      }
                  },
 
+                 {
+                    path: '/soporte',
+                    name: 'soporte',
+                    component: () =>
+                        import ('@/views/pages/bitweb/v_soporte.vue'),
+                    meta: {
+                        breadcrumb: [
+                            { title: 'Home', url: '/' },
+                           //  { title: 'Lista de Publicaciones', url: { name: 'publicaciones' } },
+                            { title: 'Dale un clik al celular y comunícate directamente con nosotros', active: true },
+                        ],
+                        pageTitle: 'Recursos',
+                        rule: 'editor'
+                    }
+                },
 
+                        // Fin de menu bitweb
                  {
                      path: '/apps/user/user-list',
                      name: 'app-user-list',
