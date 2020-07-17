@@ -35,15 +35,7 @@
 
 
     <div class="vx-row">
-            <div class="vx-col md:w-1/4 w-full mt-2" v-show="indicadorDML=='U' ||indicadorDML=='I' || true " >
-                <span class="titulo_carga">Imagen Asociada</span>
-  
-                <UploadEmbebed v-show="UploadPrincipal" :isSidebarActive="UploadPrincipal" :tituloUpload="tituloAvatar" @closeSidebar="UploadPrincipal = false" />
-                <div class="p-3 mb-4 mr-4 rounded-lg cursor-pointer flex items-center justify-between text-lg font-medium text-base text-primary border border-solid border-primary" @click="uploadPrincipal">
-                    <feather-icon icon="PlusIcon" svgClasses="h-4 w-4" />
-                </div>
-            </div>
-
+       
 
             <div class="vx-col md:w-1/4 w-full mt-2" v-show="indicadorDML=='U' ||indicadorDML=='I' || true " >
                 <span class="titulo_carga">Doc. Adjuntos - Opcional</span>
@@ -51,7 +43,7 @@
 
                 <div class="p-3 mb-4 mr-4 rounded-lg cursor-pointer flex items-center justify-between text-lg font-medium text-base text-primary border border-solid border-primary" @click="uploadAvatar">
                     <feather-icon icon="PlusIcon" svgClasses="h-4 w-4" />
-                    <span class="ml-2 text-base text-primary">{{ IMG_AVATAR  }}</span>
+                    
                 </div>
             </div>
     </div>
@@ -93,7 +85,7 @@ export default {
   
         eventBus.$on("cargaRegistroN", dinamicKey  => {
             //busca el registro para editarlo 
-           
+           this.indicadorDML ="I"; 
             this.$emit("incrementaEkey");
             this.$parent.activaEdit = true; 
              this.indicadorDML ="I";  
@@ -165,12 +157,12 @@ export default {
             UploadPrincipal: false,
             publicacion: {
                 id: 5,
-                titulo: "0",
+                titulo: "",
                 categoria: "1",
                 fecha: "",
-                autor: "0",
+                autor: "",
                 detalle: "",
-                contenido: "0",
+                contenido: "",
                 REFERENCIA_IMAGEN: 0,
                 REFERENCIA_PDF: 0,
                 REFERENCIA_VIDEO: 0,
@@ -391,6 +383,7 @@ export default {
                 //cambia a acDsoaPrueba // acDsoa
                 this.$store.dispatch("acDsoaPHP2", pedido);
                 this.$parent.activaEdit = false;
+                this.indicadorDML ="U"; 
             } else
                 alert(" Crud No presente")
         }, // fin de  metodo

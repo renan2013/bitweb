@@ -21,32 +21,35 @@
       v-model="isSidebarActiveLocal"
     >
       <div class="mt-6 flex items-center justify-between px-6">
-        <h4>{{tituloUpload}}</h4>
+        <span>{{tituloUpload}}</span>
+        <p>Mensaje Obtenido de Base datos:</p>
+        <span class="">{{mensajeBd}}</span>
         <feather-icon
           icon="XIcon"
           @click.stop="isSidebarActiveLocal = false"
           class="cursor-pointer"
         ></feather-icon>
       </div>
-      <br>
-      <vx-card title="Mensaje Obtenido de Base datos:"  ><span class="text-success">{{mensajeBd}}</span></vx-card>
+     
+      
+      
 
       <!-- <vs-divider class="mb-0"></vs-divider> -->
       <VuePerfectScrollbar class="scroll-area--data-list-add-new pt-4 pb-6">
         
         <div class="p-6">
           <!-- Aqui empieza el formulario de los adjuntos de bitweb -->
-          <h5>Complete los campos por favor</h5>
-          publicacion
-          {{datosdoc.num_publicacion}}
+          <h5>Campos para adjuntos (opcionales)</h5>
+          
+        
           <div class="vx-row">
              <div class="vx-col sm:w-2/3 w-full mb-2">
                   <vs-input class="w-full" label-placeholder="Titulo"   v-model="datosdoc.titulo"/>
               </div>
             
-              <div class="vx-col sm:w-2/3 w-full mb-2">
+              <!-- <div class="vx-col sm:w-2/3 w-full mb-2">
                   <vs-input class="w-full" label-placeholder="Nombre"   v-model="datosdoc.nombreobjeto"/>
-              </div>
+              </div> -->
               <div class="vx-col sm:w-1/3 w-full mb-2">
                   <vs-input class="w-full" label-placeholder="Orden"   v-model="datosdoc.orden"/>
               </div>
@@ -144,7 +147,7 @@
 
      data() {
          return {
-             mensajeBd: "......",
+             mensajeBd: "",
              activaalerta: true,
              yasubio: false,
              imageType:1,

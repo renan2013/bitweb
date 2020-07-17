@@ -17,13 +17,8 @@
                          name: 'Publicaciones',
                          slug: 'publicaciones',
 
-                     },
-                     {
-                         url: '/crearcategoria',
-                         name: 'Crear Categoría',
-                         slug: 'crearCategoria',
-
                      }
+                    
 
                  ]
              },
