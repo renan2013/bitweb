@@ -12,7 +12,7 @@
            
 
              <template slot="header"> 
-                   <!-- <vs-button size="default" color="success" icon="edit" @click="RegistroNuevo()">Crear Publicación</vs-button> -->
+                   <vs-button size="default" color="success" icon="edit" @click="RegistroNuevo()">Crear Publicación</vs-button> 
               
                 <br/>
             </template>
@@ -87,14 +87,15 @@
 // importa librerias que necesita
  import { mapState } from "vuex"; //, mapMutations, mapActions 
 import { eventBus } from "@/event-bus"; // para que se hablen los componentes
-
- 
 import * as divilib from "@/divisoftlibs/utilDivisoftJS.js";
 
 export default {
+
+
   
     mounted() {
-        this.buscarDatos();
+       
+              this.buscarDatos();
     },
 
     data() {
@@ -127,12 +128,12 @@ export default {
 
             publicacion:{
                   id:0,
-                  titulo:"VA DEL PADRE",
+                  titulo:"",
                   categoria:"1",
-                  fecha:"24/06/2020",
-                  autor:"autor",
-                  detalle:"VA DEL PADRE",
-                  contenido:"VA DEL PADRE"
+                  fecha:"",
+                  autor:"",
+                  detalle:"",
+                  contenido:""
                   },
             /////////////////////////
         };

@@ -84,17 +84,17 @@ export default {
     {
   
         eventBus.$on("cargaRegistroN", dinamicKey  => {
+
             //busca el registro para editarlo 
-           this.indicadorDML ="I"; 
-            this.$emit("incrementaEkey");
-            this.$parent.activaEdit = true; 
-             this.indicadorDML ="I";  
-                let filtros = [{
+          
+            this.indicadorDML ="I";  
+            let filtros = [{
                   nombre: "num_empresa",
                   valor: "1"
               }];
-              this.buscarGenerico(107, filtros, "max(num_pulicacion)", "");
-               this.test(); 
+              this.buscarGenerico("8107C", filtros, "max(num_publicacion) as valor", "");
+ 
+              this.test(); 
 
             this.publicacion.id = dinamicKey.id;
             this.publicacion.titulo = dinamicKey.titulo;
@@ -127,6 +127,23 @@ export default {
         }); 
 
     },
+    mounted() {
+        if  (this.publicacion.id==0)
+        {
+         this.indicadorDML ="I";  
+            let filtros = [{
+                  nombre: "num_empresa",
+                  valor: "1"
+              }];
+              this.buscarGenerico("8107C", filtros, "max(num_publicacion) as valor", "");
+ 
+              this.test(); 
+
+            
+        }
+
+    },
+
     components: {
         //subir una imagen
         UploadDefault,
@@ -156,7 +173,7 @@ export default {
             activaUpload: false,
             UploadPrincipal: false,
             publicacion: {
-                id: 5,
+                id: 0,
                 titulo: "",
                 categoria: "1",
                 fecha: "",

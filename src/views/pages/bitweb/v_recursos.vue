@@ -21,7 +21,7 @@
                 <div slot="footer">
                   <vs-row vs-justify="flex-end">
                     
-                   <a :href="item.link"> <vs-button color="primary" icon="turned_in_not">Ir al sitio</vs-button></a>
+                   <a :href="item.link" target="_blank"> <vs-button color="primary" icon="turned_in_not">Ir al sitio</vs-button></a>
               
                   </vs-row>
                 </div>

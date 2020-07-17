@@ -59,7 +59,7 @@
                      meta: {
                         breadcrumb: [
                             { title: 'Home', url: '/' },
-                            { title: 'Crear Publicación', url: {path: 'edicion/I' } },
+                            // { title: 'Crear Publicación', url: {path: 'edicion/I' } },
                             { title: 'Edita tus contenidos e inclusive enrriquecelos más', active: true },
                         ],
                          pageTitle: 'Publicaciones',
@@ -68,7 +68,7 @@
                  },
 
                  {
-                    path: '/edicion/:DML',
+                    path: '/edicion',
                     name: 'edicion',
                     component: () =>
                         import ('@/views/pages/bitweb/EditPublica.vue'),
