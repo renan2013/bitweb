@@ -57,8 +57,14 @@
             <vs-button color="warning" type="border" class="mb-2" @click="test()">Reset</vs-button>
         </div>
     </div>
+     <div class="vx-row"  >
+        <div class="vx-col w-full">
+            Procesando Publicacion numero:{{publicacion.id }}
+        </div>
+    </div>
 
 </div>
+
 </template>
 
 <script>
@@ -79,10 +85,12 @@ import * as divilib from "@/divisoftlibs/utilDivisoftJS.js";
 import * as datosjs from "./js/bitWeb.js";
 
 export default {
+   
 
      created()  
     {
-  
+        
+        this.$store.commit("MUTSETRESPUESTAGENERICONUL"); //indUrl
         eventBus.$on("cargaRegistroN", dinamicKey  => {
 
             //busca el registro para editarlo 
@@ -150,6 +158,30 @@ export default {
         downloadDefault,
         UploadEmbebed
     },
+      watch: {
+         getPublicacion: function () {
+              
+             let publicacion=0
+             try {
+                       publicacion=this.getPublicacion.valor;
+                    } 
+                    catch (error) {
+                      publicacion=JSON.parse(this.getPublicacion).valor;
+                      
+                    } 
+
+                    this.publicacion.id=publicacion;
+
+                     if  (this.publicacion.id==0)
+                       {
+                          this.publicacion.id=1;
+                       }
+                      else 
+                         this.publicacion.id++; 
+
+      
+       }
+    },     
  
      beforeDestroy: function() {
       //Crea un bus  OYENTE
@@ -228,6 +260,7 @@ export default {
             return this.$store.state.dsoaLogin.profile[0];
         },
         getPublicacion() {
+            
             return this.$store.state.selectQuery;
         }
 
@@ -271,6 +304,7 @@ export default {
             this.filastxt = divilib.filaArraytoStrintg(filas, "S");
         },
 
+
         buscarGenerico: function (objectID, dinamicKey, nombreFila, FormatoFila) {
             // METODO GENERICO  PARA PROMPTS Y OTROS 
             var pedido = {
@@ -287,6 +321,8 @@ export default {
             }
             this.$store.dispatch("acQueryGenerico", pedido)
         },
+
+        ///
         test: function () {
             let filtros = [{
                 nombre: "num_empresa",
@@ -318,21 +354,15 @@ export default {
                             return;
                             } 
                 } else {  
-                    try {
-                       this.publicacion.id=this.getPublicacion.valor;
-                    } 
-                    catch (error) {
-                       this.publicacion.id=JSON.parse(this.getPublicacion).valor;
-                      
-                    } 
-                    if  (this.publicacion.id==0 || this.publicacion.id=="" || this.publicacion.id==null)
+                     
+                    if  (this.publicacion.id==0)
                        {
                           this.publicacion.id=1;
-                       }
-                      else 
-                         this.publicacion.id++; 
-
+                       } 
+                if ( this.publicacion.id==0 ||  this.publicacion.id==null || this.publicacion.id=="")    
+                        throw "error En Crecion de Publicacion."
                 }
+                alert("Tratando publicacion"+this.publicacion.id)
                //alert("Tratando publicacion"+this.publicacion.id)
 
                 var header = {
@@ -349,7 +379,7 @@ export default {
                 let publicacion = JSON.stringify(this.publicacion);
                // console.log("VA enviar ",publicacion)
             
-                  publicacion = btoa(publicacion);
+                  publicacion =btoa(unescape(encodeURIComponent(publicacion)));
 
                 this.addFilas(publicacion);
                 let parametros = [];

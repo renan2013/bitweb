@@ -314,6 +314,8 @@ const actions = {
 
             commit('MUTREGISTRAERROR', jsonError);
         } else {
+
+
             var dsoaModel = {
                 datos: datos,
                 manipula: '',
@@ -329,7 +331,7 @@ const actions = {
 
 
 
-            // console.log('acDsoaPHP2 ruta ' + url, JSON.stringify(dsoaModel));
+            console.log('acDsoaPHP2 ruta ' + url, JSON.stringify(dsoaModel));
             commit('MUTPROCESANDOTRUE');
 
             try {

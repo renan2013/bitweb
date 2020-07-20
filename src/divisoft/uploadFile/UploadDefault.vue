@@ -22,8 +22,8 @@
     >
       <div class="mt-6 flex items-center justify-between px-6">
         <span>{{tituloUpload}}</span>
-        <p>Mensaje Obtenido de Base datos:</p>
-        <span class="">{{mensajeBd}}</span>
+        <p> Obtenidop de Base datos:</p>
+        <div class="mensaje">{{mensajeBd}}</div>
         <feather-icon
           icon="XIcon"
           @click.stop="isSidebarActiveLocal = false"
@@ -377,5 +377,12 @@
         width: 70%;
         max-width: 90vw;
     }
+}
+
+.mensaje{
+    background-color:#84F556 ;
+    color:black;
+    padding:4px;
+    border-radius: 6px;
 }
 </style>

@@ -332,9 +332,16 @@ const mutations = {
 
         }
 
-        console.log(" en MUTACIONES ", JSON.stringify(state.selectQuery));
+
 
         state.datosMsj = [];
+
+    },
+
+    MUTSETRESPUESTAGENERICONULL() {
+
+        state.selectQuery = "";
+
 
     },
 
