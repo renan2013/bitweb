@@ -39,7 +39,7 @@
         
         <div class="p-6">
           <!-- Aqui empieza el formulario de los adjuntos de bitweb -->
-          <h5>Campos para adjuntos (opcionales)</h5>
+          <p>Campos para <strong>adjuntos</strong> (opcionales)</p>
           
         
           <div class="vx-row">
@@ -47,9 +47,7 @@
                   <vs-input class="w-full" label-placeholder="Titulo"   v-model="datosdoc.titulo"/>
               </div>
             
-              <!-- <div class="vx-col sm:w-2/3 w-full mb-2">
-                  <vs-input class="w-full" label-placeholder="Nombre"   v-model="datosdoc.nombreobjeto"/>
-              </div> -->
+              
               <div class="vx-col sm:w-1/3 w-full mb-2">
                   <vs-input class="w-full" label-placeholder="Orden"   v-model="datosdoc.orden"/>
               </div>
@@ -59,24 +57,41 @@
               <div class="vx-col sm:w-full w-full mb-2">
                   <vs-input class="w-full" label-placeholder="Link"  v-model="datosdoc.url_asociado" />
               </div>
+
+              <div class="vx-col sm:w-1/3 w-full mb-2">
+              <iframe v-show="imageType==1" :src="textBase64" type="application/pdf" width="130px" height="140" ></iframe>
+                    <img
+                        v-show="imageType==2"
+                        style="display:block; width:130px;height:140px;"
+                        id="base64image"
+                        :src="textBase64"
+                        />
+                        <br>
+                    <file64Reader @EnviaBase64="EnviaBase64"></file64Reader>
+                  
+              </div>
+
+              <div class="vx-col sm:w-2/3 w-full mb-2">
+              <vs-list>
+
+                    <vs-list-header icon-pack="feather" icon="icon-check" title="Archivos adjuntos"></vs-list-header>
+                    <vs-list-item icon-pack="feather" icon="icon-check" subtitle="Archivo 1" ></vs-list-item>
+                    <vs-list-item icon-pack="feather" icon="icon-check" subtitle="Archivo 2" ></vs-list-item>
+
+    
+                 </vs-list>
+                  
+              </div>
+            
+              
  
           </div>
 
-          <br />
-          <iframe v-show="imageType==1" :src="textBase64" type="application/pdf"></iframe>
-          <div>
-            <img
-              v-show="imageType==2"
-              style="display:block; width:100px;height:100px;"
-              id="base64image"
-              :src="textBase64"
-            />
-          </div>
+              
+        <br>    
+        <button type="submit" class="boton_adjuntar"  @click="uploadFile()">Adjuntar a Publicación</button>
 
-          <file64Reader @EnviaBase64="EnviaBase64"></file64Reader>
-<br>
-          
-          <button type="submit" class="btn btn-success" @click="uploadFile()">Subir a BD</button>
+
         </div>
       </VuePerfectScrollbar>
     </vs-sidebar>
@@ -379,10 +394,31 @@
     }
 }
 
+
+
 .mensaje{
     background-color:#84F556 ;
     color:black;
     padding:4px;
     border-radius: 6px;
+}
+
+.boton_adjuntar{
+    text-decoration: none;
+    padding: 10px;
+    
+    
+    font-size: 16px;
+    color: #ffffff;
+    background-color: #7367ef;
+    border-radius: 6px;
+    // border: 2px solid #0016b0;
+
+}
+
+.boton_adjuntar :hover{
+    color: #7367ef;
+    background-color: #ffffff;
+
 }
 </style>
