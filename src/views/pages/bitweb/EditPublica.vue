@@ -2,9 +2,9 @@
 <div class="contenedor" id="tletra">
 
     <!-- <div class="vx-row">
-        
+
         {{mensajeAccion}} Id:{{publicacion.id}}
-        
+
     </div> -->
 
     <div class="vx-row">
@@ -12,7 +12,6 @@
             <vs-input class="w-full" label-placeholder="Título de la Publicación" v-model="publicacion.titulo" />
         </div>
 
-      
         <div class="vx-col sm:w-1/2 w-full mb-2" id="selector">
             <vs-select class="selectExample" autocomplete v-model="publicacion.categoria" label="Seleccione la Categoría">
 
@@ -33,22 +32,18 @@
 
     </div>
 
-
     <div class="vx-row">
-       
 
-            <div class="vx-col md:w-1/4 w-full mt-2" v-show="indicadorDML=='U' ||indicadorDML=='I' || true " >
-                <span class="titulo_carga">Doc. Adjuntos - Opcional</span>
-                <upload-default v-show="activaUpload" :isSidebarActive="activaUpload" :tituloUpload="tituloAvatar" @closeSidebar="activaUpload = false" />
+        <div class="vx-col md:w-1/4 w-full mt-2" v-show="indicadorDML=='U' ||indicadorDML=='I' || true ">
+            <span class="titulo_carga">Doc. Adjuntos - Opcional</span>
+            <upload-default v-show="activaUpload" :isSidebarActive="activaUpload" :tituloUpload="tituloAvatar" @closeSidebar="activaUpload = false" />
 
-                <div class="p-3 mb-4 mr-4 rounded-lg cursor-pointer flex items-center justify-between text-lg font-medium text-base text-primary border border-solid border-primary" @click="uploadAvatar">
-                    <feather-icon icon="PlusIcon" svgClasses="h-4 w-4" />
-                    
-                </div>
+            <div class="p-3 mb-4 mr-4 rounded-lg cursor-pointer flex items-center justify-between text-lg font-medium text-base text-primary border border-solid border-primary" @click="uploadAvatar">
+                <feather-icon icon="PlusIcon" svgClasses="h-4 w-4" />
+
             </div>
+        </div>
     </div>
-
-
 
     <div class="vx-row" id="botones">
         <div class="vx-col w-full">
@@ -57,24 +52,25 @@
             <vs-button color="warning" type="border" class="mb-2" @click="test()">Reset</vs-button>
         </div>
     </div>
-     <div class="vx-row"  >
+    <div class="vx-row">
         <div class="vx-col w-full">
             Procesando Publicacion numero:{{publicacion.id }}
         </div>
     </div>
 
 </div>
-
 </template>
 
 <script>
+import {
+    mapState
+} from "vuex"; //, mapMutations, mapActions 
 
- import { mapState } from "vuex"; //, mapMutations, mapActions 
+import {
+    eventBus
+} from "@/event-bus"; // para que se hablen los componentes
 
-import { eventBus } from "@/event-bus"; // para que se hablen los componentes
-   
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-  
 
 import UploadDefault from "@/divisoft/uploadFile/UploadDefault.vue";
 import UploadEmbebed from "@/divisoft/uploadFile/UploadEmbebed.vue";
@@ -85,24 +81,22 @@ import * as divilib from "@/divisoftlibs/utilDivisoftJS.js";
 import * as datosjs from "./js/bitWeb.js";
 
 export default {
-   
 
-     created()  
-    {
-        
+    created() {
+
         this.$store.commit("MUTSETRESPUESTAGENERICONUL"); //indUrl
-        eventBus.$on("cargaRegistroN", dinamicKey  => {
+        eventBus.$on("cargaRegistroN", dinamicKey => {
 
             //busca el registro para editarlo 
-          
-            this.indicadorDML ="I";  
+
+            this.indicadorDML = "I";
             let filtros = [{
-                  nombre: "num_empresa",
-                  valor: "1"
-              }];
-              this.buscarGenerico("8107C", filtros, "max(num_publicacion) as valor", "");
- 
-              this.test(); 
+                nombre: "num_empresa",
+                valor: "1"
+            }];
+            this.buscarGenerico("8107C", filtros, "max(num_publicacion) as valor", "");
+
+            this.test();
 
             this.publicacion.id = dinamicKey.id;
             this.publicacion.titulo = dinamicKey.titulo;
@@ -114,14 +108,14 @@ export default {
 
             console.log("llego a edit con ", JSON.stringify(dinamicKey));
 
-        });  
+        });
 
-         eventBus.$on("cargaRegistro", dinamicKey  => {
-          
-             this.indicadorDML ="U"; 
+        eventBus.$on("cargaRegistro", dinamicKey => {
 
-              this.mensajeAccion="Modificando Publicacion "+ dinamicKey.id;
-           
+            this.indicadorDML = "U";
+
+            this.mensajeAccion = "Modificando Publicacion " + dinamicKey.id;
+
             this.publicacion.id = dinamicKey.id;
             this.publicacion.titulo = dinamicKey.titulo;
             this.publicacion.categoria = dinamicKey.categoria;
@@ -132,22 +126,20 @@ export default {
 
             console.log("llego a edit con ", JSON.stringify(dinamicKey));
 
-        }); 
+        });
 
     },
     mounted() {
-        if  (this.publicacion.id==0)
-        {
-         this.indicadorDML ="I";  
+        if (this.publicacion.id == 0) {
+            this.indicadorDML = "I";
             let filtros = [{
-                  nombre: "num_empresa",
-                  valor: "1"
-              }];
-              this.buscarGenerico("8107C", filtros, "max(num_publicacion) as valor", "");
- 
-              this.test(); 
+                nombre: "num_empresa",
+                valor: "1"
+            }];
+            this.buscarGenerico("8107C", filtros, "max(num_publicacion) as valor", "");
 
-            
+            this.test();
+
         }
 
     },
@@ -158,46 +150,43 @@ export default {
         downloadDefault,
         UploadEmbebed
     },
-      watch: {
-         getPublicacion: function () {
-              
-             let publicacion=0
-             try {
-                       publicacion=this.getPublicacion.valor;
-                    } 
-                    catch (error) {
-                      publicacion=JSON.parse(this.getPublicacion).valor;
-                      
-                    } 
+    watch: {
+        getPublicacion: function () {
 
-                    this.publicacion.id=publicacion;
+            let publicacion = 0
+            try {
+                publicacion = this.getPublicacion.valor;
+            } catch (error) {
+                publicacion = JSON.parse(this.getPublicacion).valor;
 
-                     if  (this.publicacion.id==0)
-                       {
-                          this.publicacion.id=1;
-                       }
-                      else 
-                         this.publicacion.id++; 
+            }
 
-      
-       }
-    },     
- 
-     beforeDestroy: function() {
-      //Crea un bus  OYENTE
-      // SI HAY PROMPT
-        
-      eventBus.$off("cargaRegistroN"); 
-      eventBus.$off("cargaRegistro");
+            this.publicacion.id = publicacion;
+
+            if (this.publicacion.id == 0) {
+                this.publicacion.id = 1;
+            } else
+                this.publicacion.id++;
+
+        }
+    },
+
+    beforeDestroy: function () {
+        //Crea un bus  OYENTE
+        // SI HAY PROMPT
+
+        eventBus.$off("cargaRegistroN");
+        eventBus.$off("cargaRegistro");
     },
     data() {
         return {
+           
             editor: ClassicEditor,
             editorData: '',
             editorConfig: {
                 language: 'es'
             },
-            mensajeAccion:"Insertando Publicacion",
+            mensajeAccion: "Insertando Publicacion",
             indicadorDML: "",
             // IMAGENES
             IMG_AVATAR: 0,
@@ -260,7 +249,7 @@ export default {
             return this.$store.state.dsoaLogin.profile[0];
         },
         getPublicacion() {
-            
+
             return this.$store.state.selectQuery;
         }
 
@@ -294,7 +283,6 @@ export default {
                 CDATA: "0"
             });
 
-            
             filas.push({
                 NOMBRE: "Contenido",
                 VALOR1: publicacion,
@@ -304,7 +292,6 @@ export default {
             this.filastxt = divilib.filaArraytoStrintg(filas, "S");
         },
 
-
         buscarGenerico: function (objectID, dinamicKey, nombreFila, FormatoFila) {
             // METODO GENERICO  PARA PROMPTS Y OTROS 
             var pedido = {
@@ -313,7 +300,7 @@ export default {
                 ObjectId: objectID,
                 formatoenvio: "N",
                 formatorecibe: "N",
-                indicador: "8", //select
+                indicador: "8", //select  generico
                 origenUrl: this.origenUrl,
                 FilaRecupera: nombreFila,
                 FormatoFila: FormatoFila,
@@ -328,7 +315,7 @@ export default {
                 nombre: "num_empresa",
                 valor: "1"
             }];
-            
+
             this.buscarGenerico("8107C", filtros, "max(num_publicacion) as valor", "");
 
         },
@@ -342,28 +329,24 @@ export default {
             if (!credencial)
                 credencial = this.getProfile[0].Credencial;
 
-
             if (this.indicadorDML == "I" || this.indicadorDML == "U" || this.indicadorDML == "D") {
                 //HEADER
 
-                if (this.indicadorDML == "U" || this.indicadorDML == "D") 
-                  {
-                        if ( this.publicacion.id == 0) 
-                          {
-                            alert("datos incorrectos");
-                            return;
-                            } 
-                } else {  
-                     
-                    if  (this.publicacion.id==0)
-                       {
-                          this.publicacion.id=1;
-                       } 
-                if ( this.publicacion.id==0 ||  this.publicacion.id==null || this.publicacion.id=="")    
+                if (this.indicadorDML == "U" || this.indicadorDML == "D") {
+                    if (this.publicacion.id == 0) {
+                        alert("datos incorrectos");
+                        return;
+                    }
+                } else {
+
+                    if (this.publicacion.id == 0) {
+                        this.publicacion.id = 1;
+                    }
+                    if (this.publicacion.id == 0 || this.publicacion.id == null || this.publicacion.id == "")
                         throw "error En Crecion de Publicacion."
                 }
-                alert("Tratando publicacion"+this.publicacion.id)
-               //alert("Tratando publicacion"+this.publicacion.id)
+                alert("Tratando publicacion" + this.publicacion.id)
+                //alert("Tratando publicacion"+this.publicacion.id)
 
                 var header = {
                     MODO: this.indicadorDML,
@@ -377,9 +360,9 @@ export default {
                 // agrego las filas
 
                 let publicacion = JSON.stringify(this.publicacion);
-               // console.log("VA enviar ",publicacion)
-            
-                  publicacion =btoa(unescape(encodeURIComponent(publicacion)));
+                // console.log("VA enviar ",publicacion)
+
+                publicacion = btoa(unescape(encodeURIComponent(publicacion)));
 
                 this.addFilas(publicacion);
                 let parametros = [];
@@ -404,9 +387,6 @@ export default {
                 } else
                     this.paramtxt = "<Param><ParamItem/></Param>";
 
-
-
-
                 // cargo la peticion texto
                 var petTxt = {
                     header: this.headertxt,
@@ -429,41 +409,37 @@ export default {
 
                 //cambia a acDsoaPrueba // acDsoa
                 this.$store.dispatch("acDsoaPHP2", pedido);
+
                 this.$parent.activaEdit = false;
-                this.indicadorDML ="U"; 
+                this.indicadorDML = "U";
             } else
                 alert(" Crud No presente")
         }, // fin de  metodo
 
-uploadPrincipal() {
-     
+        uploadPrincipal() {
+
             this.UploadPrincipal = true;
- //alert ("varios ");
+            //alert ("varios ");
             this.activaUpload = true;
 
-            
             let respuestaCMS = [{
                 num_publicacion: this.publicacion.id,
-                Referencia: 0 
+                Referencia: 0
             }];
 
-        
             eventBus.$emit("cargaDocUploadEmbe", respuestaCMS);
         },
-         uploadAvatar() {
-             //alert ("varios ");
+        uploadAvatar() {
+            //alert ("varios ");
             this.activaUpload = true;
 
-            
-            
             let respuestaCMS = [{
                 num_publicacion: this.publicacion.id,
-                Referencia: 0 
+                Referencia: 0
             }];
 
             eventBus.$emit("cargaDocUpload", respuestaCMS);
         },
- 
 
     }
     /*  COMO ENVIAR DOCUMENTOS A WEB
@@ -485,10 +461,10 @@ uploadPrincipal() {
 </script>
 
 <style>
-
-.titulo_carga{
+.titulo_carga {
     font-size: 12px;
 }
+
 #tletra {
     font-size: 14px;
 }

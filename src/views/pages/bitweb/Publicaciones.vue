@@ -1,12 +1,14 @@
 <template>
     <div id="avatar-2501">  
         <grid2501 v-show="!activaEdit"></grid2501>  
-        <Edit2501 v-show="activaEdit" ></Edit2501> 
+        <Edit2501 v-show="activaEdit" :key="editKey"    @closeSidebar="activaEdit = false" ></Edit2501> 
     </div>
 </template>
 
 <script>
  
+
+   
 
 import { mapState } from "vuex"; //, mapMutations, mapActions
 import grid2501 from "./GridPublica.vue";

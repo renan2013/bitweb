@@ -133,146 +133,6 @@ const actions = {
 
     },
 
-    /// llama a Solicitud de Datos
-    async acDsoa({
-        commit,
-        state
-    }, pet) {
-        const datos = state.peticion;
-        const url = state.urlDsoa;
-
-        //limpia mensaje error
-        var jsonError = {
-            codigoError: '',
-            msgError: ''
-        };
-        commit('MUTREGISTRAERROR', jsonError);
-
-        if (pet.Credencial == null || pet.ObjectId == null) {
-            alert('adentro Con Error  credencial' + pet.Credencial + '  objeto ' + pet.ObjectId);
-
-            if (pet.Credencial == null) var jsonError = {
-                codigoError: '90',
-                msgError: 'Credencial Nulo'
-            };
-
-            if (pet.ObjectId == null) var jsonError = {
-                codigoError: '91',
-                msgError: 'Objeto BD no identificado'
-            };
-
-            commit('MUTREGISTRAERROR', jsonError);
-        } else {
-            var dsoaModel = {
-                datos: datos,
-                manipula: '',
-                bd: '',
-                dml: pet.dml,
-                formato: pet.formatoenvio,
-                formatoRequest: pet.formatorecibe,
-                credencial: pet.credencial,
-                tecnologia: '',
-                datosJson: '',
-                objectId: pet.ObjectId
-            };
-
-
-
-            // console.log('LLAMANDO DSOA ' + JSON.stringify(dsoaModel));
-            commit('MUTPROCESANDOTRUE');
-
-            try {
-                // fetch data from a url web service
-
-                let res = await axios({
-                        method: 'POST',
-                        url,
-                        headers: {
-                            'content-type': 'application/json'
-                        },
-                        processData: false,
-                        contentType: false,
-                        mimeType: 'multipart/form-data',
-                        sync: false,
-                        crossDomain: true,
-                        data: dsoaModel
-                    })
-                    .then((response) => {
-                        commit('MUTPROCESANDOFALSE');
-
-
-
-                        //evalua el indicador
-                        if (pet.indicador == 1) {
-                            // llena un grid
-                            if (
-                                response.data.codigoerror == '2000' // No AUTORIZADO  Enviar  login
-                            )
-                            //router
-                                router.push('/pages/login').catch(() => {});
-                            else commit('MUTSETRESPUESTAGRID', response.data); //carga variable con los datos
-                        }
-
-                        if (
-                            pet.indicador == 2 //llena un registro unico para edicion
-                        )
-                            commit('MUTSETRESPUESTAFORM', response.data);
-
-                        if (
-                            pet.indicador == 3 // respuesta de Base datos para INSERT,DELETE,UPDATE
-                        )
-                            commit('MUTSETRESPUESTACRUD', response.data);
-
-                        if (
-                            pet.indicador == 4 // respuesta de Base datos para EXECUTE
-                        )
-                            commit('MUTSETRESPUESTACRUD', response.data);
-
-
-
-                        if (
-                            pet.indicador == 5 // respuesta de Base datos para EXECUTE
-                        )
-                            commit('MUTSETRESPUESTAPROMPT', response.data);
-
-                        if (pet.indicador == 7) {
-                            // respuesta procedimiento Almacenado
-                            // console.log("Enviando a MUTSETRESPUESTAE", JSON.stringify(response.data));
-                            commit('MUTSETRESPUESTAE', response.data);
-                        }
-                        if (pet.indicador == 8) {
-                            //  query de respuesta Unica
-                            commit('MUTSETRESPUESTAGENERICO', response.data);
-                        }
-                        if (pet.indicador == 9) {
-                            //  DATOS CLOUD
-                            // console.log("Enviando a MUTSETRESPUESTAE", JSON.stringify(response.data));
-                            commit('MUTSETRESPUESTACLOUD', response.data);
-                        }
-                        //MUTSETRESPUESTAGENERICO
-                    })
-                    .catch(function(error) {
-                        commit('MUTPROCESANDOFALSE');
-                        if (error.response) {
-                            // Request made and server responded
-                            console.log(error.response.data);
-                            console.log(error.response.status);
-                            console.log(error.response.headers);
-                        } else if (error.request) {
-                            // The request was made but no response was received
-                            console.log(error.request);
-                        } else {
-                            // Something happened in setting up the request that triggered an Error
-                            console.log('SE PRODUJO ERROR ' + error);
-                        }
-                    });
-            } catch (error) {
-                commit('MUTPROCESANDOFALSE');
-                alert(error); // catches both errors
-            }
-        }
-    },
-
     async acDsoaPHP3({
         commit,
         state
@@ -288,6 +148,8 @@ const actions = {
         state
     }, pet) {
 
+        console.log(" Prueba ", JSON.stringify(pet))
+            //alert(pet.indicador)
 
         const datos = state.peticion;
         const url = state.urlDsoaPHP;
@@ -407,6 +269,14 @@ const actions = {
                             // console.log("Enviando a MUTSETRESPUESTAE", JSON.stringify(response.data));
                             commit('MUTSETRESPUESTAGRIDPUBLICA', response.data);
                         }
+                        if (pet.indicador == 10) {
+                            //  DATOS CLOUD
+                            // console.log("Enviando a MUTSETRESPUESTAE", JSON.stringify(response.data));
+                            commit('MUTSETRESPUESTADOCUMENTOS', response.data);
+                        }
+
+
+
                         //MUTSETRESPUESTAGENERICO
                     })
                     .catch(function(error) {

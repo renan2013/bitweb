@@ -245,6 +245,7 @@ export default {
 
             //cambia a acDsoaPrueba // acDsoa
             this.$store.dispatch("acDsoaPHP2", pedido);
+          //  this.$store.dispatch("acDsoaPHP3", pedido);
 
             //carga la ultima peticion  header parametros y addFilas
             this.locallastheader = this.headertxt;
