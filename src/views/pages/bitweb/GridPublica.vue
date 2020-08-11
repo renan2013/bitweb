@@ -73,7 +73,7 @@
                     </vs-td>
 
                     <vs-td>
-                        <vs-button size="default" color="danger" icon="remove_circle"></vs-button>
+                        <vs-button size="default" color="danger" icon="remove_circle"   @click="BorraRegistro(tr)" ></vs-button>
                     </vs-td>
                 </vs-tr>
             </template>
@@ -162,6 +162,7 @@ export default {
     },
 
     methods: {
+        
         //PARA EDITAR
         EditaRegistro(dinamicKey) {
             //LIMPIA TABLEKEY  
@@ -245,12 +246,88 @@ export default {
 
             //cambia a acDsoaPrueba // acDsoa
             this.$store.dispatch("acDsoaPHP2", pedido);
-          //  this.$store.dispatch("acDsoaPHP3", pedido);
+           //this.$store.dispatch("acDsoaPHP3", pedido);
 
             //carga la ultima peticion  header parametros y addFilas
             this.locallastheader = this.headertxt;
             this.locallaststrParametros = this.paramtxt;
             this.locallaststrFilas = this.filastxt;
+        },
+ 
+        BorraRegistro: function(dinamicKey) {
+            let usuario = this.getProfile.Username;
+            if (!usuario) 
+               usuario = this.getProfile[0].Username;
+
+            let credencial = this.getProfile.Credencial;
+            if (!credencial) credencial = this.getProfile[0].Credencial;
+ 
+                //HEADER
+             if (dinamicKey.id == 0) {
+                     alert("datos incorrectos");
+                    return;
+             }
+                  
+
+                var header = {
+                    MODO: "D",
+                    OBJECTID: "8107C",
+                    CREDENCIAL: credencial,
+                    USERNAME: usuario,
+                    REGISTROSXPAGINA: "1",
+                    PAGINA: "1"
+                };
+                this.headertxt = divilib.GetHeaderString(header);
+                // agrego las filas 
+                let parametros = [];
+                 
+                    let parametro1 = {
+                        NOMBRE: "",
+                        OPERADOR: "=",
+                        VALOR1: "",
+                        VALOR2: "",
+                        CDATA: "0"
+                    };
+
+ 
+                    parametro1 = {
+                        NOMBRE: "num_publicacion",
+                        OPERADOR: "=",
+                        VALOR1: dinamicKey.id,
+                        VALOR2: "",
+                        CDATA: "0"
+                    };
+                    parametros.push(parametro1);
+                    this.paramtxt = divilib.paramArraytoStrintg(parametros);
+                     this.filastxt="";
+                // cargo la peticion texto
+
+                var petTxt = {
+                    header: this.headertxt,
+                    parametros: this.paramtxt,
+                    filas: this.filastxt
+                };
+
+                this.$store.commit("MUTSETURL", "O"); //indUrl
+                this.$store.commit("MUTSETPETICIONTXT", petTxt);
+
+                var pedido = {
+                    dml: "D",
+                    Credencial: this.getProfile.Credencial,
+                    ObjectId: "8107C",
+                    formatoenvio: "N",
+                    formatorecibe: "N",
+                    indicador: "3", // CRUD
+                    origenUrl: this.origenUrl
+                };
+
+                //cambia a acDsoaPrueba // acDsoa
+                 if (dinamicKey.id>0)
+                 { 
+                     this.$store.commit("MUT_BORRA_PUBLICACION", dinamicKey); 
+                    this.$store.dispatch("acDsoaPHP2", pedido); 
+                    this.$parent.activaEdit = false;
+                 }
         }
     }
     // busq el  Registro a cargar

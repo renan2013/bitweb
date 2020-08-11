@@ -42,8 +42,15 @@ export default {
     }
   },
   methods: {
-    logout () {
- 
+    logout () { 
+        localStorage.removeItem("tokenStore"); 
+        localStorage.removeItem("profile");
+            localStorage.removeItem("paseKey"); 
+
+            this.$router.push("/pages/login").catch(() => {});
+
+            //this.$socket.emit('logout', usuario);
+            //this.$socket.disconnect();
         
     }
   }

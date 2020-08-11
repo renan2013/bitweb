@@ -64,6 +64,8 @@ const userDefaults = {
 };
 
 const state = {
+
+
     AppActiveUser: getUserInfo(),
     bodyOverlay: false,
     isVerticalNavMenuActive: true,
@@ -87,7 +89,7 @@ const state = {
     selectedRow: [], // la Fila que se desea
     selectedRows: [],
     datosPublicacion: [],
-    selectQuery: [], // tipo de indicador 9
+    selectQuery: null, // tipo de indicador 9
     estadoProcesando: 0,
     urlDsoa: 'http://201.194.194.84:8998/DsoaService2/dsoa/request',
     urlDsoaCMS: 'http://201.194.194.84:8998/DsoaService2/dsoa/CMSrequest',
@@ -128,28 +130,7 @@ const state = {
     /// INDICACIONES DE BASE DATOS
     BdCMS: [],
     //guarda rows de lo que viene pero con jsonData en JSON VALIDO
-    DatosDocumentos: [{
-            "cod_cia": "1",
-            "referencia": "5",
-            "num_publicacion": "3",
-            "lote": "1",
-            "jsonData": { "referencia": "5", "num_publicaicon": 3, "extension": ".jpg", "clase_url": "", "DocumentoMimeType": "image/jpeg", "referencia_relacionada": "", "embebed_code": "", "descripcion": "", "descripcion_fr": "", "descripcion_es": "", "patronbusqueda": "", "nombreobjeto": "", "directorio": "", "DescripcionDoc": "", "titulo": "Paciente con covid-19 de mayor edad falleci este viernes: don Luis tena 99 aos", "ruta_archivo": "", "detalle": "Jerarcas urgen cerrar alternativas de retiro anticipado por la presin econmica que le generan al IVM, el mayor sistema de pensiones del pas; sostienen que la medida le dara un respiro al rgimen.", "orden": "", "url_asociado": "" }
-        },
-        {
-            "cod_cia": "1",
-            "referencia": "4",
-            "num_publicacion": "3",
-            "lote": "1",
-            "jsonData": { "referencia": "4", "num_publicaicon": 3, "extension": ".jpg", "clase_url": "", "DocumentoMimeType": "", "referencia_relacionada": "", "embebed_code": "", "descripcion": "", "descripcion_fr": "", "descripcion_es": "", "patronbusqueda": "", "nombreobjeto": "", "directorio": "", "DescripcionDoc": "", "titulo": "Paciente con covid-19 de mayor edad falleci este viernes: don Luis tena 99 aos", "ruta_archivo": "", "detalle": "Jerarcas urgen cerrar alternativas de retiro anticipado por la presin econmica que le generan al IVM, el mayor sistema de pensiones del pas; sostienen que la medida le dara un respiro al rgimen.", "orden": "", "url_asociado": "" }
-        },
-        {
-            "cod_cia": "1",
-            "referencia": "3",
-            "num_publicacion": "3",
-            "lote": "1",
-            "jsonData": { "referencia": "3", "num_publicaicon": 3, "extension": ".jpg", "clase_url": "", "DocumentoMimeType": "", "referencia_relacionada": "", "embebed_code": "", "descripcion": "", "descripcion_fr": "", "descripcion_es": "", "patronbusqueda": "", "nombreobjeto": "", "directorio": "", "DescripcionDoc": "", "titulo": "Paciente con covid-19 de mayor edad falleci este viernes: don Luis tena 99 aos", "ruta_archivo": "", "detalle": "Jerarcas urgen cerrar alternativas de retiro anticipado por la presin econmica que le generan al IVM, el mayor sistema de pensiones del pas; sostienen que la medida le dara un respiro al rgimen.", "orden": "", "url_asociado": "" }
-        }
-    ],
+    DatosDocumentos: [],
 
     //ARRAY GLOBAL
     tableKey: [],

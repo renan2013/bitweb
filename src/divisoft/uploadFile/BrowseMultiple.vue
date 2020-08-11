@@ -18,6 +18,7 @@
         <div class="vx-row">
           <div class="vx-col sm:full w-full mb-2">
             <vs-list>
+
               <vs-list-header
                 icon-pack="feather"
                 icon="icon-check"
@@ -31,10 +32,16 @@
                 icon="icon-check"
                 :subtitle="item.referencia"
               >
+             
+              <vs-button size="default" color="danger" icon="remove_circle"   @click="BorraRegistro(item)" ></vs-button>
+                
+
+
                 <img
                   style="display:block; width:100px;height:100px;"
                   :src="item.ruta"
                 />
+
               </vs-list-item>
             </vs-list>
           </div>
@@ -72,32 +79,7 @@ export default {
       //peticion base
       // CMSpeticion: divilib.CMSpeticion,
       textMS: ""
-      /* pedido: {
-                "datos": {
-                    "page": 1,
-                    "total": 2,
-                    "registros": 2,
-                    "rows": [{
-                        "cod_cia": "1",
-                        "referencia": "2",
-                        "num_publicacion": "3",
-                        "lote": "1",
-                        "jsonData": "eyJyZWZlcmVuY2lhIjoiUkVQTEFDRVJFRkVSRU5DSUEiLCJudW1fcHVibGljYWljb24iOjMsImV4dGVuc2lvbiI6Ii5qcGciLCJjbGFzZV91cmwiOiIiLCJEb2N1bWVudG9NaW1lVHlwZSI6ImltYWdlL2pwZWciLCJyZWZlcmVuY2lhX3JlbGFjaW9uYWRhIjoiIiwiZW1iZWJlZF9jb2RlIjoiIiwiZGVzY3JpcGNpb24iOiIiLCJkZXNjcmlwY2lvbl9mciI6IiIsImRlc2NyaXBjaW9uX2VzIjoiIiwicGF0cm9uYnVzcXVlZGEiOiIiLCJub21icmVvYmpldG8iOiIiLCJkaXJlY3RvcmlvIjoiIiwiRGVzY3JpcGNpb25Eb2MiOiIiLCJ0aXR1bG8iOiIiLCJydXRhX2FyY2hpdm8iOiIiLCJkZXRhbGxlIjoiIiwib3JkZW4iOiIiLCJ1cmxfYXNvY2lhZG8iOiIifQ=="
-                    }, {
-                        "cod_cia": "1",
-                        "referencia": "1",
-                        "num_publicacion": "3",
-                        "lote": "1",
-                        "jsonData": "eyJyZWZlcmVuY2lhIjoiUkVQTEFDRVJFRkVSRU5DSUEiLCJudW1fcHVibGljYWljb24iOjMsImV4dGVuc2lvbiI6Ii5qcGciLCJjbGFzZV91cmwiOiIiLCJEb2N1bWVudG9NaW1lVHlwZSI6ImltYWdlL2pwZWciLCJyZWZlcmVuY2lhX3JlbGFjaW9uYWRhIjoiIiwiZW1iZWJlZF9jb2RlIjoiIiwiZGVzY3JpcGNpb24iOiIiLCJkZXNjcmlwY2lvbl9mciI6IiIsImRlc2NyaXBjaW9uX2VzIjoiIiwicGF0cm9uYnVzcXVlZGEiOiIiLCJub21icmVvYmpldG8iOiIiLCJkaXJlY3RvcmlvIjoiIiwiRGVzY3JpcGNpb25Eb2MiOiIiLCJ0aXR1bG8iOiIiLCJydXRhX2FyY2hpdm8iOiIiLCJkZXRhbGxlIjoiIiwib3JkZW4iOiIiLCJ1cmxfYXNvY2lhZG8iOiIifQ=="
-                    }]
-                },
-                "dml": "JJ",
-                "formato": "N",
-                "credencial": "23445",
-                "formatoRequest": "64",
-                "codigoerror": "0",
-                "deserror": ""
-            },*/
+       
     };
   },
   components: {
@@ -191,7 +173,98 @@ export default {
       this.$store.dispatch("acDsoaPHP2", pedido);
       this.$parent.activaEdit = false;
       this.indicadorDML = "JJ";
-    }
+    },
+    BorraRegistro: function(dinamicKey) {
+
+            let usuario = this.getProfile.Username;
+            if (!usuario) 
+               usuario = this.getProfile[0].Username;
+
+            let credencial = this.getProfile.Credencial;
+            if (!credencial) credencial = this.getProfile[0].Credencial;
+ 
+                //HEADER
+             if (dinamicKey.referencia == 0) {
+                     alert("datos incorrectos");
+                    return;
+             }
+                  
+
+                var header = {
+                    MODO: "D",
+                    OBJECTID: "8105",
+                    CREDENCIAL: credencial,
+                    USERNAME: usuario,
+                    REGISTROSXPAGINA: "1",
+                    PAGINA: "1"
+                };
+                this.headertxt = divilib.GetHeaderString(header);
+                // agrego las filas 
+                let parametros = [];
+                 
+                    let parametro1 = {
+                        NOMBRE: "",
+                        OPERADOR: "=",
+                        VALOR1: "",
+                        VALOR2: "",
+                        CDATA: "0"
+                    };
+
+ 
+                    parametro1 = {
+                        NOMBRE: "num_publicacion",
+                        OPERADOR: "=",
+                        VALOR1: dinamicKey.num_publicacion,
+                        VALOR2: "",
+                        CDATA: "0"
+                    };
+                    parametros.push(parametro1);
+
+                     parametro1 = {
+                        NOMBRE: "referencia",
+                        OPERADOR: "=",
+                        VALOR1: dinamicKey.referencia,
+                        VALOR2: "",
+                        CDATA: "0"
+                    };
+                    parametros.push(parametro1);
+
+
+                    this.paramtxt = divilib.paramArraytoStrintg(parametros);
+                     this.filastxt="";
+                // cargo la peticion texto
+
+                var petTxt = {
+                    header: this.headertxt,
+                    parametros: this.paramtxt,
+                    filas: this.filastxt
+                };
+
+                this.$store.commit("MUTSETURL", "O"); //indUrl
+                this.$store.commit("MUTSETPETICIONTXT", petTxt);
+
+                var pedido = {
+                    dml: "D",
+                    Credencial: this.getProfile.Credencial,
+                    ObjectId: "8105",
+                    formatoenvio: "N",
+                    formatorecibe: "N",
+                    indicador: "3", // CRUD
+                    origenUrl: this.origenUrl
+                };
+ 
+                //cambia a acDsoaPrueba // acDsoa
+                 if (dinamicKey.referencia>0)
+                 { 
+                    this.$store.commit("MUT_BORRA_IMAGEN", dinamicKey);
+                    this.$store.dispatch("acDsoaPHP2", pedido); 
+                    
+                 }
+
+             
+
+                  
+        }
   }
 };
 </script>

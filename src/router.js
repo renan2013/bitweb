@@ -6,11 +6,13 @@
 
  Vue.use(Router)
 
+
  const router = new Router({
-     mode: 'history',
+
+     mode: "hash",
      base: process.env.BASE_URL,
      scrollBehavior() {
-         return { x: 0, y: 0 }
+         return { x: 0, y: 0 };
      },
      routes: [
 
@@ -29,6 +31,7 @@
                      path: '/',
                      redirect: '/dashboard/analytics'
                  },
+
                  {
                      path: '/dashboard/analytics',
                      name: 'dashboard-analytics',
@@ -57,31 +60,31 @@
                      component: () =>
                          import ('@/views/pages/bitweb/Publicaciones.vue'),
                      meta: {
-                        breadcrumb: [
-                            { title: 'Home', url: '/' },
-                            // { title: 'Crear Publicación', url: {path: 'edicion/I' } },
-                            { title: 'Edita tus contenidos e inclusive enrriquecelos más', active: true },
-                        ],
+                         breadcrumb: [
+                             { title: 'Home', url: '/' },
+                             // { title: 'Crear Publicación', url: {path: 'edicion/I' } },
+                             { title: 'Edita tus contenidos e inclusive enrriquecelos más', active: true },
+                         ],
                          pageTitle: 'Publicaciones',
                          rule: 'editor'
                      }
                  },
 
                  {
-                    path: '/edicion',
-                    name: 'edicion',
-                    component: () =>
-                        import ('@/views/pages/bitweb/EditPublica.vue'),
-                    meta: {
-                        breadcrumb: [
-                            { title: 'Home', url: '/' },
-                            { title: 'Lista de Publicaciones', url: { name: 'publicaciones' } },
-                            { title: 'Crea tus contenidos de manera enrriquecida', active: true },
-                        ],
-                        pageTitle: 'Crear Publicación',
-                        rule: 'editor'
-                    }
-                },
+                     path: '/edicion',
+                     name: 'edicion',
+                     component: () =>
+                         import ('@/views/pages/bitweb/EditPublica.vue'),
+                     meta: {
+                         breadcrumb: [
+                             { title: 'Home', url: '/' },
+                             { title: 'Lista de Publicaciones', url: { name: 'publicaciones' } },
+                             { title: 'Crea tus contenidos de manera enrriquecida', active: true },
+                         ],
+                         pageTitle: 'Crear Publicación',
+                         rule: 'editor'
+                     }
+                 },
 
                  {
                      path: '/recursos',
@@ -91,7 +94,7 @@
                      meta: {
                          breadcrumb: [
                              { title: 'Home', url: '/' },
-                            //  { title: 'Lista de Publicaciones', url: { name: 'publicaciones' } },
+                             //  { title: 'Lista de Publicaciones', url: { name: 'publicaciones' } },
                              { title: 'Aqui puede contar con muchas herramientas que aumentaran su productividad', active: true },
                          ],
                          pageTitle: 'Recursos',
@@ -100,22 +103,22 @@
                  },
 
                  {
-                    path: '/soporte',
-                    name: 'soporte',
-                    component: () =>
-                        import ('@/views/pages/bitweb/v_soporte.vue'),
-                    meta: {
-                        breadcrumb: [
-                            { title: 'Home', url: '/' },
-                           //  { title: 'Lista de Publicaciones', url: { name: 'publicaciones' } },
-                            { title: 'Dale un clik al celular y comunícate directamente con nosotros', active: true },
-                        ],
-                        pageTitle: 'Recursos',
-                        rule: 'editor'
-                    }
-                },
+                     path: '/soporte',
+                     name: 'soporte',
+                     component: () =>
+                         import ('@/views/pages/bitweb/v_soporte.vue'),
+                     meta: {
+                         breadcrumb: [
+                             { title: 'Home', url: '/' },
+                             //  { title: 'Lista de Publicaciones', url: { name: 'publicaciones' } },
+                             { title: 'Dale un clik al celular y comunícate directamente con nosotros', active: true },
+                         ],
+                         pageTitle: 'Recursos',
+                         rule: 'editor'
+                     }
+                 },
 
-                        // Fin de menu bitweb
+                 // Fin de menu bitweb
                  {
                      path: '/apps/user/user-list',
                      name: 'app-user-list',
@@ -654,13 +657,9 @@
                  }
              ]
          },
-         // Redirect to 404 page, if no match found
-         {
-             path: '*',
-             redirect: '/pages/error-404'
-         }
+
      ]
- })
+ });
 
  router.afterEach(() => {
      // Remove initial loading

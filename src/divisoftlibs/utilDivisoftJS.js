@@ -321,6 +321,7 @@ export function GetSdtLoginString(sdtLogin) {
     xmlLog += "<KeySecurity>" + sdtLogin.keySecurity + "</KeySecurity>";
     xmlLog += "<Celular>" + sdtLogin.celular + "</Celular>";
     xmlLog += "<Empresa>" + sdtLogin.empresa + "</Empresa>";
+
     xmlLog += "<Email>" + sdtLogin.email + "</Email>";
     xmlLog += "<Nombre>" + sdtLogin.nombre + "</Nombre>";
     xmlLog += "<DireccionIP>" + sdtLogin.direccionIP + "</DireccionIP>";
@@ -328,6 +329,7 @@ export function GetSdtLoginString(sdtLogin) {
     xmlLog += "<Credencial>" + sdtLogin.credencial + "</Credencial>";
     xmlLog += "<Firma><Cdata><X>ABRECDATACIERRACDATA</X></Cdata></Firma>"; //corregir 
     xmlLog += "</Header></SdtLogin>";
+    console.log("lOGIN CAREADO", xmlLog);
     return xmlLog;
 }
 

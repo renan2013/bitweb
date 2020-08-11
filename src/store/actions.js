@@ -115,7 +115,6 @@ const actions = {
         };
         commit('MUTSETURL', 'O');
         commit('MUTSETPETICIONTXT', petTxt);
-
         // pedito generico
         var pedido = {
             dml: pet.dml,

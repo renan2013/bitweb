@@ -51,6 +51,7 @@ const mutations = {
         }
     },
 
+
     // Navbar-Vertical
 
     ARRANGE_STARRED_PAGES_LIMITED(state, list) {
@@ -131,6 +132,29 @@ const mutations = {
     //// MUT
     MUTSETTABLEKEY(state, tableKey) {
         state.tableKey.push(tableKey);
+    },
+
+    MUT_BORRA_IMAGEN(state, payload) {
+        // 
+        state.DatosDocumentos = state.DatosDocumentos.findIndex((reg) => reg.referencia !== payload.referencia)
+
+        /*        let imagenes = state.DatosDocumentos;
+                state.DatosDocumentos = [];
+
+                for (let i = 0; i < imagenes.length; i++) {
+                    if (!(imagenes[i].referencia == item.referencia)) {
+                        let imagen = imagenes[i];
+                        console.log("agregando Referencia", imagen.referencia);
+                        state.DatosDocumentos.push(imagen)
+                    }
+                }
+                */
+
+    },
+    MUT_BORRA_PUBLICACION(state, payload) {
+        // busca los que no son la publicacion de esta manera se borra
+        console.log("borrando local", payload.id)
+        state.datosPublicacion = state.datosPublicacion.findIndex((reg) => reg.num_publicacion !== payload.id)
     },
 
     /// DIVISOFT  DIVISOFT  DIVISOFT  DIVISOFT DIVISOFT  DIVISOFT DIVISOFT  DIVISOFT DIVISOFT  DIVISOFT
@@ -327,6 +351,8 @@ const mutations = {
 
     //// MUT
     MUTSETRESPUESTAGENERICO(state, response) {
+        console.log("MUTSETRESPUESTAGENERICO", response)
+
         try {
             state.selectQuery = JSON.parse(response)[0];
 
@@ -338,8 +364,8 @@ const mutations = {
         state.datosMsj = [];
     },
 
-    MUTSETRESPUESTAGENERICONULL() {
-        state.selectQuery = '';
+    MUTSETRESPUESTAGENERICONULL(state) {
+        state.selectQuery = null;
     },
 
     MUTSETDOCUMENTOS(state, response) {
