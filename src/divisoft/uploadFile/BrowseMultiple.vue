@@ -174,6 +174,7 @@ export default {
       this.$parent.activaEdit = false;
       this.indicadorDML = "JJ";
     },
+    
     BorraRegistro: function(dinamicKey) {
 
             let usuario = this.getProfile.Username;

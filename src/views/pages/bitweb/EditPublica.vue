@@ -59,9 +59,8 @@ import {
     mapState
 } from "vuex"; //, mapMutations, mapActions
 
-import {
-    eventBus
-} from "@/event-bus"; // para que se hablen los componentes
+import {eventBus} from "@/event-bus"; // para que se hablen los componentes
+
 
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
@@ -172,35 +171,7 @@ export default {
 
             tituloAvatar: "Agregar contenidos a la Publicación",
             titulo: "Publicaciones",
-            categorias: [{
-                    ID_CATEGORIA: 1,
-                    DESCRIPCION: "Galería de Imágenes"
-                },
-                {
-                    ID_CATEGORIA: 2,
-                    DESCRIPCION: "Videos"
-                },
-                {
-                    ID_CATEGORIA: 3,
-                    DESCRIPCION: "Boletines"
-                },
-                {
-                    ID_CATEGORIA: 4,
-                    DESCRIPCION: "Capacitación"
-                },
-                {
-                    ID_CATEGORIA: 5,
-                    DESCRIPCION: "Noticias"
-                },
-                {
-                    ID_CATEGORIA: 6,
-                    DESCRIPCION: "Catalogo de Productos"
-                },
-                {
-                    ID_CATEGORIA: 7,
-                    DESCRIPCION: "Publicaciones fijas"
-                }
-            ]
+            categorias: divilib.categorias
         };
     },
 
@@ -383,25 +354,19 @@ export default {
                  if (this.publicacion.id>0)
                  { 
                     this.$store.dispatch("acDsoaPHP2", pedido);
+ 
 
+                    
                     this.$parent.activaEdit = false;
                     this.indicadorDML = "U";
+                    
+                    eventBus.$emit('refreshGrid');
+                    
                 }
             } else alert(" Crud No presente");
         }, // fin de  metodo
 
-        uploadPrincipal() {
-            this.UploadPrincipal = true;
-            //alert ("varios ");
-            this.activaUpload = true;
-
-            let respuestaCMS = [{
-                num_publicacion: this.publicacion.id,
-                Referencia: 0
-            }];
-
-            eventBus.$emit("cargaDocUploadEmbe", respuestaCMS);
-        },
+         
         uploadAvatar() {
           
             this.activaUpload = true;
@@ -410,8 +375,8 @@ export default {
                 num_publicacion: this.publicacion.id,
                 Referencia: 0
             }];
-
-            eventBus.$emit("cargaDocUpload", respuestaCMS);
+ 
+            eventBus.$emit("cargaDocUpload",respuestaCMS);
         }
     }
     /*  COMO ENVIAR DOCUMENTOS A WEB

@@ -135,26 +135,40 @@ const mutations = {
     },
 
     MUT_BORRA_IMAGEN(state, payload) {
-        // 
-        state.DatosDocumentos = state.DatosDocumentos.findIndex((reg) => reg.referencia !== payload.referencia)
+        //state.DatosDocumentos = state.DatosDocumentos.findIndex((reg) => reg.referencia !== payload.referencia)
 
-        /*        let imagenes = state.DatosDocumentos;
-                state.DatosDocumentos = [];
+        let imagenes = [...state.DatosDocumentos];
 
-                for (let i = 0; i < imagenes.length; i++) {
-                    if (!(imagenes[i].referencia == item.referencia)) {
-                        let imagen = imagenes[i];
-                        console.log("agregando Referencia", imagen.referencia);
-                        state.DatosDocumentos.push(imagen)
-                    }
-                }
-                */
+        state.DatosDocumentos = [];
+        for (let i = 0; i < imagenes.length; i++) {
+            if (imagenes[i].referencia !== payload.referencia) {
+                let imagen = imagenes[i];
+                console.log("agregando Referencia", imagen.referencia);
+                state.DatosDocumentos.push(imagen)
+
+            }
+        }
+
 
     },
     MUT_BORRA_PUBLICACION(state, payload) {
         // busca los que no son la publicacion de esta manera se borra
         console.log("borrando local", payload.id)
-        state.datosPublicacion = state.datosPublicacion.findIndex((reg) => reg.num_publicacion !== payload.id)
+        console.log("borrando local", state.datosPublicacion)
+
+        let imagenes = [...state.datosPublicacion];
+
+        state.datosPublicacion = [];
+
+        for (let i = 0; i < imagenes.length; i++) {
+            if (imagenes[i].id !== payload.id) {
+
+                let imagen = imagenes[i];
+                state.datosPublicacion.push(imagen)
+                console.log("agregando Referencia", imagen.id);
+            }
+        }
+
     },
 
     /// DIVISOFT  DIVISOFT  DIVISOFT  DIVISOFT DIVISOFT  DIVISOFT DIVISOFT  DIVISOFT DIVISOFT  DIVISOFT
@@ -167,7 +181,9 @@ const mutations = {
     },
     //// MUT
     MUTCLEARTABLEKEY(state) {
+
         state.tableKey = [];
+
     },
     MUTPROCESANDOTRUE(state) {
         state.estadoProcesando = 1;
@@ -242,7 +258,7 @@ const mutations = {
             console.log("se obtuvo ", atob(response));
             state.datosPublicacion = JSON.parse(atob(response));
         }
-        //console.log("datos que VienenMUTSETRESPUESTAGRIDPUBLICA ", state.datosPublicacion);
+
 
     },
 

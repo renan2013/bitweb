@@ -210,7 +210,7 @@ export default {
         celular: "",
         email: "",
         nombre: "",
-        empresa: "100001",  // bit web cefi.com    "100002" CEFI PAGINA
+        empresa: 100001, 
         passwordOld: "",
         keySecurity: ""
       };

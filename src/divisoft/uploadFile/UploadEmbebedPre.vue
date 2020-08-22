@@ -68,7 +68,7 @@
      beforeDestroy: function () {
          //Crea un bus  OYENTE
          // SI HAY PROMPT
-         eventBus.$off("cargaDocUpload");
+         eventBus.$off("cargaDocUploadEmbe");
      },
 
      props: {

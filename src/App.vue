@@ -9,7 +9,7 @@
 
 <template>
 <div id="app"  >
-CHAT  {{getTokenChat}}
+<!--CHAT  {{getTokenChat}}-->
     <router-view @setAppClasses="setAppClasses" />
 </div>
 </template>

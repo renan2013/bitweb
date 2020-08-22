@@ -183,7 +183,7 @@ export default {
         celular: "",
         email: "",
         nombre: "",
-        empresa: "",
+        empresa: "100001",
         passwordOld: "",
         keySecurity: ""
       };

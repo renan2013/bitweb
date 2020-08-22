@@ -90,13 +90,28 @@ import { eventBus } from "@/event-bus"; // para que se hablen los componentes
 import * as divilib from "@/divisoftlibs/utilDivisoftJS.js";
 
 export default {
-
-
-  
+ 
     mounted() {
        
               this.buscarDatos();
     },
+
+     created() {
+       // SI HAY PROMPT
+         
+            eventBus.$on("refreshGrid", () => {
+             this.buscarDatos();
+            });  
+        
+  },
+
+   beforeDestroy: function() {
+    //Crea un bus  OYENTE
+    // SI HAY PROMPT
+    eventBus.$off("refreshGrid");  
+    
+  },
+
 
     data() {
         return {
@@ -246,7 +261,7 @@ export default {
 
             //cambia a acDsoaPrueba // acDsoa
             this.$store.dispatch("acDsoaPHP2", pedido);
-           //this.$store.dispatch("acDsoaPHP3", pedido);
+         // this.$store.dispatch("acDsoaPHP3", pedido);
 
             //carga la ultima peticion  header parametros y addFilas
             this.locallastheader = this.headertxt;

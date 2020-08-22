@@ -121,9 +121,12 @@ export default {
     BrowseMultiple
   },
   created() {
-    //	 cuando se createReadStream
+   
 
     eventBus.$on("cargaDocUpload", respuestaCMSUP => {
+
+     //cos(" cargando Archivo"+JSON.stringify(respuestaCMSUP) );
+
       if (respuestaCMSUP[0].num_publicacion > 0) {
         this.num_publicacion = respuestaCMSUP[0].num_publicacion;
         this.datosdoc.num_publicacion = respuestaCMSUP[0].num_publicacion;
@@ -131,7 +134,9 @@ export default {
           publicacion: this.datosdoc.num_publicacion
         };
       } else {
-        alert("error al ingresar Documentos");
+
+            alert("error al ingresar Documentos");
+
       }
 
       if (respuestaCMSUP[0].referencia > 0)
@@ -369,14 +374,16 @@ export default {
       // llama guardar la imagen
 
       if (this.datosdoc.num_publicacion > "0") {
+
         console.log("Peticion ENVIANDO IMAGEN ", JSON.stringify(respuestaCMS));
         this.$store.dispatch("CMSacDsoaPHP", respuestaCMS);
+        
       } else {
         console.log(
           "No hay datos correctos para Guardar  llave extrerna no presente "
         );
-        this.mensajeBd =
-          "No hay datos correctos para Guardar  llave extrerna no presente ";
+
+        this.mensajeBd ="No hay datos correctos para Guardar  llave extrerna no presente ";
       }
     }
   }

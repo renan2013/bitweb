@@ -27,7 +27,7 @@ export default {
     urlEncripta: "http://201.194.194.84:8998/DsoaService2/dsoa/encryptCenter", //process.env.VUE_API_ENCRIPTA,
 
     profile: [{
-        Empresa: "506",
+        Empresa: "100001",
         nombre: "",
         Credencial: "0",
         Username: "admin",

@@ -320,7 +320,7 @@ export function GetSdtLoginString(sdtLogin) {
     xmlLog += "<PasswordOld>" + sdtLogin.passwordOld + "</PasswordOld>";
     xmlLog += "<KeySecurity>" + sdtLogin.keySecurity + "</KeySecurity>";
     xmlLog += "<Celular>" + sdtLogin.celular + "</Celular>";
-    xmlLog += "<Empresa>" + sdtLogin.empresa + "</Empresa>";
+    xmlLog += "<Empresa>100001</Empresa>";
 
     xmlLog += "<Email>" + sdtLogin.email + "</Email>";
     xmlLog += "<Nombre>" + sdtLogin.nombre + "</Nombre>";
@@ -349,9 +349,33 @@ export const CMSpeticionCrud = "<SOA_Xml>" +
 */
 //// MULTIMEDIA CMS  SECTION
 
+export const categorias = [{
+        ID_CATEGORIA: 1,
+        DESCRIPCION: "Galería de Imágenes"
+    },
+    {
+        ID_CATEGORIA: 2,
+        DESCRIPCION: "Videos"
+    },
+    /*   {
+        ID_CATEGORIA: 3,
+        DESCRIPCION: "Boletines"
+    },*/
+
+    {
+        ID_CATEGORIA: 5,
+        DESCRIPCION: "Noticias"
+    },
+    {
+        ID_CATEGORIA: 6,
+        DESCRIPCION: "Slider Principal"
+    },
+
+];
+
 export const CMSpeticion = [{
     Credencial: '0',
-    CodCia: "1",
+    CodCia: "100001",
     num_publicacion: 0,
     datos: "",
     insertarBd: "",
@@ -368,7 +392,7 @@ export const CMSpeticion = [{
 
 /// RESPUESTA CUANDO SE INGRESA  UN DOCUMENTO 
 export const CMSRespuestaIN = [{
-    CodCia: '1',
+    CodCia: '100001',
     Repositorio: '',
     RutaOrigen: '',
     ExtensionFinal: '',
