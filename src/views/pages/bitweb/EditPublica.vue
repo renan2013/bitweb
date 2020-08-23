@@ -1,9 +1,13 @@
 <template>
 <div class="contenedor" id="tletra">
-  {{getPublicacion}}
+   Version 1.0
     <div class="vx-col sm:w-1/2 w-full mb-2">
         <vs-input class="w-full" label-placeholder="Publicacion Numero" v-model="publicacion.id" v-bind:readonly="true" />
     </div>
+
+     
+
+
     <div class="vx-row">
         <div class="vx-col sm:w-1/2 w-full mb-2">
             <vs-input class="w-full" label-placeholder="Título de la Publicación" v-model="publicacion.titulo"  
@@ -15,6 +19,16 @@
                 <vs-select-item :key="index" :value="item.ID_CATEGORIA" :text="item.DESCRIPCION" v-for="(item, index) in categorias" />
             </vs-select>
         </div>
+    </div>
+
+     <div class="vx-row">
+        <div class="vx-col sm:w-1/2 w-full mb-2">
+        <vs-input class="w-full" label-placeholder="link Asociado" v-model="publicacion.link"   />
+    </div>
+
+        <div class="vx-col sm:w-1/2 w-full mb-2">
+        <vs-input class="w-full" label-placeholder="link Asociado2 " v-model="publicacion.link2"   />
+    </div>
     </div>
     <div class="vx-row">
         <div class="vx-col sm:w-full mb-2">
@@ -28,6 +42,8 @@
             <ckeditor :editor="editor" v-model="publicacion.contenido" :config="editorConfig"></ckeditor>
         </div>
     </div>
+
+   
 
     <div class="vx-row">
         <div class="vx-col md:w-1/4 w-full mt-2" v-show="indicadorDML == 'U' || indicadorDML == 'I' || true">
@@ -87,6 +103,13 @@ export default {
             this.publicacion.autor = dinamicKey.autor;
             this.publicacion.detalle = dinamicKey.detalle;
             this.publicacion.contenido = dinamicKey.contenido;
+            try {
+                this.publicacion.link = dinamicKey.link;
+                this.publicacion.link2 = dinamicKey.link2;
+            } catch (error) {
+                
+            }
+            
 
         });
 
@@ -102,6 +125,12 @@ export default {
             this.publicacion.autor = dinamicKey.autor;
             this.publicacion.detalle = dinamicKey.detalle;
             this.publicacion.contenido = dinamicKey.contenido;
+            try {
+                this.publicacion.link = dinamicKey.link;
+                this.publicacion.link2 = dinamicKey.link2;
+            } catch (error) {
+                
+            }
 
             console.log("llego a edit con ", JSON.stringify(dinamicKey));
         });
@@ -163,6 +192,9 @@ export default {
                 autor: "",
                 detalle: "",
                 contenido: "",
+                link: "",
+                link2: "",
+               
                 REFERENCIA_IMAGEN: 0,
                 REFERENCIA_PDF: 0,
                 REFERENCIA_VIDEO: 0,
@@ -250,7 +282,7 @@ export default {
             }];
 
             this.buscarGenerico(
-                "8107C",
+                "8107I",
                 filtros,
                 "max(num_publicacion) as valor",
                 ""
@@ -294,7 +326,7 @@ export default {
 
                 var header = {
                     MODO: this.indicadorDML,
-                    OBJECTID: "8107C",
+                    OBJECTID: "8107I",
                     CREDENCIAL: credencial,
                     USERNAME: usuario,
                     REGISTROSXPAGINA: "1",
@@ -304,7 +336,7 @@ export default {
                 // agrego las filas
 
                 let publicacion = JSON.stringify(this.publicacion);
-                // console.log("VA enviar ",publicacion)
+               console.log("VA enviar ",publicacion)
 
                 publicacion = btoa(unescape(encodeURIComponent(publicacion)));
 
@@ -343,7 +375,7 @@ export default {
                 var pedido = {
                     dml: this.indicadorDML,
                     Credencial: this.getProfile.Credencial,
-                    ObjectId: "8107C",
+                    ObjectId: "8107I",
                     formatoenvio: "N",
                     formatorecibe: "N",
                     indicador: "3", // CRUD

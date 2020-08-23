@@ -183,6 +183,7 @@ export default {
       //noticia:{"id":3,"titulo":"A 10 aos de la hazaa, Iniesta y Ramos recuerdan el ttulo en Sudfrica 2010","categoria":5,"fecha":"24/06/2020","autor":"autor","detalle":"El 11 de julio de 2010 representa la fecha ms importante para la historia del ftbol espaol. En ese da, la \"Roja\" conquist su primera Copa del Mundo de la FIFA al vencer en la gran final en Holanda en Johannesburgo, Sudfrica. El gol de Iniesta en la prrroga defini ese partido, y l y Sergio Ramos recordarn esos momentos inolvidables en un video realizado por la Real Federacin Espaola de Ftbol.\n\nLTIMAS NOTICIAS","contenido":"<p>&nbsp;</p><figure class=\"image\"><img src=\"https://cnnespanol.cnn.com/wp-content/uploads/2020/07/200711162704-sergio-ramos-andres-iniesta-deportes-cnn-full-169.jpg?quality=100&amp;strip=info&amp;w=780&amp;h=438&amp;crop=1\" alt=\"A 10 aos de la hazaa, Iniesta y Ramos recuerdan el ttulo en Sudfrica 2010\" srcset=\"https://cnnespanol.cnn.com/wp-content/uploads/2020/07/200711162704-sergio-ramos-andres-iniesta-deportes-cnn-full-169.jpg?quality=100&amp;strip=info&amp;w=780&amp;h=438&amp;crop=1 780w\" sizes=\"100vw\"></figure><p><a href=\"https://cnnespanol.cnn.com/seccion/deportes/\"><strong>DEPORTES</strong></a></p><h2><a href=\"https://cnnespanol.cnn.com/video/espana-futbol-sergio-ramos-andres-iniesta-sudafrica-2010-copa-del-mundo-fifa-real-madrid-barcelona-sot/\"><strong>A 10 aos de la hazaa, Iniesta y Ramos recuerdan el ttulo en Sudfrica 2010</strong></a></h2><p>El 11 de julio de 2010 representa la fecha ms importante para la historia del ftbol espaol. En ese da, la \"Roja\" conquist su primera Copa del Mundo de la FIFA al vencer en la gran final en Holanda en Johannesburgo, Sudfrica. El gol de Iniesta en la prrroga defini ese partido, y l y Sergio Ramos recordarn esos momentos inolvidables en un video realizado por la Real Federacin Espaola de Ftbol</p>","REFERENCIA_IMAGEN":0,"REFERENCIA_PDF":0,"REFERENCIA_VIDEO":0,"REFERENCIA_DOCUMENTO":0},
 
       datosdoc: {
+        lote:"REPLACELOTE",
         referencia: "REPLACEREFERENCIA",
         extension: "",
         clase_url: "",
@@ -229,6 +230,7 @@ export default {
         //limpiamos datos
         this.yasubio = false;
         this.datosdoc.referencia = "REPLACEREFERENCIA";
+        this.datosdoc.lote="REPLACELOTE";
         this.datosdoc.extension = "";
         this.datosdoc.DocumentoMimeType = "";
 
@@ -297,6 +299,7 @@ export default {
     addFilas: function() {
       var filas = {
         referencia: "REPLACEREFERENCIA",
+        lote:"REPLACELOTE",
         num_publicaicon: this.datosdoc.num_publicacion,
         extension: this.datosdoc.extension,
         clase_url: this.datosdoc.clase_url,
