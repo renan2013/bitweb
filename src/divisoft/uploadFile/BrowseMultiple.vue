@@ -98,11 +98,7 @@ export default {
     }
   },
   methods: {
-    pruebaArchivo() {
-      alert("prueba");
-      this.$store.commit("MUTSETRESPUESTADOCUMENTOS", this.pedido);
-    },
-
+   
     cargaDocumentos(idPublicacion) {
       let usuario = this.getProfile.Username;
       if (!usuario) usuario = this.getProfile[0].Username;

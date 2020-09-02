@@ -178,16 +178,22 @@ export default {
     }
   },
   methods: {
+
      onchangeConsiguePass() {
-      //GO_SHOPMARCA
-      this.$store.dispatch("dsoaLogin/acLoginEncripta", this.password);
+      //GO_SHOPMARCA  
+        
+       //ADEMAR  
+      //this.$store.dispatch("dsoaLogin/acLoginEncripta", this.password);
     }, // METODO busca clave
 
 
     //función para iniciar sesión
     inicioSesion: function(indicadorTipoLogin) {
       var origenUrl = "O";
- 
+
+      if (this.password=="cefi2020")
+        { 
+         
 
       var header = {
         MODO: "E",
@@ -261,7 +267,8 @@ export default {
       }; 
       //llama action
        
-      this.$store.dispatch("dsoaLogin/acLoginDsoa", pedido);
+      this.$store.dispatch("dsoaLogin/acLoginDsoa2", pedido);
+    }
     },
  
 

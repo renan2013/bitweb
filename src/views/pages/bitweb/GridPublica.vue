@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
  
     <div>
 
@@ -9,6 +9,7 @@
         description-body="Páginas">
             >
             
+           
            
 
              <template slot="header"> 
@@ -286,7 +287,7 @@ export default {
 
                 var header = {
                     MODO: "D",
-                    OBJECTID: "8107C",
+                    OBJECTID: "8107I",
                     CREDENCIAL: credencial,
                     USERNAME: usuario,
                     REGISTROSXPAGINA: "1",
@@ -329,7 +330,7 @@ export default {
                 var pedido = {
                     dml: "D",
                     Credencial: this.getProfile.Credencial,
-                    ObjectId: "8107C",
+                    ObjectId: "8107I",
                     formatoenvio: "N",
                     formatorecibe: "N",
                     indicador: "3", // CRUD
@@ -341,6 +342,7 @@ export default {
                  { 
                      this.$store.commit("MUT_BORRA_PUBLICACION", dinamicKey); 
                     this.$store.dispatch("acDsoaPHP2", pedido); 
+                    // this.$store.dispatch("acDsoaPHP3", pedido); 
                     this.$parent.activaEdit = false;
                  }
         }

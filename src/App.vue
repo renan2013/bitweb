@@ -103,34 +103,10 @@ export default {
              else   
                 this.$store.commit("dsoaLogin/MUTSETPROFILE", profile);   
 
-             let token=divilib.traerLocalStorageTOKEN(); 
-             console.log("TOKEN RECUPERADO ",token) 
-             console.log("TOKEN STORE ",this.getTokenChat)
-
              
-
-           /* token = [{
-        tokenAPIBOOT: "0",
-        tokenCHAT: "0",
-        tokenCMS: "0",
-        tokenCLOUD: "0",
-    }];*/
-             if (token[0].tokenCHAT=="0"   )
-              {  
-                //alert("llama a loguearse a CHAT x App"); 
-
-                let peticion= {
-                    password: profile.Username,
-                    username: profile.Username,
-                    Credencial:profile.Credencial  } 
-                this.loginchat(peticion);
-                }
-             else   
-             {  
-                this.$store.commit("dsoaLogin/MUTSETTOKEN", token);
+                this.$store.commit("dsoaLogin/MUTSETTOKEN", "TOKEN1233050505555");
                
-               }
-
+                
              // reperar STORE TOKEN 
         },
  

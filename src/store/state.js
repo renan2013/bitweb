@@ -93,9 +93,9 @@ const state = {
     estadoProcesando: 0,
     urlDsoa: 'http://201.194.194.84:8998/DsoaService2/dsoa/request',
     urlDsoaCMS: 'http://201.194.194.84:8998/DsoaService2/dsoa/CMSrequest',
+    raizUrl: process.env.VUE_APP_RAIZURL,
 
     urlDsoaPHP: process.env.VUE_APP_URLPHP,
-    urlDsoaPHP2: process.env.VUE_APP_URLPHP2,
     urlDsoaPHP3: process.env.VUE_APP_URLPHP,
 
     urlDsoa: process.env.VUE_APP_DSOA,

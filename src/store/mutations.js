@@ -249,14 +249,24 @@ const mutations = {
 
 
         state.datosPublicacion = [];
-        console.log("datos que VienenMUTSETRESPUESTAGRIDPUBLICA ", response);
+
+        //console.log("MUTSETRESPUESTAGRIDPUBLICA datos que VienenMUTSETRESPUESTAGRIDPUBLICA ", response);
 
         if (response.lengt < 50) {
             state.lastBdmsage = "No se encontraron registros";
             state.lastBdmsgcode = "0";
         } else {
-            console.log("se obtuvo ", atob(response));
-            state.datosPublicacion = JSON.parse(atob(response));
+
+            // console.log("se obtuvoMUTSETRESPUESTAGRIDPUBLICA ", response);
+
+            try {
+                state.datosPublicacion = JSON.parse(decodeURIComponent(escape(window.atob(response))));
+
+            } catch (error) {
+
+                state.datosPublicacion = JSON.parse(decodeURIComponent(escape(window.atob(response))));
+            }
+
         }
 
 
@@ -264,7 +274,7 @@ const mutations = {
 
     MUTSETRESPUESTADOCUMENTOS(state, response) {
 
-        console.log("resolviendo MUTSETRESPUESTADOCUMENTOS")
+        console.log("(1)resolviendo MUTSETRESPUESTADOCUMENTOS ", response)
         state.DatosDocumentos = [];
 
         if (response.lengt < 50) {
@@ -281,7 +291,9 @@ const mutations = {
                     item.jsonData = atob(item.jsonData);
                     item.jsonData = JSON.parse(item.jsonData)
 
-                    item.ruta = atob(item.ruta) + item.referencia + item.jsonData.extension;
+                    item.ruta = state.raizUrl + "/" + atob(item.ruta) + item.referencia + item.jsonData.extension;
+                    console.log("resolviendo RUTAS ", item.ruta)
+
                     state.DatosDocumentos.push(item);
                 });
 

@@ -1,9 +1,8 @@
-<template>
+ <template>
 <div class="contenedor" id="tletra">
-   Version 1.0
-    <div class="vx-col sm:w-1/2 w-full mb-2">
-        <vs-input class="w-full" label-placeholder="Publicacion Numero" v-model="publicacion.id" v-bind:readonly="true" />
-    </div>
+   
+    
+   
 
      
 
@@ -14,20 +13,25 @@
             v-on:change="buscaPublicacionID"  />
         </div>
 
-        <div class="vx-col sm:w-1/2 w-full mb-2" id="selector">
-            <vs-select class="selectExample" autocomplete v-model="publicacion.categoria" label="Seleccione la Categoría">
+        <div class="vx-col sm:w-1/4 w-full mb-2" id="selector">
+            <vs-select class="selectExample" autocomplete v-model="publicacion.categoria" label="Categoría">
                 <vs-select-item :key="index" :value="item.ID_CATEGORIA" :text="item.DESCRIPCION" v-for="(item, index) in categorias" />
             </vs-select>
         </div>
+
+         <div class="vx-col sm:w-1/4 w-full mb-2">
+          
+            <vs-input class="w-full" label-placeholder="Categoría Padre" v-model="publicacion.publicacion_padre"  />
+         </div>
     </div>
 
      <div class="vx-row">
         <div class="vx-col sm:w-1/2 w-full mb-2">
-        <vs-input class="w-full" label-placeholder="link Asociado" v-model="publicacion.link"   />
+        <vs-input class="w-full" label-placeholder="Link Interno" v-model="publicacion.link"   />
     </div>
 
         <div class="vx-col sm:w-1/2 w-full mb-2">
-        <vs-input class="w-full" label-placeholder="link Asociado2 " v-model="publicacion.link2"   />
+        <vs-input class="w-full" label-placeholder="Externo" v-model="publicacion.link2"   />
     </div>
     </div>
     <div class="vx-row">
@@ -43,10 +47,8 @@
         </div>
     </div>
 
-   
-
     <div class="vx-row">
-        <div class="vx-col md:w-1/4 w-full mt-2" v-show="indicadorDML == 'U' || indicadorDML == 'I' || true">
+        <div class="vx-col md:w-1/4 w-full mb-2" v-show="indicadorDML == 'U'">
             <span class="titulo_carga">Doc. Adjuntos - Opcional</span>
             <upload-default v-show="activaUpload" :isSidebarActive="activaUpload" :tituloUpload="tituloAvatar" @closeSidebar="activaUpload = false" />
 
@@ -54,6 +56,11 @@
                 <feather-icon icon="PlusIcon" svgClasses="h-4 w-4" />
             </div>
         </div>
+
+        <div class="vx-col sm:w-1/4 w-full mb-2">
+            <span class="titulo_carga"> Version 1.0 - Publicacion Número</span>
+            <vs-input class="w-full"  v-model="publicacion.id" v-bind:readonly="true" />
+         </div>
     </div>
     <div class="vx-row" id="botones">
         <div class="vx-col w-full">
@@ -64,7 +71,7 @@
     </div>
     <div class="vx-row">
         <div class="vx-col w-full">
-            Procesando Publicacion numero:{{ publicacion.id }}
+            <p class="texto">Procesando Publicacion número:{{ publicacion.id }}</p>
         </div>
     </div>
 </div>
@@ -97,6 +104,7 @@ export default {
              
             this.indicadorDML = "I";
             this.publicacion.id = 0;
+            this.publicacion.publicacion_padre= dinamicKey.publicacion_padre;
             this.publicacion.titulo = dinamicKey.titulo;
             this.publicacion.categoria = dinamicKey.categoria;
             this.publicacion.fecha = dinamicKey.fecha;
@@ -119,6 +127,7 @@ export default {
             this.mensajeAccion = "Modificando Publicacion " + dinamicKey.id;
 
             this.publicacion.id = dinamicKey.id;
+            this.publicacion.publicacion_padre= dinamicKey.publicacion_padre;
             this.publicacion.titulo = dinamicKey.titulo;
             this.publicacion.categoria = dinamicKey.categoria;
             this.publicacion.fecha = dinamicKey.fecha;
@@ -186,6 +195,7 @@ export default {
             UploadPrincipal: false,
             publicacion: {
                 id: 0,
+                publicacion_padre:0,
                 titulo: "",
                 categoria: "1",
                 fecha: "",
@@ -232,7 +242,7 @@ export default {
 
             filas.push({
                 NOMBRE: "publicacion_padre",
-                VALOR1: 0,
+                VALOR1: this.publicacion.publicacion_padre,
                 VALOR2: "",
                 CDATA: "0"
             });
@@ -411,21 +421,9 @@ export default {
             eventBus.$emit("cargaDocUpload",respuestaCMS);
         }
     }
-    /*  COMO ENVIAR DOCUMENTOS A WEB
- {
-     "datos": "/9j/4cYhRXwBz .....AO30pE5zS/wAbfSkTq1ADSSGWtE9Ae9ZzffWtH+EUwKLjOSeuT  qQf0qM9PxqQf0oGA/9P/2Q==",
-     insertarBd:"datosbd"
- 	"dml": "FILE",
- 	"formato": "N",
- 	"formatoRequest": "N",
- 	"referencia": "100000037631",   //AUI DEBE CONSEGUIRLA ANTES O UN AUTOINCREMENT  
- 	"ruta": "imagebank",
- 	"documenttype": "image/jpeg",
- 	"lote": "2",
-     "extension": ".JPG",
-    jSON DE DATOS PARA INSERTAR EN LA TABLA RELACIONADA DATOS PARA INSERTAR 
- }
-    */
+
+    
+
 };
 </script>
 
@@ -476,6 +474,10 @@ export default {
 .ckeditor {
     border: solid 1px red;
     height: 200px;
+}
+
+.texto{
+    font-size: 12px;
 }
 
 @media (max-width: 550px) {

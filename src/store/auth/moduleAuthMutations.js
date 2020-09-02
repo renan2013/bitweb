@@ -187,7 +187,7 @@ export default {
             state.urlDsoa = "http://201.194.194.84:8998/DsoaService2/dsoa/request";
 
         if (indicadorUrl == "P")
-            state.urlDsoa = "http://192.168.0.28:8989/dsoaPHP/dsoaPHP/dsoa/";
+            state.urlDsoa = "https://bitweb.ceficr.com/dsoaPHP/dsoaPHP/dsoa/";
     },
 
     MUTSETPETICIONTXT(state, pettxt) {
